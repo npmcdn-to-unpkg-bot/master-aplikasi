@@ -38,4 +38,9 @@ server {
         index  index.html  index.htm  index.php ;
         try_files $uri $uri/ @rewrites;
     }
+	
+	location @rewrites {
+            rewrite ^(.*)$ /index.php/$1 last;
+        }
+	
 }
