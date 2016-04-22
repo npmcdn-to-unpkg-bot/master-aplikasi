@@ -10,27 +10,17 @@ server {
     # avoid caching by proxies
     add_header        Cache-Control private;
     
-	location ~ ^/index\.php(/|$) {
-             fastcgi_pass unix:${OPENSHIFT_RUN_DIR}/php-fpm.socket;
-		 
-             fastcgi_param SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-             fastcgi_param PATH_INFO $fastcgi_script_name;
-		 
-             include fastcgi_params;
-			 include openshift_params;
-         }
-	
-    # location ~ \.php$ {
-    #     try_files $uri =404;
-    #     fastcgi_pass   unix:<%= ENV['OPENSHIFT_PHP_DIR'] %>/run/php-fpm.sock;
-    #     fastcgi_index  index.php;
-    #     fastcgi_param  SCRIPT_FILENAME   $document_root$fastcgi_script_name;
-    #     include        fastcgi_params;
-    #     include        openshift_params;
-	# 
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_pass   unix:<%= ENV['OPENSHIFT_PHP_DIR'] %>/run/php-fpm.sock;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME   $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+        include        openshift_params;
+
         # uncomment to export all environment variables to fastcgi
         #include        <%= ENV['OPENSHIFT_REPO_DIR'] %>/config/nginx.d/export_env;
-    # }
+    }
 
     # avoid unnecessary log
     location = /favicon.ico {
