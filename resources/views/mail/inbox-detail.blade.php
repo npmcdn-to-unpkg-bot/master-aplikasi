@@ -46,6 +46,8 @@ function hapusAction(id)
 	<b>Date :</b> {{ date('Y-m-d H:i:s', $result->timestamp) }}
 </div>
 <hr>
+<b>{{ $result->subject }}</b>
+<hr>
 <?php print(html_entity_decode(nl2br($result->body_plain))); ?>
 <hr>
 @if($result->attachment_count>0)
