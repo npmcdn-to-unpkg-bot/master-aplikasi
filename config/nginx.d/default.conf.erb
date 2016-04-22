@@ -1,16 +1,24 @@
 server {
-    root              <%= ENV['OPENSHIFT_REPO_DIR'] %>/public;
-    listen            <%= ENV['OPENSHIFT_PHP_IP'] %>:<%= ENV['OPENSHIFT_PHP_PORT'] %>;
-    server_name       <%= ENV['OPENSHIFT_APP_DNS'] %>;
-    index             index.php index.html index.htm <%= ENV['NGINX_EXTRA_INDEX'] %>;
+        # This will listen on all interfaces, you can instead choose a specific IP
+    	# such as listen x.x.x.x:80;  Setting listen 80 default_server; will make
+    	# this server block the default one if no other blocks match the request
+        listen ${OPENSHIFT_DIY_IP}:${OPENSHIFT_DIY_PORT};
 
-    set_real_ip_from  <%= ENV['OPENSHIFT_PHP_IP'] %>;
-    real_ip_header    X-Forwarded-For;
+        # Here you can set a server name, you can use wildcards such as *.example.com
+        # however remember if you use server_name *.example.com; You'll only match subdomains
+        # to match both subdomains and the main domain use both example.com and *.example.com
+        server_name  localhost;
 
-    # avoid caching by proxies
-    add_header        Cache-Control private;
-    
-    location / {
+        # It is best to place the root of the server block at the server level, and not the location level
+        # any location block path will be relative to this root.
+        root   ${OPENSHIFT_REPO_DIR}/public;
+
+        # Forces modern clients to use secure connections only for at
+        # least 8 days after the header was last returned. See:
+        # https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security
+        add_header Strict-Transport-Security max-age=691200;
+
+        location / {
             index  index.html  index.htm  index.php ;
 
             try_files $uri $uri/ @rewrites;
@@ -55,5 +63,4 @@ server {
 		 
              include fastcgi_params;
          }
-	
-}
+    }
