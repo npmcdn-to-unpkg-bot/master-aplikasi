@@ -22,6 +22,15 @@ server {
         #include        <%= ENV['OPENSHIFT_REPO_DIR'] %>/config/nginx.d/export_env;
     }
 
+	location / {
+            index  index.html  index.htm  index.php ;
+            try_files $uri $uri/ @rewrites;
+        }
+
+	location @rewrites {
+            rewrite ^(.*)$ /index.php/$1 last;
+        }
+
     # avoid unnecessary log
     location = /favicon.ico {
         access_log off;
