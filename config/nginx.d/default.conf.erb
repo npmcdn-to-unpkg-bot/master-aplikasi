@@ -1,66 +1,40 @@
 server {
-        # This will listen on all interfaces, you can instead choose a specific IP
-    	# such as listen x.x.x.x:80;  Setting listen 80 default_server; will make
-    	# this server block the default one if no other blocks match the request
-        listen ${OPENSHIFT_DIY_IP}:${OPENSHIFT_DIY_PORT};
+    root              <%= ENV['OPENSHIFT_REPO_DIR'] %>/public;
+    listen            <%= ENV['OPENSHIFT_PHP_IP'] %>:<%= ENV['OPENSHIFT_PHP_PORT'] %>;
+    server_name       <%= ENV['OPENSHIFT_APP_DNS'] %>;
+    index             index.php index.html index.htm <%= ENV['NGINX_EXTRA_INDEX'] %>;
 
-        # Here you can set a server name, you can use wildcards such as *.example.com
-        # however remember if you use server_name *.example.com; You'll only match subdomains
-        # to match both subdomains and the main domain use both example.com and *.example.com
-        server_name  localhost;
+    set_real_ip_from  <%= ENV['OPENSHIFT_PHP_IP'] %>;
+    real_ip_header    X-Forwarded-For;
 
-        # It is best to place the root of the server block at the server level, and not the location level
-        # any location block path will be relative to this root.
-        root   ${OPENSHIFT_REPO_DIR}/public;
+    # avoid caching by proxies
+    add_header        Cache-Control private;
+    
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_pass   unix:<%= ENV['OPENSHIFT_PHP_DIR'] %>/run/php-fpm.sock;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME   $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+        include        openshift_params;
 
-        # Forces modern clients to use secure connections only for at
-        # least 8 days after the header was last returned. See:
-        # https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security
-        add_header Strict-Transport-Security max-age=691200;
-
-        location / {
-            index  index.html  index.htm  index.php ;
-
-            try_files $uri $uri/ @rewrites;
-        }
-
-        location = /robots.txt  { access_log off; log_not_found off; }
-
-        location ~ /\.          { access_log off; log_not_found off; deny all; }
-        location ~ ~$           { access_log off; log_not_found off; deny all; }
-
-        # Set expires max on static file types
-        location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|eot|mp4|ogg|ogv|webm)$ {
-            access_log off;
-            log_not_found off;
-
-            # Some basic cache-control for static files to be sent to the browser
-            expires max;
-            add_header Pragma public;
-            add_header Cache-Control "public, must-revalidate, proxy-revalidate";
-        }
-
-        location @rewrites {
-            rewrite ^(.*)$ /index.php/$1 last;
-        }
-
-        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-        
-		# location ~* \.php$ {
-        #         fastcgi_pass unix:${OPENSHIFT_RUN_DIR}/php-fpm.socket;
-        #         fastcgi_index index.php;
-        #         fastcgi_split_path_info ^(.+\.php)(.*)$;
-        #         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-		# 		include fastcgi_params;
-		# 		fastcgi_param SERVER_PORT 443;
-        # }
-		
-		location ~ ^/index\.php(/|$) {
-             fastcgi_pass unix:${OPENSHIFT_RUN_DIR}/php-fpm.socket;
-		 
-             fastcgi_param SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-             fastcgi_param PATH_INFO $fastcgi_script_name;
-		 
-             include fastcgi_params;
-         }
+        # uncomment to export all environment variables to fastcgi
+        #include        <%= ENV['OPENSHIFT_REPO_DIR'] %>/config/nginx.d/export_env;
     }
+
+    # avoid unnecessary log
+    location = /favicon.ico {
+        access_log off;
+        log_not_found off;
+    }
+
+    location = /robots.txt {
+        access_log off;
+        log_not_found off;
+    }
+
+    # Handle any other URI
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
