@@ -54,6 +54,7 @@
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
+	
 }
 
 .navbar-default .navbar-header .navbar-brand {
@@ -61,6 +62,8 @@
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     font-weight: 700;
     color: #FFFFFF;
+	text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+  	filter: alpha(opacity=60);
 }
 
 .navbar-default .navbar-header .navbar-brand:hover,
@@ -92,6 +95,17 @@
     background-color: transparent;
 }
 
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+	background: rgba(0,0,0,0.7);
+}
+
+.navbar-default .navbar-toggle {
+	background: rgba(0,0,0,0.7);
+}
+
+
+
 @media(min-width:768px) {
     .navbar-default {
         border-color: rgba(255,255,255,.3);
@@ -119,12 +133,12 @@
 
     .navbar-default.affix {
         border-color: rgba(34,34,34,.05);
-        background-color: #fff;
+        background: rgba(0,0,0,0.7);
     }
 
     .navbar-default.affix .navbar-header .navbar-brand {
-        font-size: 14px;
-        color: #265778;
+        
+        color: #fff;
     }
 
     .navbar-default.affix .navbar-header .navbar-brand:hover,
@@ -134,7 +148,7 @@
 
     .navbar-default.affix .nav > li>a,
     .navbar-default.affix .nav>li>a:focus {
-        color: #222;
+        color: #fff;
     }
 
     .navbar-default.affix .nav > li>a:hover,
@@ -252,7 +266,7 @@
                 
 					<div class="photoset-grid" style=" max-width:600px; visibility:hidden" data-layout="{{$result->layout}}">
                     @foreach($result->attachments as $attachment)
-                    	<img class="image-photo" src="{{ str_replace('image/upload/','image/upload/c_fill,w_295/',$attachment->secure_url) }}" data-highres="{{ $attachment->secure_url }}" data-lightbox="image-{{$result->id}}">
+                    	<img class="image-photo" src="{{ str_replace('image/upload/','image/upload/c_fill,w_250/',$attachment->secure_url) }}" data-highres="{{ $attachment->secure_url }}" data-lightbox="image-{{$result->id}}">
                     @endforeach
                     </div>
                     
