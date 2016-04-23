@@ -10,10 +10,10 @@
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-  margin-bottom: 0px;
+  
 }
 .intro-header .site-heading {
-  padding: 100px 0 50px;
+  padding: 100px 0 30px;
   color: white;
   max-width:700px;
   margin:0 auto;
@@ -30,7 +30,6 @@
   text-align: center;
 }
 .intro-header .site-heading h1 {
-  margin-top: 0px;
   font-size: 50px;
   text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
   filter: alpha(opacity=60);
@@ -38,7 +37,7 @@
 
 
 .transbox {
-    margin: 30px;
+    margin: 20px;
 	border-radius: 10px;
 	color: #ffffff;
     background-color: #000000;
