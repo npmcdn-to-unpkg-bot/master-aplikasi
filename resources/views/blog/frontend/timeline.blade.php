@@ -50,7 +50,7 @@
 .navbar-default {
     border-color: rgba(34,34,34,.05);
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-    background-color: #fff;
+    background: rgba(0,0,0,0.7);
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -60,7 +60,7 @@
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     font-weight: 700;
-    color: #265778;
+    color: #FFFFFF;
 }
 
 .navbar-default .navbar-header .navbar-brand:hover,
@@ -73,7 +73,7 @@
     text-transform: uppercase;
     font-size: 13px;
     font-weight: 700;
-    color: #222;
+    color: #BBBBBB;
 }
 
 .navbar-default .nav > li>a:hover,
