@@ -33,6 +33,7 @@
   font-size: 50px;
   text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
   filter: alpha(opacity=60);
+  
 }
 
 
@@ -67,9 +68,9 @@
                 
                     <div class="site-heading">
                     <div class="transbox">
-                        <h1>Historia Crux</h1>
+                        <h1 style="padding:5px;">Historia Crux</h1>
 <hr style="max-width:50px;border-color: #f05f40;border-width: 3px;">
-<p style="margin-left:15px; margin-right:15px; margin-bottom:45px;">Time flows in circles. Until all possibilities have been tested, it will remain locked in this arc for all eternity. Here, a moment in history endlessly repeats itself. Perhaps the same tale has been acted out in the same place at the same time for eons beyond counting.</p>
+<p style="margin-left:15px; margin-right:15px; margin-bottom:50px; padding:5px;">Time flows in circles. Until all possibilities have been tested, it will remain locked in this arc for all eternity. Here, a moment in history endlessly repeats itself. Perhaps the same tale has been acted out in the same place at the same time for eons beyond counting.</p>
                     </div>
                     </div>
                 
