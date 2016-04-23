@@ -1,5 +1,10 @@
 <%
 ENV.each do |name, value|
     puts "fastcgi_param #{name} '#{value}';" unless name.start_with?("OPENSHIFT_");
+	puts "fastcgi_param #{name} '#{value}';" unless name.start_with?("APP_");
+	puts "fastcgi_param #{name} '#{value}';" unless name.start_with?("DB_");
+	puts "fastcgi_param #{name} '#{value}';" unless name.start_with?("CLOUDINARY_");
+	puts "fastcgi_param #{name} '#{value}';" unless name.start_with?("MAILGUN_");
+	puts "fastcgi_param #{name} '#{value}';" unless name.start_with?("MAIL_");
 end
 %>
