@@ -1,0 +1,398 @@
+<?php
+namespace App\Http\Controllers\Blog\Backend;
+use App\Classes\SimpleImage;
+use App\Classes\Classes;
+use App\Http\Controllers\Controller;
+use DB;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Yajra\Datatables\Datatables;
+use Validator;
+use Redirect;
+use File;
+
+class PostController extends Controller
+{
+	public function __construct()
+	{
+    	$this->middleware('auth');
+	}
+		
+	public function postImageDelete(Request $request)
+	{
+		$user = Auth::user();
+		$filename = $request->input('name');
+		DB::table('blog_tmp')->where('idUser',$user->id)->where('file',"../storage/logs/". $filename)->delete();
+		if(file_exists("../storage/logs/". $filename))
+		{
+			unlink("../storage/logs/". $filename);
+		}
+	}
+	
+	public function postImageAdd(Request $request)
+	{
+		$ret = array();
+		$user = Auth::user();
+		$output_dir = "../storage/logs/";
+		$key = $request->input('key');
+		if(!is_array($_FILES["myfile"]["name"])) //single file
+		{
+			$namaTemp = rand(5, 15);
+			$namaTemp = $namaTemp ."_". date('YmdHis');
+ 	 		$fileName = $_FILES["myfile"]["name"];
+			$array = explode(".",$fileName);
+			$pathfile = $output_dir.$fileName;
+ 			move_uploaded_file($_FILES["myfile"]["tmp_name"],$pathfile);
+    		$ret[]= $fileName;
+		
+			list($width, $height, $type, $attr) = getimagesize($pathfile);
+    		$size = getimagesize($pathfile);
+		
+			$cek = DB::table('blog_tmp')->where('idUser',$user->id)->where('file',$pathfile)->count();
+			if($cek==0)
+			{
+				DB::table('blog_tmp')->insert(['file'=>$pathfile,'idUser'=>$user->id,'key'=>$key]);
+			}
+			
+		}
+		else
+		{
+			$fileCount = count($_FILES["myfile"]["name"]);
+	  		for($i=0; $i < $fileCount; $i++)
+	  		{
+				$namaTemp = rand(5, 15);
+				$namaTemp = $namaTemp ."_". date('YmdHis');
+				$fileName = $_FILES["myfile"]["name"][$i];
+				$array = explode(".",$fileName);
+				$pathfile = $output_dir.$fileName;
+	  			$fileName = $_FILES["myfile"]["name"][$i];
+				move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$pathfile);
+	  			$ret[]= $fileName;
+		
+				list($width, $height, $type, $attr) = getimagesize($pathfile);
+    			$size = getimagesize($pathfile);
+		
+				$cek = DB::table('blog_tmp')->where('idUser',$user->id)->where('file',$pathfile)->count();
+				if($cek==0)
+				{
+					DB::table('blog_tmp')->insert(['file'=>$pathfile,'idUser'=>$user->id,'key'=>$key]);
+				}
+		
+	  		}
+		}
+		echo json_encode($ret);
+	}
+	
+	public function getData()
+	{
+		$user = Auth::user();
+		$posts = DB::table('blog_posts')->select(['id', 'judul', 'slug', 'tanggal', 'layout'])->where('idUser',$user->id);
+		//$posts = \App\Models\Blog\blog_attachments::leftJoin('blog_posts','blog_attachments.post_id','=','blog_posts.id')->where('blog_posts.idUser',$user->id)->select(['blog_posts.id', \DB::Raw('count(blog_attachments.id) as attachcount') , 'blog_posts.judul', 'blog_posts.slug', 'blog_posts.tanggal', 'blog_posts.layout'])->groupBy('blog_posts.id');
+        return Datatables::of($posts)
+		->addColumn('jumlah', function ($post){
+                return Classes::jumlahFoto($post->id);
+            })
+		->addColumn('action', function ($post) {
+                return '<button id="btn-edit" type="button" onClick="window.location=\'/blog/post/edit/'. $post->id .'\'" class="btn btn-success btn-sm"><b class="fa fa-pencil"> Edit </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
+            })
+		->make(true);
+	}
+	
+	public function getIndex()
+	{
+		$user = Auth::user();
+    	return view('blog.backend.post')->with('user',$user);
+	}
+	
+	public function getAddPost()
+	{
+		$user = Auth::user();
+		
+		$result = DB::table('blog_tmp')->where('idUser',$user->id)->get();
+		foreach($result as $rs)
+		{
+			if(file_exists($rs->file))
+			{
+				unlink($rs->file);	
+			}
+		}
+		
+		DB::table('blog_tmp')->where('idUser',$user->id)->delete();
+		$tanggal = date('Y-m-d H:i:s');
+		$key = md5(date('YmdHis'));
+    	return view('blog.backend.post-add')->with('user',$user)->with('tanggal',$tanggal)->with('key',$key);
+	}
+	
+	public function getEditPost($id)
+	{
+		$user = Auth::user();
+		$result = DB::table('blog_posts')->where('idUser',$user->id)->where('id',$id)->first();
+		
+		$key = md5(date('YmdHis'));
+		return view('blog.backend.post-edit')->with('user',$user)->with('key',$key)->with('result',$result)->with('id',$id);
+	}
+	
+	public function postEditPost(Request $request)
+	{
+		$img = new SimpleImage();
+		$user = Auth::user();
+		
+		
+		$judul =  $request->input('judul');
+		$tanggal =  $request->input('tanggal');
+		$idUser =  $user->id;
+		$key = $request->input('key');
+		$tipe_konten = $request->input('tipe_konten');
+		$tipe_post = $request->input('tipe_post');
+		$konten = $request->input('konten');
+		$layout = $request->input('layout');
+		$id = $request->input('id');
+		
+		$guid = Classes::makeSlug($judul,$idUser,$id);
+		DB::table('blog_posts')->where('id',$id)->where('idUser',$user->id)->update([
+		'judul' => $judul, 'slug' => $guid, 'konten' => $konten, 'layout' => $layout , 'tanggal' => $tanggal, 'idUser'=>$idUser, 'tipe_konten'=>$tipe_konten, 'tipe_post'=>$tipe_post
+		]);
+		
+		
+		if($judul=="")
+		{
+			$judul = date('j M Y');
+			$guid = Classes::makeSlug($judul,$idUser,$id);
+			DB::table('blog_posts')->where('id',$id)->update(['judul' => $judul, 'slug' => $guid]);	
+		}
+			
+		$result = DB::table('blog_tmp')->where('key',$key)->where('idUser',$user->id)->get();
+		//$i=1;
+		foreach($result as $rs)
+		{
+			\Cloudinary::config(array( 
+  				"cloud_name" => env('CLOUDINARY_NAME'), 
+  				"api_key" => env('CLOUDINARY_KEY'), 
+  				"api_secret" => env('CLOUDINARY_SECRET') 
+			));
+			
+			$cloudinary = \Cloudinary\Uploader::upload($rs->file);
+			
+			
+			
+			DB::table('blog_attachments')
+			->insert([
+			'post_id'=>$nextid,
+			'public_id'=> $cloudinary['public_id'],
+			'version'=> $cloudinary['version'],
+			'signature'=> $cloudinary['signature'],
+			'width'=> $cloudinary['width'],
+			'height'=> $cloudinary['height'],
+			'format'=> $cloudinary['format'],
+			'resource_type'=> $cloudinary['resource_type'],
+			'bytes'=> $cloudinary['bytes'],
+			'type'=> $cloudinary['type'],
+			'etag'=> $cloudinary['etag'],
+			'url'=> $cloudinary['url'],
+			'secure_url'=> $cloudinary['secure_url'],
+			'idUser'=> $user->id]
+			);
+			
+			/*
+			$output_dir = "files/";
+			$namaTemp = rand(5, 15);
+			$namaTemp = $i."_".$namaTemp ."_". date('YmdHis');
+			$array = explode(".",$rs->file);
+			$lastKey = end($array);
+			$namaTemp = $namaTemp.".".$lastKey;
+			$pathfile = $output_dir.$namaTemp;
+			$fileNya = str_replace("tmp/","",$rs->file);
+			File::move($rs->file, $pathfile);
+			
+			
+			$img->load($pathfile)->fit_to_width(250)->save($output_dir.'250/'.$namaTemp);
+			$img->load($pathfile)->fit_to_width(500)->save($output_dir.'500/'.$namaTemp);
+			
+			
+			DB::table('blog_attachments')->insert(['post_id'=>$id, 'file'=> $pathfile, 'idUser'=> $user->id]);
+			DB::table('blog_tmp')->where('key',$key)->where('file',$rs->file)->where('idUser',$user->id)->delete();
+			$i++;
+			*/
+		}
+			
+    	return redirect('blog/post')->with('user',$user);
+	}
+	
+	public function postAddPost(Request $request)
+	{
+		$img = new SimpleImage();
+		$user = Auth::user();
+		
+		
+		$judul =  $request->input('judul');
+		$tanggal =  $request->input('tanggal');
+		$idUser =  $user->id;
+		$key = $request->input('key');
+		$tipe_konten = $request->input('tipe_konten');
+		$tipe_post = $request->input('tipe_post');
+		$konten = $request->input('konten');
+		$layout = $request->input('layout');
+		$guid = Classes::makeSlug($judul,$idUser);
+		
+		$nextid = DB::table('blog_posts')->insertGetId(
+    		['judul' => $judul, 'slug'=>$guid, 'konten' => $konten, 'layout' => $layout , 'tanggal' => $tanggal, 'idUser'=>$idUser, 'tipe_konten'=>$tipe_konten, 'tipe_post'=>$tipe_post]
+			);
+		
+		if($judul=="")
+		{
+			$judul = date('j M Y');
+			$guid = Classes::makeSlug($judul,$idUser);
+			DB::table('blog_posts')->where('id',$nextid)->update(['judul' => $judul, 'slug' => $guid]);	
+		}
+			
+		$result = DB::table('blog_tmp')->where('key',$key)->where('idUser',$user->id)->get();
+		
+		
+		
+		//$i=1;
+		foreach($result as $rs)
+		{
+			
+			/*
+			$table->integer('post_id');
+			$table->string('public_id',255)->nullable();
+			$table->string('version',255)->nullable();
+			$table->string('signature',255)->nullable();
+			$table->string('width',255)->nullable();
+			$table->string('height',255)->nullable();
+			$table->string('format',255)->nullable();
+			$table->string('resource_type',255)->nullable();
+			$table->string('bytes',255)->nullable();
+			$table->string('type',255)->nullable();
+			$table->string('etag',255)->nullable();
+			$table->string('url',255)->nullable();
+			$table->string('secure_url',255)->nullable();
+			$table->integer('idUser');
+			*/
+			
+			\Cloudinary::config(array( 
+  				"cloud_name" => env('CLOUDINARY_NAME'), 
+  				"api_key" => env('CLOUDINARY_KEY'), 
+  				"api_secret" => env('CLOUDINARY_SECRET') 
+			));
+			
+			$cloudinary = \Cloudinary\Uploader::upload($rs->file);
+			
+			
+			
+			DB::table('blog_attachments')
+			->insert([
+			'post_id'=>$nextid,
+			'public_id'=> $cloudinary['public_id'],
+			'version'=> $cloudinary['version'],
+			'signature'=> $cloudinary['signature'],
+			'width'=> $cloudinary['width'],
+			'height'=> $cloudinary['height'],
+			'format'=> $cloudinary['format'],
+			'resource_type'=> $cloudinary['resource_type'],
+			'bytes'=> $cloudinary['bytes'],
+			'type'=> $cloudinary['type'],
+			'etag'=> $cloudinary['etag'],
+			'url'=> $cloudinary['url'],
+			'secure_url'=> $cloudinary['secure_url'],
+			'idUser'=> $user->id]
+			);
+			
+			
+			
+			DB::table('blog_tmp')->where('key',$key)->where('file',$rs->file)->where('idUser',$user->id)->delete();
+			unlink($rs->file);
+			
+			/*
+			$output_dir = "files/";
+			$namaTemp = rand(5, 15);
+			$namaTemp = $i."_".$namaTemp ."_". date('YmdHisu');
+			$array = explode(".",$rs->file);
+			$lastKey = end($array);
+			$namaTemp = $namaTemp.".".$lastKey;
+			$pathfile = $output_dir.$namaTemp;
+			$fileNya = str_replace("tmp/","",$rs->file);
+			File::move($rs->file, $pathfile);
+			
+			
+			$img->load($pathfile)->fit_to_width(250)->save($output_dir.'250/'.$namaTemp);
+			$img->load($pathfile)->fit_to_width(500)->save($output_dir.'500/'.$namaTemp);
+			
+			DB::table('blog_attachments')->insert(['post_id'=>$nextid, 'file'=> $pathfile, 'idUser'=> $user->id]);
+			DB::table('blog_tmp')->where('key',$key)->where('file',$rs->file)->where('idUser',$user->id)->delete();
+			$i++;
+			*/
+		}
+				
+				// ====================================================================================
+				/*
+				$upload_path = DB::table('blog_attachments')
+							   ->where('post_id',$nextid)
+							   ->where('idUser',$user->id)
+							   ->orderBy('id','desc')
+							   ->first();
+							   
+				 $judul_path = DB::table('blog_posts')
+							   ->where('id',$nextid)
+							   ->where('idUser',$user->id)
+							   ->orderBy('tanggal','desc')
+							   ->first();
+							   
+				$path = DB::table('blog_access')->where('account','path')->where('idUser',$user->id)->first();
+				$authorization = "Authorization: Bearer ". $path->access_token;
+				
+			    $url = 'https://partner.path.com/1/moment/photo';
+				$string_path = '{ "source_url": "'.$upload_path->secure_url.'", "caption": "'.$judul_path->judul.' - '.secure_url('').'", "private": true }';
+				$ch = curl_init();
+				curl_setopt($ch,CURLOPT_URL, $url);
+				curl_setopt($ch,CURLOPT_POST, count($string_path));
+				curl_setopt($ch,CURLOPT_POSTFIELDS, $string_path);
+				curl_setopt($ch,CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+				curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+				$result = curl_exec($ch);
+				curl_close($ch);
+				*/
+				// ====================================================================================
+			
+			
+			
+			
+    	return redirect('/blog/post')->with('user',$user);
+	}
+	
+	public function getDeleteData($id)
+	{
+		$user = Auth::user();
+		$result = DB::table('blog_attachments')->where('post_id',$id)->where('idUser',$user->id)->get();
+		foreach($result as $rs)
+		{
+				\Cloudinary::config(array( 
+  					"cloud_name" => env('CLOUDINARY_NAME'), 
+  					"api_key" => env('CLOUDINARY_KEY'), 
+  					"api_secret" => env('CLOUDINARY_SECRET') 
+				));
+				
+				\Cloudinary\Uploader::destroy($rs->public_id);
+				
+				/*
+				if(file_exists($rs->file))
+				{
+					unlink($rs->file);
+				}
+				if(file_exists('files/250/'. str_replace("files/","",$rs->file)))
+				{
+					unlink('files/250/'. str_replace("files/","",$rs->file));	
+				}
+				if(file_exists('files/500/'. str_replace("files/","",$rs->file)))
+				{
+					unlink('files/500/'. str_replace("files/","",$rs->file));	
+				}
+				*/
+		}
+		DB::table('blog_posts')->where('id',$id)->where('idUser',$user->id)->delete();
+	}
+	
+	
+}
+?>

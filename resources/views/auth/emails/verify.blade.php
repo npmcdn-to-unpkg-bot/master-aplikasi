@@ -1,0 +1,1 @@
+Click <a href="{{ url('auth/register/verify/'.$email.'/'.$confirmation_code) }}">here</a> to activated your acccount
