@@ -125,6 +125,9 @@
                                 <li>
                             		<a href="/blog/post"><i class="fa fa-pencil-square fa-fw"></i> Photo</a>
                         		</li>
+                                <li>
+                            		<a href="/blog/setting"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        		</li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

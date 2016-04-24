@@ -182,20 +182,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="/">Budi.my.id</a>
+                <a class="navbar-brand page-scroll" href="/">{{ $setting->judul1 }}</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                         <a target="_blank" href="https://www.facebook.com/budisteikul"><p class="fa fa-facebook-square"></p> Facebook</a>
+                         <a target="_blank" href="https://www.facebook.com/{{ $setting->facebook }}"><p class="fa fa-facebook-square"></p> Facebook</a>
                     </li>
                     <li>
-                        <a target="_blank" href="https://www.twitter.com/budisteikul"><p class="fa fa-twitter-square"></p> Twitter</a>
+                        <a target="_blank" href="https://www.twitter.com/{{ $setting->twitter }}"><p class="fa fa-twitter-square"></p> Twitter</a>
                     </li>
                     <li>
-                        <a target="_blank" href="https://www.instagram.com/budisteikul"><p class="fa fa-instagram"></p> Instagram</a>
+                        <a target="_blank" href="https://www.instagram.com/{{ $setting->instagram }}"><p class="fa fa-instagram"></p> Instagram</a>
                     </li>
                     
                 </ul>
@@ -207,14 +207,14 @@
     
 <!-- ################################################################### -->
 
-	<header class="intro-header" style="background-image: url('/front-header.jpg')">
+	<header class="intro-header" style="background-image: url('{{ $setting->header_url }}')">
         
                 
                     <div class="site-heading">
                     <div class="transbox">
-                        <h1 style="padding:5px;">Historia Crux</h1>
+                        <h1 style="padding:5px;">{{ $setting->judul2 }}</h1>
 <hr style="max-width:50px;border-color: #f05f40;border-width: 3px;">
-<p style="margin-left:15px; margin-right:15px; margin-bottom:50px; padding:5px;">Time flows in circles. Until all possibilities have been tested, it will remain locked in this arc for all eternity. Here, a moment in history endlessly repeats itself. Perhaps the same tale has been acted out in the same place at the same time for eons beyond counting.</p>
+<p style="margin-left:15px; margin-right:15px; margin-bottom:50px; padding:5px;">{{ $setting->deskripsi }}</p>
                     </div>
                     </div>
                 

@@ -80,6 +80,8 @@ Route::get('message/setting','Message\SettingController@getSetting');
 Route::post('message/setting','Message\SettingController@postSetting');
 //========================================================================
 Route::get('/blog/path', 'Blog\Backend\PathController@getIndex');
+Route::get('/blog/setting', 'Blog\Backend\SettingController@getSetting');
+Route::post('/blog/setting', 'Blog\Backend\SettingController@postSetting');
 Route::get('/blog/path/auth', 'Blog\Backend\PathController@getAuth');
 Route::get('blog/post/edit/{id}', array('as'=>'id','uses'=>'Blog\Backend\PostController@getEditPost'));
 Route::post('blog/post/edit','Blog\Backend\PostController@postEditPost');
