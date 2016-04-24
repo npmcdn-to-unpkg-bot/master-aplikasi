@@ -189,13 +189,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a target="_blank" href="https://www.facebook.com/budisteikul">Facebook</a>
+                         <a target="_blank" href="https://www.facebook.com/budisteikul"><p class="fa fa-facebook-square"></p> Facebook</a>
                     </li>
                     <li>
-                        <a target="_blank" href="https://www.twitter.com/budisteikul">Twitter</a>
+                        <a target="_blank" href="https://www.twitter.com/budisteikul"><p class="fa fa-twitter-square"></p> Twitter</a>
                     </li>
                     <li>
-                        <a target="_blank" href="https://www.instagram.com/budisteikul">Instagram</a>
+                        <a target="_blank" href="https://www.instagram.com/budisteikul"><p class="fa fa-instagram"></p> Instagram</a>
                     </li>
                     
                 </ul>
