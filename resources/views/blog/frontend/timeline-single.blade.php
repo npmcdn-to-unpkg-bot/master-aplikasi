@@ -1,5 +1,4 @@
 @extends('sbadminv2.frontend')
-@section('title', 'Historia Crux')
 @section('content')
     
     <script type="text/javascript" src="/bower_components/fancyBox/source/jquery.fancybox.pack.js"></script>

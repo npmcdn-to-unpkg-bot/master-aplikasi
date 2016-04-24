@@ -10,7 +10,7 @@
     <meta name="author" content="">
 	
     
-    <title>@yield('title')</title>
+    <title>{{ $setting->title }}</title>
 	
     <!-- jQuery -->
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -53,11 +53,11 @@
     
 	<!-- Facebook Open Graph -->
 	<meta property="og:type"	content="website" />
-    <meta property="og:url"	content="{{$url}}" />
-	<meta property="og:title"	content="{{$last->judul}} - www.budi.my.id" />
+    <meta property="og:url"	content="{{ $setting->url }}" />
+	<meta property="og:title"	content="{{ $setting->title }}" />
 	<meta property="fb:app_id" content="251775208502162" />
-    <meta property="og:image"	content="{{ $last_attachment->secure_url }}" />
-	<meta property="og:description"   content="Time flows in circles. Until all possibilities have been tested, it will remain locked in this arc for all eternity. Here, a moment in history endlessly repeats itself. Perhaps the same tale has been acted out in the same place at the same time for eons beyond counting." />
+    <meta property="og:image"	content="{{ $setting->image }}" />
+	<meta property="og:description"   content="{{ $setting->deskripsi }}" />
 
     
 </head>

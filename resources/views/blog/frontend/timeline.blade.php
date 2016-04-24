@@ -1,5 +1,4 @@
 @extends('sbadminv2.frontend')
-@section('title', 'Historia Crux')
 @section('content')
 <style>
 .intro-header {
@@ -228,10 +227,6 @@
 	<?php
 	$i = 1;
 	$tanggal = "";
-	$last_tanggal=strtotime($last->tanggal);
-	$month=date("F",$last_tanggal);
-	$year=date("Y",$last_tanggal);
-	$last_tanggal = strtoupper($month ." ". $year);
 	?>
     @foreach($results as $result)
     	<?php

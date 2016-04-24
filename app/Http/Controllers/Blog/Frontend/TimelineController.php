@@ -45,7 +45,11 @@ class TimelineController extends Controller
 		$setting->facebook = Classes::getConf('facebook',1);
 		$setting->twitter = Classes::getConf('twitter',1);
 		$setting->instagram = Classes::getConf('instagram',1);
-		return view('blog.frontend.timeline')->with('url',$url)->with('setting',$setting)->with('results',$results)->with('last',$last)->with('last_attachment',$last_attachment);
+		$setting->url = $url;
+		$setting->image = $setting->header_url;
+		$setting->title = $setting->judul2;
+		
+		return view('blog.frontend.timeline')->with('setting',$setting)->with('results',$results);
 	}
 	
 	
@@ -65,7 +69,20 @@ class TimelineController extends Controller
 		
 		$url = Request::url();
 		
-		return view('blog.frontend.timeline-single')->with('url',$url)->with('last',$last)->with('last_attachment',$last_attachment);
+		$stdClass = app();
+    	$setting = $stdClass->make('stdClass');
+		$setting->judul1 = Classes::getConf('judul1',1);
+		$setting->judul2 = Classes::getConf('judul2',1);
+		$setting->deskripsi = Classes::getConf('deskripsi',1);
+		$setting->header_url = Classes::getConf('header_url',1);
+		$setting->facebook = Classes::getConf('facebook',1);
+		$setting->twitter = Classes::getConf('twitter',1);
+		$setting->instagram = Classes::getConf('instagram',1);
+		$setting->url = $url;
+		$setting->image = $last_attachment->secure_url;
+		$setting->title = $last->judul ." ". $setting->judul1;
+		
+		return view('blog.frontend.timeline-single')->with('setting',$setting)->with('last',$last)->with('last_attachment',$last_attachment);
 	}
 	
 	
