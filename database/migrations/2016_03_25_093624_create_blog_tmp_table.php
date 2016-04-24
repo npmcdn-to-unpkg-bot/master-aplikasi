@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFkToBlogTmpTable extends Migration
+class CreateBlogTmpTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,14 @@ class AddFkToBlogTmpTable extends Migration
      */
     public function up()
     {
-        Schema::table('blog_tmp', function (Blueprint $table) {
+        Schema::create('blog_tmp', function (Blueprint $table) {
+            $table->increments('id');
+			$table->string('file',255);
+			$table->string('key',255);
+			$table->integer('idUser');
+            $table->nullableTimestamps();
+        });
+		Schema::table('blog_tmp', function (Blueprint $table) {
             $table->integer('idUser')->unsigned()->change();
             $table->foreign('idUser')
       		->references('id')->on('users')
@@ -27,8 +34,9 @@ class AddFkToBlogTmpTable extends Migration
      */
     public function down()
     {
-        Schema::table('blog_tmp', function (Blueprint $table) {
+		Schema::table('blog_tmp', function (Blueprint $table) {
             $table->dropForeign('blog_tmp_iduser_foreign');
         });
+        Schema::drop('blog_tmp');
     }
 }

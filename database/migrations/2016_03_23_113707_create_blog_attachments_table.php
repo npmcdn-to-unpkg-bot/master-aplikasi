@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAttachmentsTable extends Migration
+class CreateBlogAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -40,6 +40,18 @@ class CreateAttachmentsTable extends Migration
 			$table->integer('idUser');
             $table->nullableTimestamps();
         });
+		Schema::table('blog_attachments', function (Blueprint $table) {
+            $table->integer('post_id')->unsigned()->change();
+            $table->foreign('post_id')
+      		->references('id')->on('blog_posts')
+      		->onDelete('cascade')->onUpdate('cascade');
+        });
+		Schema::table('blog_attachments', function (Blueprint $table) {
+            $table->integer('idUser')->unsigned()->change();
+            $table->foreign('idUser')
+      		->references('id')->on('users')
+      		->onDelete('cascade')->onUpdate('cascade');
+        });
     }
 
     /**
@@ -49,6 +61,12 @@ class CreateAttachmentsTable extends Migration
      */
     public function down()
     {
+		Schema::table('blog_attachments', function (Blueprint $table) {
+             $table->dropForeign('blog_attachments_post_id_foreign');
+        });
+		Schema::table('blog_attachments', function (Blueprint $table) {
+            $table->dropForeign('blog_attachments_iduser_foreign');
+        });
         Schema::drop('blog_attachments');
     }
 }

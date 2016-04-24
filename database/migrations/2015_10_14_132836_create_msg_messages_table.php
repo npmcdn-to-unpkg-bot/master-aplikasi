@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMessagesTable extends Migration
+class CreateMsgMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -26,6 +26,12 @@ class CreateMessagesTable extends Migration
 			$table->integer('idUser')->nullable();
             $table->nullableTimestamps();
         });
+		Schema::table('msg_messages', function (Blueprint $table) {
+            $table->integer('idUser')->unsigned()->change();
+            $table->foreign('idUser')
+      		->references('id')->on('users')
+      		->onDelete('cascade')->onUpdate('cascade');
+        });
     }
 
     /**
@@ -35,6 +41,9 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
+		Schema::table('msg_messages', function (Blueprint $table) {
+            $table->dropForeign('msg_messages_iduser_foreign');
+        });
         Schema::drop('msg_messages');
     }
 }

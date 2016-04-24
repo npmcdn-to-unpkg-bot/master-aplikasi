@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration
+class CreateBlogPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -22,8 +22,15 @@ class CreatePostsTable extends Migration
 			//$table->enum('tipe_konten', ['text', 'gallery'])->default('text');
 			$table->dateTime('tanggal')->nullable();
 			$table->longText('konten')->nullable();
+			$table->string('layout')->nullable();
             $table->integer('idUser')->nullable();
             $table->nullableTimestamps();
+        });
+		Schema::table('blog_posts', function (Blueprint $table) {
+            $table->integer('idUser')->unsigned()->change();
+            $table->foreign('idUser')
+      		->references('id')->on('users')
+      		->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -34,6 +41,9 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
+		Schema::table('blog_posts', function (Blueprint $table) {
+            $table->dropForeign('blog_posts_iduser_foreign');
+        });
         Schema::drop('blog_posts');
     }
 }

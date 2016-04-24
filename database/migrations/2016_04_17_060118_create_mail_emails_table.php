@@ -32,6 +32,12 @@ class CreateMailEmailsTable extends Migration
             $table->integer('idUser')->nullable();
             $table->nullableTimestamps();
         });
+		Schema::table('mail_emails', function (Blueprint $table) {
+            $table->integer('idUser')->unsigned()->change();
+            $table->foreign('idUser')
+      		->references('id')->on('users')
+      		->onDelete('cascade')->onUpdate('cascade');
+        });
     }
 
     /**
@@ -41,6 +47,9 @@ class CreateMailEmailsTable extends Migration
      */
     public function down()
     {
+		Schema::table('mail_emails', function (Blueprint $table) {
+            $table->dropForeign('mail_emails_iduser_foreign');
+        });
         Schema::drop('mail_emails');
     }
 }

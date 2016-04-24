@@ -19,6 +19,12 @@ class CreateBlogAccessTable extends Migration
 			$table->integer('idUser')->nullable();
             $table->nullableTimestamps();
         });
+		Schema::table('blog_access', function (Blueprint $table) {
+            $table->integer('idUser')->unsigned()->change();
+            $table->foreign('idUser')
+      		->references('id')->on('users')
+      		->onDelete('cascade')->onUpdate('cascade');
+        });
     }
 
     /**
@@ -28,6 +34,9 @@ class CreateBlogAccessTable extends Migration
      */
     public function down()
     {
+		Schema::table('blog_access', function (Blueprint $table) {
+            $table->dropForeign('blog_access_iduser_foreign');
+        });
         Schema::drop('blog_access');
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFkToMsgContactsTable extends Migration
+class CreateMsgContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,14 @@ class AddFkToMsgContactsTable extends Migration
      */
     public function up()
     {
-        Schema::table('msg_contacts', function (Blueprint $table) {
+        Schema::create('msg_contacts', function (Blueprint $table) {
+            $table->increments('id');
+			$table->string('nama', 100);
+			$table->string('phone', 100);
+			$table->integer('idUser');
+            $table->nullableTimestamps();
+        });
+		Schema::table('msg_contacts', function (Blueprint $table) {
             $table->integer('idUser')->unsigned()->change();
             $table->foreign('idUser')
       		->references('id')->on('users')
@@ -27,8 +34,9 @@ class AddFkToMsgContactsTable extends Migration
      */
     public function down()
     {
-        Schema::table('msg_contacts', function (Blueprint $table) {
+		Schema::table('msg_contacts', function (Blueprint $table) {
             $table->dropForeign('msg_contacts_iduser_foreign');
         });
+        Schema::drop('msg_contacts');
     }
 }
