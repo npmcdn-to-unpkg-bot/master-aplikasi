@@ -157,6 +157,8 @@
 }
 </style>	
     
+    <link href="/bower_components/animate.css/animate.min.css" rel="stylesheet">
+    <script src="/bower_components/jquery-easing/jquery.easing.min.js"></script>
     
 	<!-- Infinite Scroll -->
     <link href="/bower_components/jquery-infinite-scroll/main.css" rel="stylesheet">
@@ -215,9 +217,10 @@
 <hr style="max-width:50px;border-color: #f05f40;border-width: 3px;">
 <p style="margin-left:15px; margin-right:15px; margin-bottom:50px; padding:5px;">{{ $setting->deskripsi }}</p>
                     </div>
+                    <a class="page-scroll" href="#section"><i class="fa fa-angle-down infinite animated fadeInDown" style="font-size: 50px; color:#FFFFFF; margin-top:30px"></i></a>
                     </div>
-                
-            
+              
+         
     </header>
  
 <!-- ################################################################### -->
@@ -292,7 +295,17 @@
 	<a href="#0" class="cd-top">Top</a>
     <link href="/codyhouse/back-to-top/css/style.css" rel="stylesheet">
     <script src="/codyhouse/back-to-top/js/main.js"></script>
-	
+	<script>
+	$(function() {
+    $('a.page-scroll').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top
+        }, 1500, 'easeInOutExpo');
+        event.preventDefault();
+    });
+	});
+	</script>
   	<script>
     $(function(){
       	var $container = $('.timeline');
