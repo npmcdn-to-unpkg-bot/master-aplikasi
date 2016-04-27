@@ -71,7 +71,7 @@ class WebhookController extends Controller
     			"token" => 'atxiBScSa8NiXkebduvgqLhUPyjecE',
     			"user" => 'uTxTwZoiLin9vLZJkP3rRPf32xghXu',
 				"title" => $request->input('subject'),
-    			"message" => $request->input('body-plain'),
+    			"message" => substr($request->input('body-plain'),0,20),
 				"url" => $url_link,
 				"url_title" => "Reply to ". $request->input('from'),
   				),
