@@ -43,7 +43,6 @@ tinymce.init({
 <option value="gallery">Gallery</option>
 <option value="text">Text</option>
 </select><br -->
-<input type="hidden" name="judul" value="">
 <input type="hidden" name="tipe_post" value="post">
 <input type="hidden" name="tipe_konten" value="gallery">
 <input type="text" name="layout" class="form-control" placeholder="Layout"><br>

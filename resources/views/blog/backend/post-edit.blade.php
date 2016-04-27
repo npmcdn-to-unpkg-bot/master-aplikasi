@@ -60,7 +60,6 @@ tinymce.init({
 @endif
 >Gallery</option>
 </select><br -->
-<input type="hidden" name="judul" value="{{$result->judul}}">
 <input type="hidden" name="tipe_post" value="post">
 <input type="hidden" name="tipe_konten" value="gallery">
 <input type="text" name="layout" value="{{$result->layout}}" class="form-control"><br>			
