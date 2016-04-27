@@ -157,7 +157,7 @@ class PostController extends Controller
 		
 		if($judul=="")
 		{
-			$judul = date('j M Y');
+			$judul = date("j M Y", strtotime($tanggal));
 			$guid = Classes::makeSlug($judul,$idUser,$id);
 			DB::table('blog_posts')->where('id',$id)->update(['judul' => $judul, 'slug' => $guid]);	
 		}
@@ -241,7 +241,7 @@ class PostController extends Controller
 		
 		if($judul=="")
 		{
-			$judul = date('j M Y');
+			$judul = date("j M Y", strtotime($tanggal));
 			$guid = Classes::makeSlug($judul,$idUser);
 			DB::table('blog_posts')->where('id',$nextid)->update(['judul' => $judul, 'slug' => $guid]);	
 		}
