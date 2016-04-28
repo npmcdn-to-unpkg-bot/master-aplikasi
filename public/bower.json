@@ -1,0 +1,36 @@
+{
+  "name": "public",
+  "authors": [
+    "Budi <aku@budi.my.id>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "animate.css": "^3.5.1",
+    "bower": "*",
+    "devbridge-autocomplete": "^1.2.24",
+    "fancyBox": "^2.1.5",
+    "FitText.js": "jquery-fittext.js#^1.2.0",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37",
+    "imagesloaded": "^4.1.0",
+    "install": "^1.0.4",
+    "jquery-form": "^3.46.0",
+    "jquery-infinite-scroll": "infinite-scroll#^2.1.0",
+    "jquery-easing": "*",
+    "jquery-uploadfile": "^4.0.2",
+    "lightbox2": "^2.8.2",
+    "jquery-confirm": "^2.5.2",
+    "photoset-grid": "^1.0.1",
+    "startbootstrap-sb-admin-2": "^1.0.8",
+    "tinymce": "^4.3.10"
+  }
+}
