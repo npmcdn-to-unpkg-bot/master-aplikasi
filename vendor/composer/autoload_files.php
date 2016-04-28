@@ -22,6 +22,5 @@ return array(
     '58571171fd5812e6e447dce228f52f4d' => $vendorDir . '/laravel/framework/src/Illuminate/Support/helpers.php',
     '03a0f9473fe5a9e5365b4323f252c395' => $baseDir . '/app/Functions/Functions.php',
     'a0bff6ec887f029ff74fa63f4e82bf0c' => $baseDir . '/app/Classes/Telerivet/telerivet.php',
-    'd0158d7c522bf899927d2d0f6a7a1240' => $baseDir . '/app/Classes/SimpleImage.php',
     'ccc1ce34d36b0f0c7f6432e8d181e102' => $baseDir . '/app/Classes/Classes.php',
 );
