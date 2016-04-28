@@ -70,8 +70,8 @@ class WebhookController extends Controller
   				CURLOPT_POSTFIELDS => array(
     			"token" => 'atxiBScSa8NiXkebduvgqLhUPyjecE',
     			"user" => 'uTxTwZoiLin9vLZJkP3rRPf32xghXu',
-				"title" => $request->input('subject'),
-    			"message" => substr($request->input('body-plain'),0,140),
+				"title" => $request->input('from'),
+    			"message" => $request->input('subject'),
 				"url" => $url_link,
 				"url_title" => "Reply to ". $request->input('from'),
   				),
