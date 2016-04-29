@@ -132,12 +132,14 @@ class MailController extends Controller
 			foreach($result as $rs)
 			{
 				$m->attach($rs->file);
-				DB::table('mail_tmp')->where('key',$key)->where('file',$rs->file)->where('idUser',$user->id)->delete();
-				//unlink($rs->file);
 			}
         });
 		
-		
+		foreach($result as $rs)
+			{
+				DB::table('mail_tmp')->where('key',$key)->where('file',$rs->file)->where('idUser',$user->id)->delete();
+				unlink($rs->file);
+			}
 		
 		return redirect('mail/inbox')->with('user',$user);
 	}
