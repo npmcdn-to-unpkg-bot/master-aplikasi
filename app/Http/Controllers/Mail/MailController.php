@@ -133,7 +133,7 @@ class MailController extends Controller
 			{
 				$m->attach($rs->file);
 				DB::table('mail_tmp')->where('key',$key)->where('file',$rs->file)->where('idUser',$user->id)->delete();
-				unlink($rs->file);
+				//unlink($rs->file);
 			}
         });
 		
