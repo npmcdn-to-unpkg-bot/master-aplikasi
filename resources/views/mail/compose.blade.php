@@ -40,10 +40,10 @@ tinymce.init({
 $(document).ready(function()
 {
 var settings = {
-    url: "/blog/image/add",
+    url: "/mail/attach/add",
     dragDrop:true,
     fileName: "myfile",
-    allowedTypes:"jpg,jpeg",	
+    allowedTypes:"*",	
     returnType:"json",
 	onSuccess:function(files,data,xhr)
     {
@@ -56,7 +56,7 @@ var settings = {
     for(var i=0;i<data.length;i++)
     {
         
-		$.post("/blog/image/delete",{op:"delete",name:data[i]},
+		$.post("/mail/attach/delete",{op:"delete",name:data[i]},
         function(resp, textStatus, jqXHR)
         {
             //Show Message  

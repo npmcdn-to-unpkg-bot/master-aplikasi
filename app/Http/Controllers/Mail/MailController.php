@@ -16,6 +16,71 @@ class MailController extends Controller
 	{
     	$this->middleware('auth');
 	}
+	
+	public function postAttachDelete(Request $request)
+	{
+		$user = Auth::user();
+		$filename = $request->input('name');
+		DB::table('mail_tmp')->where('idUser',$user->id)->where('file',"../storage/logs/". $filename)->delete();
+		if(file_exists("../storage/logs/". $filename))
+		{
+			unlink("../storage/logs/". $filename);
+		}
+	}
+	
+	public function postAttachAdd(Request $request)
+	{
+		$ret = array();
+		$user = Auth::user();
+		$output_dir = "../storage/logs/";
+		$key = $request->input('key');
+		if(!is_array($_FILES["myfile"]["name"])) //single file
+		{
+			$namaTemp = rand(5, 15);
+			$namaTemp = $namaTemp ."_". date('YmdHis');
+ 	 		$fileName = $_FILES["myfile"]["name"];
+			$array = explode(".",$fileName);
+			$pathfile = $output_dir.$fileName;
+ 			move_uploaded_file($_FILES["myfile"]["tmp_name"],$pathfile);
+    		$ret[]= $fileName;
+		
+			list($width, $height, $type, $attr) = getimagesize($pathfile);
+    		$size = getimagesize($pathfile);
+		
+			$cek = DB::table('mail_tmp')->where('idUser',$user->id)->where('file',$pathfile)->count();
+			if($cek==0)
+			{
+				DB::table('mail_tmp')->insert(['file'=>$pathfile,'idUser'=>$user->id,'key'=>$key]);
+			}
+			
+		}
+		else
+		{
+			$fileCount = count($_FILES["myfile"]["name"]);
+	  		for($i=0; $i < $fileCount; $i++)
+	  		{
+				$namaTemp = rand(5, 15);
+				$namaTemp = $namaTemp ."_". date('YmdHis');
+				$fileName = $_FILES["myfile"]["name"][$i];
+				$array = explode(".",$fileName);
+				$pathfile = $output_dir.$fileName;
+	  			$fileName = $_FILES["myfile"]["name"][$i];
+				move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$pathfile);
+	  			$ret[]= $fileName;
+		
+				list($width, $height, $type, $attr) = getimagesize($pathfile);
+    			$size = getimagesize($pathfile);
+		
+				$cek = DB::table('mail_tmp')->where('idUser',$user->id)->where('file',$pathfile)->count();
+				if($cek==0)
+				{
+					DB::table('mail_tmp')->insert(['file'=>$pathfile,'idUser'=>$user->id,'key'=>$key]);
+				}
+		
+	  		}
+		}
+		echo json_encode($ret);
+	}
 		
 	public function getCompose($id="")
 	{
@@ -57,12 +122,22 @@ class MailController extends Controller
 		$subject =  $request->input('subject');
 		$to =  $request->input('to');
 		$konten =  $request->input('konten');
+		$key = $request->input('key');
 		
+		$result = DB::table('mail_tmp')->where('key',$key)->where('idUser',$user->id)->get();
 		
-		Mail::queue(['mail.html-format','mail.text-format'],['konten' => $konten], function ($m) use ($subject,$to) {
+		Mail::send(['mail.html-format','mail.text-format'],['konten' => $konten], function ($m) use ($subject,$to,$result,$key,$user) {
             $m->from('aku@budi.my.id', 'Budi');
 			$m->to($to)->subject($subject);
+			foreach($result as $rs)
+			{
+				$m->attach($rs->file);
+				DB::table('mail_tmp')->where('key',$key)->where('file',$rs->file)->where('idUser',$user->id)->delete();
+				unlink($rs->file);
+			}
         });
+		
+		
 		
 		return redirect('mail/inbox')->with('user',$user);
 	}

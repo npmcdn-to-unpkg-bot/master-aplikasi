@@ -19,6 +19,8 @@ class VerifyCsrfToken extends BaseVerifier
         'message/contact/import',
 		'blog/image/add',
 		'blog/image/delete',
+		'mail/attach/add',
+		'mail/attach/delete',
 		'mail/webhook'
     ];
 }
