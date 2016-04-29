@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@home');
 Route::post('/mail/webhook', 'Mail\WebhookController@webhook');
 Route::get('/mail/compose', 'Mail\MailController@getCompose');
 Route::post('/mail/compose', 'Mail\MailController@postCompose');
+Route::get('/mail/compose/{id}', array('as'=>'id','uses'=>'Mail\MailController@getCompose'));
 Route::get('/mail/inbox/delete/{id}', array('as'=>'id','uses'=>'Mail\MailController@getDeleteData'));
 Route::get('/mail/inbox/detail/{id}',array('as'=>'id','uses'=>'Mail\MailController@getInboxDetail'));
 Route::get('/mail/download/attachment/{id}',array('as'=>'id','uses'=>'Mail\MailController@getDownload'));

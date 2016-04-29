@@ -17,11 +17,26 @@ class MailController extends Controller
     	$this->middleware('auth');
 	}
 		
-	public function getCompose()
+	public function getCompose($id="")
 	{
 		$user = Auth::user();
 		$key = md5(date('YmdHis'));
-		return view('mail.compose')->with('user',$user)->with('key',$key);
+		
+		$email = \App\Models\Mail\mail_emails::where('idUser',$user->id)->where('id',$id)->first();
+		if(count($email))
+		{
+			$from = $email->sender;
+			$subject = "Re: ". $email->subject;
+			$replay_message = "On ". $email->created_at .", ". $email->from ." wrote: <br />". str_replace("<br />","<br />&gt;",nl2br($email->body_plain));
+		}
+		else
+		{
+			$from = "";
+			$subject = "";
+			$replay_message = "";
+		}
+		
+		return view('mail.compose')->with('user',$user)->with('key',$key)->with('replay_message',$replay_message)->with('from',$from)->with('subject',$subject);
 	}
 	
 	public function postCompose(Request $request)
@@ -44,7 +59,7 @@ class MailController extends Controller
 		$konten =  $request->input('konten');
 		
 		
-		Mail::queue('mail.email-format',['konten' => $konten], function ($m) use ($subject,$to) {
+		Mail::queue(['mail.html-format','mail.text-format'],['konten' => $konten], function ($m) use ($subject,$to) {
             $m->from('aku@budi.my.id', 'Budi');
 			$m->to($to)->subject($subject);
         });

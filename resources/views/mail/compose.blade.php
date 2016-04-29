@@ -29,8 +29,8 @@ tinymce.init({
     					</div>
 						@endif
 <form method="post" action="/mail/compose">
-<input type="text" name="to" class="form-control" placeholder="to"><br>
-<input type="text" name="subject" class="form-control" placeholder="subject"><br>   
+<input type="text" name="to" class="form-control" placeholder="to" value="{{ $from }}"><br>
+<input type="text" name="subject" class="form-control" placeholder="subject" value="{{ $subject }}"><br>   
 <strong>Attachment</strong>
 <br>
 <div id="status"></div>
@@ -72,7 +72,7 @@ var uploadObj = $("#mulitplefileuploader").uploadFile(settings);
 
 </script>
 <br>
-<textarea name="konten" style="width:100%"></textarea><br>
+<textarea name="konten" style="width:100%">{{ $replay_message }}</textarea><br>
 <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
 <input type="hidden" name="key" value="{{$key}}">
 <input  class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Send">
