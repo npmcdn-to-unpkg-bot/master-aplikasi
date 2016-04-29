@@ -27,7 +27,7 @@ class MailController extends Controller
 		{
 			$from = $email->sender;
 			$subject = "Re: ". $email->subject;
-			$replay_message = "On ". $email->created_at .", ". $email->from ." wrote: <br />". str_replace("<br />","<br />&gt;",nl2br($email->body_plain));
+			$replay_message = "On ". $email->created_at .", ". $email->from ." wrote: <br />&gt;". str_replace("<br />","<br />&gt;",nl2br($email->body_plain));
 		}
 		else
 		{
