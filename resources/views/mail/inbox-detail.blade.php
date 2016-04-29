@@ -55,6 +55,7 @@ function hapusAction(id)
 @foreach($result->attachments as $attachment)
 <a href="/mail/download/attachment/{{ $attachment->id }}"> {{ $attachment->original_filename }} </a><br />
 @endforeach
+<hr>
 @endif
 
 <button id="btn-del" type="button" onClick="window.location='/mail/compose/{{$result->id}}'" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Reply </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus('{{$result->id}}')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>
