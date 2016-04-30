@@ -66,8 +66,8 @@ class WebhookController extends Controller
 				}
 			}
 			
-			$pushover_user = MailClass::getConf('pushover_user',$idUser);
-			$pushover_app = MailClass::getConf('pushover_app',$idUser);
+			$pushover_user = MailClass::getConf('pushover_user',1);
+			$pushover_app = MailClass::getConf('pushover_app',1);
 			if($pushover_app!="" && $pushover_user!="")
 			{
 		
