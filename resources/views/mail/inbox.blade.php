@@ -17,12 +17,8 @@
 				"processing": true,
        			"serverSide": true,
         		"ajax": '/mail/inbox/data',
-				"order": [[ 2, "desc" ]],
 				columns: [
-            		{data: 'from_sender', name: 'from_sender'},
-					{data: 'subject', name: 'subject'},
-					{data: 'tanggal', name: 'timestamp'},
-					{data: 'attachment_count', name: 'attachment_count'},
+            		{data: 'from_sender', name: 'from_sender', orderable: false},
 					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'alignRight'}
             		
         		],
@@ -72,9 +68,6 @@
                                     <thead>
                                         <tr>
                                             <th>From</th>
-                                            <th>Subject</th>
-                                            <th>Tanggal</th>
-                                            <th>Attachment</th>
                                             <th></th>
                                         </tr>
                                     </thead>

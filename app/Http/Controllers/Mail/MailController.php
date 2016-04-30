@@ -9,6 +9,8 @@ use Yajra\Datatables\Datatables;
 use Validator;
 use Redirect;
 use Mail;
+use App\Models\Mail\mail_emails;
+use Html2Text;
 
 class MailController extends Controller
 {
@@ -123,6 +125,11 @@ class MailController extends Controller
 		$to =  $request->input('to');
 		$konten =  $request->input('konten');
 		$key = $request->input('key');
+		$konten_plain = "";
+		if($konten!="") $konten_plain = Html2Text\Html2Text::convert($konten);
+		
+			
+		
 		
 		$result = DB::table('mail_tmp')->where('key',$key)->where('idUser',$user->id)->get();
 		
@@ -135,11 +142,29 @@ class MailController extends Controller
 			}
         });
 		
+		$attachment_count = 0;
 		foreach($result as $rs)
 			{
+				$attachment_count++;
 				DB::table('mail_tmp')->where('key',$key)->where('file',$rs->file)->where('idUser',$user->id)->delete();
 				unlink($rs->file);
 			}
+		
+			$mail_emails = new mail_emails;
+			$mail_emails->recipient = $to;
+			$mail_emails->sender = 'aku@budi.my.id';
+			$mail_emails->from = 'Budi <aku@budi.my.id>';
+			$mail_emails->subject = $subject;
+			$mail_emails->body_plain = $konten_plain;
+			$mail_emails->stripped_text = $konten_plain;
+			$mail_emails->stripped_signature = "";
+			$mail_emails->body_html = $konten;
+			$mail_emails->stripped_html = $konten;
+			$mail_emails->attachment_count = $attachment_count;
+			$mail_emails->timestamp = strtotime("now");
+			$mail_emails->type = 2;
+			$mail_emails->idUser = 1;
+			$mail_emails->save();
 		
 		return redirect('mail/inbox')->with('user',$user);
 	}
@@ -147,17 +172,14 @@ class MailController extends Controller
 	public function getData()
 	{
 		$user = Auth::user();
-		$posts = DB::table('mail_emails')->select(['id', 'sender', 'from', 'timestamp','attachment_count', 'subject' ])->where('idUser',$user->id)->where('type',1);
+		$posts = DB::table('mail_emails')->select(['id', 'sender', 'from', 'timestamp','attachment_count', 'subject' ])->where('idUser',$user->id)->where('type',1)->orderBy('id','desc');
 		
         return Datatables::of($posts)
-		->addColumn('tanggal', function ($post) {
-                return date('Y-m-d H:i:s', $post->timestamp);
-            })
 		->addColumn('from_sender', function ($post) {
-                return htmlentities($post->from);
+                return '<b>'. htmlentities($post->from) .'</b><br />'.date('Y-m-d H:i:s', $post->timestamp).'<br />'. $post->subject;
             })
 		->addColumn('action', function ($post) {
-                return '<button id="btn-edit" onClick="window.location=\'/mail/inbox/detail/'.$post->id.'\'" type="button" class="btn btn-success btn-sm"><b class="fa fa-pencil"> View </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
+                return '<button id="btn-del" type="button" onClick="window.location=\'/mail/compose/'.$post->id.'\'" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Reply </b></button>&nbsp;<button id="btn-edit" onClick="window.location=\'/mail/inbox/detail/'.$post->id.'\'" type="button" class="btn btn-success btn-sm"><b class="fa fa-pencil"> View </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
             })
 		->make(true);
 	}
