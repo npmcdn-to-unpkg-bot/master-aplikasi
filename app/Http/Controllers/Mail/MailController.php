@@ -147,7 +147,7 @@ class MailController extends Controller
 	public function getData()
 	{
 		$user = Auth::user();
-		$posts = DB::table('mail_emails')->select(['id', 'sender', 'from', 'timestamp','attachment_count', 'subject' ])->where('idUser',$user->id);
+		$posts = DB::table('mail_emails')->select(['id', 'sender', 'from', 'timestamp','attachment_count', 'subject' ])->where('idUser',$user->id)->where('type',1);
 		
         return Datatables::of($posts)
 		->addColumn('tanggal', function ($post) {

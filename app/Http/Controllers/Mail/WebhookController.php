@@ -30,6 +30,7 @@ class WebhookController extends Controller
 			$mail_emails->signature = $request->input('signature');
 			$mail_emails->message_headers = $request->input('message-headers');
 			$mail_emails->content_id_map = $request->input('content-id-map');
+			$mail_emails->type = 1;
 			$mail_emails->idUser = 1;
 			$mail_emails->save();
 			
