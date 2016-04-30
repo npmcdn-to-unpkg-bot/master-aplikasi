@@ -15,6 +15,25 @@ class WebhookController extends Controller
 	
 	public function webhook(Request $request)
 	{
+			$MailHeader = MailClass::MailHeader($request->input('message-headers'));
+			if (array_key_exists('X-Mailgun-Sflag', $MailHeader))
+			{
+				$XMailgunSflag = $MailHeader['X-Mailgun-Sflag'];
+			}
+			else
+			{
+				$XMailgunSflag = "No";
+			}
+			
+			if($XMailgunSflag=="Yes")
+			{
+				$type = 3;
+			}
+			else
+			{
+				$type = 1;	
+			}
+			
 		    $mail_emails = new mail_emails;
 			$mail_emails->recipient = $request->input('recipient');
 			$mail_emails->sender = $request->input('sender');
@@ -31,7 +50,7 @@ class WebhookController extends Controller
 			$mail_emails->signature = $request->input('signature');
 			$mail_emails->message_headers = $request->input('message-headers');
 			$mail_emails->content_id_map = $request->input('content-id-map');
-			$mail_emails->type = 1;
+			$mail_emails->type = $type;
 			$mail_emails->idUser = 1;
 			$mail_emails->save();
 			
@@ -66,23 +85,11 @@ class WebhookController extends Controller
 				}
 			}
 			
-			$MailHeader = MailClass::MailHeader($request->input('message-headers'));
+			
 			$pushover_user = MailClass::getConf('pushover_user',1);
 			$pushover_app = MailClass::getConf('pushover_app',1);
 			
-			if (array_key_exists('X-Mailgun-Sflag', $MailHeader))
-			{
-				$XMailgunSflag = $MailHeader['X-Mailgun-Sflag'];
-			}
-			else
-			{
-				$XMailgunSflag = "No";
-			}
 			
-			if($XMailgunSflag=="Yes")
-			{
-				App\Models\Mail\mail_emails::where('id',$mail_emails->id)->update(['type' => 3]);
-			}
 			
 			if($pushover_app!="" && $pushover_user!="" && $XMailgunSflag=="No")
 			{
