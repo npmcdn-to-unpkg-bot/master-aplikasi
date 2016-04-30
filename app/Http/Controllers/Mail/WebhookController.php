@@ -67,9 +67,10 @@ class WebhookController extends Controller
 			}
 			
 			$MailHeader = MailClass::MailHeader($request->input('message-headers'));
+			print_r($MailHeader);
 			$pushover_user = MailClass::getConf('pushover_user',1);
 			$pushover_app = MailClass::getConf('pushover_app',1);
-			if($pushover_app!="" && $pushover_user!="" && $MailHeader['X-Mailgun-Sflag']!="Yes")
+			if($pushover_app!="" && $pushover_user!="" )
 			{
 		
 				$url_link = url('') ."/mail/inbox/detail/". $mail_emails->id;
