@@ -205,7 +205,7 @@ class MailController extends Controller
 			default:
 				$type = "inbox";	
 		}
-    	return view('mail.inbox')->with('user',$user)->with('type',$type);
+    	return view('mail.mail')->with('user',$user)->with('type',$type);
 	}
 	
 	
@@ -238,7 +238,7 @@ class MailController extends Controller
 			default:	
 				$type = "inbox";
 		}
-		return view('mail.inbox-detail')->with('result',$result)->with('user',$user)->with('type',$type);
+		return view('mail.mail-detail')->with('result',$result)->with('user',$user)->with('type',$type);
 	}
 	
 	public function getDeleteData($id)
