@@ -95,7 +95,7 @@
 }
 
 </style>
-<script src="/js/jquery.confirm/jquery.confirm.min.js"></script>
+<script src="/bower_components/jquery-confirm/jquery.confirm.min.js"></script>
 <script language="javascript">
 function hapus(id)
 {
