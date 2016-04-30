@@ -66,10 +66,18 @@ class WebhookController extends Controller
 				}
 			}
 			
-			$X_Mailgun_Sflag = MailClass::MailHeader($request->input('message-headers'),'X-Mailgun-Sflag');
+			$MailHeader = MailClass::MailHeader($request->input('message-headers'));
 			$pushover_user = MailClass::getConf('pushover_user',1);
 			$pushover_app = MailClass::getConf('pushover_app',1);
-			if($pushover_app!="" && $pushover_user!="" && $X_Mailgun_Sflag!="Yes")
+			if (array_key_exists('X-Mailgun-Sflag', $MailHeader))
+			{
+				$XMailgunSflag = $MailHeader['X-Mailgun-Sflag'];
+			}
+			else
+			{
+				$XMailgunSflag = "Yes";
+			}
+			if($pushover_app!="" && $pushover_user!="" && $MailHeader['X-Mailgun-Sflag']!="Yes")
 			{
 		
 				$url_link = url('') ."/mail/inbox/detail/". $mail_emails->id;

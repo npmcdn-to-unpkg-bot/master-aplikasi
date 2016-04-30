@@ -4,7 +4,7 @@ use Auth;
 use DB;
 
    class MailClass {
-	   public static function MailHeader($string,$param)
+	   public static function MailHeader($string)
 	   {
 			$header_arr = array();
 			$test = json_decode($string);
@@ -12,7 +12,7 @@ use DB;
 			{
 				$header_arr[$test[$i][0]] = $test[$i][1];
 			}
-			return $header_arr[$param];   
+			return $header_arr;   
 	   }
 	   
 	   public static function setConf($name,$value,$idUser="")
