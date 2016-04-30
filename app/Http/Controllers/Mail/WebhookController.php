@@ -75,7 +75,7 @@ class WebhookController extends Controller
 			}
 			else
 			{
-				$XMailgunSflag = "Yes";
+				$XMailgunSflag = "No";
 			}
 			if($pushover_app!="" && $pushover_user!="" && $MailHeader['X-Mailgun-Sflag']!="Yes")
 			{
