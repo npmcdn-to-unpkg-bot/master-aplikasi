@@ -142,6 +142,9 @@
                             		<a href="/mail/sent"><i class="fa fa-fw fa-send"></i> Sent</a>
                         		</li>
                                 <li>
+                            		<a href="/mail/spam"><i class="fa fa-fw fa-trash-o"></i> Spam</a>
+                        		</li>
+                                <li>
                                 	<a href="/mail/setting"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         		</li>
                             </ul>

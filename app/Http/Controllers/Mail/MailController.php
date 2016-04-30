@@ -177,6 +177,9 @@ class MailController extends Controller
 			case "sent":
 				$type = "2";
 			break;
+			case "spam":
+				$type = "3";
+			break;
 			default:
 				$type = "1";	
 		}
@@ -201,6 +204,9 @@ class MailController extends Controller
 		{
 			case "sent":
 				$type = "sent";
+			break;
+			case "spam":
+				$type = "spam";
 			break;
 			default:
 				$type = "inbox";	
@@ -234,6 +240,9 @@ class MailController extends Controller
 		{
 			case 2:
 				$type = "sent";
+			break;
+			case 3:
+				$type = "spam";
 			break;
 			default:	
 				$type = "inbox";
