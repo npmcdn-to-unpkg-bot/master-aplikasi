@@ -35,12 +35,12 @@ Route::get('/mail/setting','Mail\SettingController@getSetting');
 Route::post('/mail/setting','Mail\SettingController@postSetting');
 Route::get('/mail/compose/{id}', array('as'=>'id','uses'=>'Mail\MailController@getCompose'));
 Route::get('/mail/delete/{id}', array('as'=>'id','uses'=>'Mail\MailController@getDeleteData'));
-Route::get('/mail/detail/{id}',array('as'=>'id','uses'=>'Mail\MailController@getInboxDetail'));
 Route::get('/mail/download/attachment/{id}',array('as'=>'id','uses'=>'Mail\MailController@getDownload'));
 Route::post('/mail/attach/add', 'Mail\MailController@postAttachAdd');
 Route::post('/mail/attach/delete', 'Mail\MailController@postAttachDelete');
 Route::get('/mail/{type}', ['uses' =>'Mail\MailController@getIndex']);
 Route::get('/mail/{type}/data', ['uses' =>'Mail\MailController@getData']);
+Route::get('/mail/{type}/detail/{id}',array('uses'=>'Mail\MailController@getInboxDetail'));
 //========================================================================
 Route::get('/auth/login', 'Auth\AuthController@getLogin');
 Route::post('/auth/login', 'Auth\AuthController@postLogin');

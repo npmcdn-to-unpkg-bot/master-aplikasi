@@ -183,14 +183,25 @@ class MailController extends Controller
 			default:
 				$type = "1";	
 		}
-		$posts = DB::table('mail_emails')->select(['id', 'sender', 'from', 'timestamp','attachment_count', 'subject' ])->where('idUser',$user->id)->where('type',$type)->orderBy('id','desc');
+		$posts = DB::table('mail_emails')->select(['id', 'sender', 'from', 'timestamp','attachment_count', 'type', 'subject' ])->where('idUser',$user->id)->where('type',$type)->orderBy('id','desc');
 		
         return Datatables::of($posts)
 		->addColumn('from_sender', function ($post) {
                 return '<b>'. htmlentities($post->from) .'</b><br />'.date('Y-m-d H:i:s', $post->timestamp).'<br />'. $post->subject;
             })
 		->addColumn('action', function ($post) {
-                return '<button id="btn-del" type="button" onClick="window.location=\'/mail/compose/'.$post->id.'\'" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Reply </b></button>&nbsp;<button id="btn-edit" onClick="window.location=\'/mail/detail/'.$post->id.'\'" type="button" class="btn btn-success btn-sm"><b class="fa fa-pencil"> View </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
+				switch($post->type)
+				{
+					case 2:
+						$type = 'sent';
+					break;
+					case 3:
+						$type = 'spam';
+					break;
+					default:
+						$type = 'inbox';	
+				}
+                return '<button id="btn-del" type="button" onClick="window.location=\'/mail/compose/'.$post->id.'\'" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Reply </b></button>&nbsp;<button id="btn-edit" onClick="window.location=\'/mail/'.$type.'/detail/'.$post->id.'\'" type="button" class="btn btn-success btn-sm"><b class="fa fa-pencil"> View </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
             })
 		->make(true);
 	}
@@ -229,7 +240,7 @@ class MailController extends Controller
 		return response()->download($path, $result->original_filename)->deleteFileAfterSend($path);
 	}
 	
-	public function getInboxDetail($id)
+	public function getInboxDetail($type,$id)
 	{
 		$user = Auth::user();
 		$result = \App\Models\Mail\mail_emails::with('attachments')

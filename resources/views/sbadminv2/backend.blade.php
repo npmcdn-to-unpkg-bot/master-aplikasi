@@ -135,6 +135,9 @@
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Email<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                            	<li>
+                            		<a href="/mail/compose"><i class="fa fa-fw fa-edit"></i> Compose</a>
+                        		</li>
                                 <li>
                             		<a href="/mail/inbox"><i class="fa fa-fw fa-envelope-o"></i> Inbox</a>
                         		</li>
