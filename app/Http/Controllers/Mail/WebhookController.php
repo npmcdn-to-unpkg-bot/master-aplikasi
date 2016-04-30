@@ -91,7 +91,7 @@ class WebhookController extends Controller
 			
 			
 			
-			if($pushover_app!="" && $pushover_user!="" && $XMailgunSflag=="No")
+			if($pushover_app!="" && $pushover_user!="" && $type==1)
 			{
 		
 				$url_link = url('') ."/mail/inbox/detail/". $mail_emails->id;
