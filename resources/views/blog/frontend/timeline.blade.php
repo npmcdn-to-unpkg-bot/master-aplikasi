@@ -314,9 +314,9 @@
       	nextSelector : '.pagination a',  // selector for the NEXT link (to page 2)
         itemSelector : '.test',     		 // selector for all items you'll retrieve
         loading: {
-          finishedMsg: "You've reached the end of the time",
-          img: '/bower_components/jquery-infinite-scroll/loading.gif',
-		  msgText: "<em>Loading the next set of posts...</em>"
+          finishedMsg: "You've reached the end of time",
+          img: '/bower_components/jquery-infinite-scroll/output_DTGK2a.gif',
+		  msgText: "Loading the next set of photos..."
           }
         },
         function( newElements ) {
