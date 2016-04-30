@@ -1,9 +1,9 @@
 <?php
-namespace App\Classes;
+namespace App\Classes\Blog;
 use Auth;
 use DB;
 
-class Classes {
+class BlogClass {
 	public static function jumlahFoto($id)
 	{
 		return DB::table('blog_attachments')->where('post_id',$id)->count();

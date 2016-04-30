@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers\Blog\Backend;
-use App\Classes\Classes;
+use App\Classes\Blog\BlogClass;
 use App\Http\Controllers\Controller;
 use DB;
 use Auth;
@@ -22,14 +22,14 @@ class SettingController extends Controller
 		$user = Auth::user();
 		$stdClass = app();
     	$setting = $stdClass->make('stdClass');
-		$setting->judul1 = Classes::getConf('judul1');
-		$setting->judul2 = Classes::getConf('judul2');
-		$setting->deskripsi = Classes::getConf('deskripsi');
-		$setting->header_public = Classes::getConf('header_public');
-		$setting->header_url = Classes::getConf('header_url');
-		$setting->facebook = Classes::getConf('facebook');
-		$setting->twitter = Classes::getConf('twitter');
-		$setting->instagram = Classes::getConf('instagram');
+		$setting->judul1 = BlogClass::getConf('judul1');
+		$setting->judul2 = BlogClass::getConf('judul2');
+		$setting->deskripsi = BlogClass::getConf('deskripsi');
+		$setting->header_public = BlogClass::getConf('header_public');
+		$setting->header_url = BlogClass::getConf('header_url');
+		$setting->facebook = BlogClass::getConf('facebook');
+		$setting->twitter = BlogClass::getConf('twitter');
+		$setting->instagram = BlogClass::getConf('instagram');
 		$key=md5(date('YmdHis'));
 		return view('blog.backend.setting')->with('user',$user)->with('setting',$setting)->with('key',$key);
 	}
@@ -38,12 +38,12 @@ class SettingController extends Controller
 	{
 		$user = Auth::user();
 		$key = $request->input('key');
-		Classes::setConf('judul1',$request->input('judul1'));
-		Classes::setConf('judul2',$request->input('judul2'));
-		Classes::setConf('deskripsi',$request->input('deskripsi'));
-		Classes::setConf('facebook',$request->input('facebook'));
-		Classes::setConf('twitter',$request->input('twitter'));
-		Classes::setConf('instagram',$request->input('instagram'));
+		BlogClass::setConf('judul1',$request->input('judul1'));
+		BlogClass::setConf('judul2',$request->input('judul2'));
+		BlogClass::setConf('deskripsi',$request->input('deskripsi'));
+		BlogClass::setConf('facebook',$request->input('facebook'));
+		BlogClass::setConf('twitter',$request->input('twitter'));
+		BlogClass::setConf('instagram',$request->input('instagram'));
 		$result = DB::table('blog_tmp')->where('key',$key)->where('idUser',$user->id)->first();
 		if (count($result))
 		{
@@ -53,7 +53,7 @@ class SettingController extends Controller
   				"api_secret" => env('CLOUDINARY_SECRET') 
 			));
 			
-			$header_public = Classes::getConf('header_public');
+			$header_public = BlogClass::getConf('header_public');
 			
 			if($header_public!="")
 			{
@@ -62,8 +62,8 @@ class SettingController extends Controller
 			
 			$cloudinary = \Cloudinary\Uploader::upload($result->file);
 			
-			Classes::setConf('header_public',$cloudinary['public_id']);
-			Classes::setConf('header_url',$cloudinary['secure_url']);
+			BlogClass::setConf('header_public',$cloudinary['public_id']);
+			BlogClass::setConf('header_url',$cloudinary['secure_url']);
 			
 			DB::table('blog_tmp')->where('key',$key)->where('file',$result->file)->where('idUser',$user->id)->delete();
 			unlink($result->file);

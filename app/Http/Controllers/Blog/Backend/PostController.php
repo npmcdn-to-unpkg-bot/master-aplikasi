@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers\Blog\Backend;
-use App\Classes\SimpleImage;
-use App\Classes\Classes;
+use App\Classes\Blog\BlogClass;
 use App\Http\Controllers\Controller;
 use DB;
 use Auth;
@@ -88,10 +87,10 @@ class PostController extends Controller
 	{
 		$user = Auth::user();
 		$posts = DB::table('blog_posts')->select(['id', 'judul', 'slug', 'tanggal', 'layout'])->where('idUser',$user->id);
-		//$posts = \App\Models\Blog\blog_attachments::leftJoin('blog_posts','blog_attachments.post_id','=','blog_posts.id')->where('blog_posts.idUser',$user->id)->select(['blog_posts.id', \DB::Raw('count(blog_attachments.id) as attachcount') , 'blog_posts.judul', 'blog_posts.slug', 'blog_posts.tanggal', 'blog_posts.layout'])->groupBy('blog_posts.id');
+		
         return Datatables::of($posts)
 		->addColumn('jumlah', function ($post){
-                return Classes::jumlahFoto($post->id);
+                return BlogClass::jumlahFoto($post->id);
             })
 		->addColumn('action', function ($post) {
                 return '<button id="btn-edit" type="button" onClick="window.location=\'/blog/post/edit/'. $post->id .'\'" class="btn btn-success btn-sm"><b class="fa fa-pencil"> Edit </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
@@ -135,7 +134,7 @@ class PostController extends Controller
 	
 	public function postEditPost(Request $request)
 	{
-		$img = new SimpleImage();
+		
 		$user = Auth::user();
 		
 		
@@ -149,7 +148,7 @@ class PostController extends Controller
 		$layout = $request->input('layout');
 		$id = $request->input('id');
 		
-		$guid = Classes::makeSlug($judul,$idUser,$id);
+		$guid = BlogClass::makeSlug($judul,$idUser,$id);
 		DB::table('blog_posts')->where('id',$id)->where('idUser',$user->id)->update([
 		'judul' => $judul, 'slug' => $guid, 'konten' => $konten, 'layout' => $layout , 'tanggal' => $tanggal, 'idUser'=>$idUser, 'tipe_konten'=>$tipe_konten, 'tipe_post'=>$tipe_post
 		]);
@@ -158,12 +157,12 @@ class PostController extends Controller
 		if($judul=="")
 		{
 			$judul = date("j M Y", strtotime($tanggal));
-			$guid = Classes::makeSlug($judul,$idUser,$id);
+			$guid = BlogClass::makeSlug($judul,$idUser,$id);
 			DB::table('blog_posts')->where('id',$id)->update(['judul' => $judul, 'slug' => $guid]);	
 		}
 			
 		$result = DB::table('blog_tmp')->where('key',$key)->where('idUser',$user->id)->get();
-		//$i=1;
+		
 		foreach($result as $rs)
 		{
 			\Cloudinary::config(array( 
@@ -194,26 +193,7 @@ class PostController extends Controller
 			'idUser'=> $user->id]
 			);
 			
-			/*
-			$output_dir = "files/";
-			$namaTemp = rand(5, 15);
-			$namaTemp = $i."_".$namaTemp ."_". date('YmdHis');
-			$array = explode(".",$rs->file);
-			$lastKey = end($array);
-			$namaTemp = $namaTemp.".".$lastKey;
-			$pathfile = $output_dir.$namaTemp;
-			$fileNya = str_replace("tmp/","",$rs->file);
-			File::move($rs->file, $pathfile);
 			
-			
-			$img->load($pathfile)->fit_to_width(250)->save($output_dir.'250/'.$namaTemp);
-			$img->load($pathfile)->fit_to_width(500)->save($output_dir.'500/'.$namaTemp);
-			
-			
-			DB::table('blog_attachments')->insert(['post_id'=>$id, 'file'=> $pathfile, 'idUser'=> $user->id]);
-			DB::table('blog_tmp')->where('key',$key)->where('file',$rs->file)->where('idUser',$user->id)->delete();
-			$i++;
-			*/
 		}
 			
     	return redirect('blog/post')->with('user',$user);
@@ -221,7 +201,7 @@ class PostController extends Controller
 	
 	public function postAddPost(Request $request)
 	{
-		$img = new SimpleImage();
+		
 		$user = Auth::user();
 		
 		
@@ -233,7 +213,7 @@ class PostController extends Controller
 		$tipe_post = $request->input('tipe_post');
 		$konten = $request->input('konten');
 		$layout = $request->input('layout');
-		$guid = Classes::makeSlug($judul,$idUser);
+		$guid = BlogClass::makeSlug($judul,$idUser);
 		
 		$nextid = DB::table('blog_posts')->insertGetId(
     		['judul' => $judul, 'slug'=>$guid, 'konten' => $konten, 'layout' => $layout , 'tanggal' => $tanggal, 'idUser'=>$idUser, 'tipe_konten'=>$tipe_konten, 'tipe_post'=>$tipe_post]
@@ -242,7 +222,7 @@ class PostController extends Controller
 		if($judul=="")
 		{
 			$judul = date("j M Y", strtotime($tanggal));
-			$guid = Classes::makeSlug($judul,$idUser);
+			$guid = BlogClass::makeSlug($judul,$idUser);
 			DB::table('blog_posts')->where('id',$nextid)->update(['judul' => $judul, 'slug' => $guid]);	
 		}
 			
@@ -250,26 +230,11 @@ class PostController extends Controller
 		
 		
 		
-		//$i=1;
+		
 		foreach($result as $rs)
 		{
 			
-			/*
-			$table->integer('post_id');
-			$table->string('public_id',255)->nullable();
-			$table->string('version',255)->nullable();
-			$table->string('signature',255)->nullable();
-			$table->string('width',255)->nullable();
-			$table->string('height',255)->nullable();
-			$table->string('format',255)->nullable();
-			$table->string('resource_type',255)->nullable();
-			$table->string('bytes',255)->nullable();
-			$table->string('type',255)->nullable();
-			$table->string('etag',255)->nullable();
-			$table->string('url',255)->nullable();
-			$table->string('secure_url',255)->nullable();
-			$table->integer('idUser');
-			*/
+			
 			
 			\Cloudinary::config(array( 
   				"cloud_name" => env('CLOUDINARY_NAME'), 
@@ -304,25 +269,7 @@ class PostController extends Controller
 			DB::table('blog_tmp')->where('key',$key)->where('file',$rs->file)->where('idUser',$user->id)->delete();
 			unlink($rs->file);
 			
-			/*
-			$output_dir = "files/";
-			$namaTemp = rand(5, 15);
-			$namaTemp = $i."_".$namaTemp ."_". date('YmdHisu');
-			$array = explode(".",$rs->file);
-			$lastKey = end($array);
-			$namaTemp = $namaTemp.".".$lastKey;
-			$pathfile = $output_dir.$namaTemp;
-			$fileNya = str_replace("tmp/","",$rs->file);
-			File::move($rs->file, $pathfile);
 			
-			
-			$img->load($pathfile)->fit_to_width(250)->save($output_dir.'250/'.$namaTemp);
-			$img->load($pathfile)->fit_to_width(500)->save($output_dir.'500/'.$namaTemp);
-			
-			DB::table('blog_attachments')->insert(['post_id'=>$nextid, 'file'=> $pathfile, 'idUser'=> $user->id]);
-			DB::table('blog_tmp')->where('key',$key)->where('file',$rs->file)->where('idUser',$user->id)->delete();
-			$i++;
-			*/
 		}
 				
 				// ====================================================================================
@@ -375,20 +322,7 @@ class PostController extends Controller
 				
 				\Cloudinary\Uploader::destroy($rs->public_id);
 				
-				/*
-				if(file_exists($rs->file))
-				{
-					unlink($rs->file);
-				}
-				if(file_exists('files/250/'. str_replace("files/","",$rs->file)))
-				{
-					unlink('files/250/'. str_replace("files/","",$rs->file));	
-				}
-				if(file_exists('files/500/'. str_replace("files/","",$rs->file)))
-				{
-					unlink('files/500/'. str_replace("files/","",$rs->file));	
-				}
-				*/
+				
 		}
 		DB::table('blog_posts')->where('id',$id)->where('idUser',$user->id)->delete();
 	}

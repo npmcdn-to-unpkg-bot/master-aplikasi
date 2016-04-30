@@ -30,8 +30,7 @@
         },
 		"files": [
             "app/Functions/Functions.php",
-			"app/Classes/Telerivet/telerivet.php",
-			"app/Classes/Classes.php"
+			"app/Classes/Telerivet/telerivet.php"
         ]
     },
     "autoload-dev": {

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Mail;
 use App\Http\Controllers\Controller;
 use App\Models\Mail\mail_emails;
+use App\Classes\Mail\MailClass;
 use DB;
 use Illuminate\Http\Request;
 
@@ -64,13 +65,18 @@ class WebhookController extends Controller
 					
 				}
 			}
+			
+			$pushover_user = MailClass::getConf('pushover_user',$idUser);
+			$pushover_app = MailClass::getConf('pushover_app',$idUser);
+			if($pushover_app!="" && $pushover_user!="")
+			{
 		
 				$url_link = url('') ."/mail/inbox/detail/". $mail_emails->id;
 				curl_setopt_array($ch = curl_init(), array(
   				CURLOPT_URL => "https://api.pushover.net/1/messages.json",
   				CURLOPT_POSTFIELDS => array(
-    			"token" => 'atxiBScSa8NiXkebduvgqLhUPyjecE',
-    			"user" => 'uTxTwZoiLin9vLZJkP3rRPf32xghXu',
+    			"token" => $pushover_app,
+    			"user" => $pushover_user,
 				"title" => $request->input('from'),
     			"message" => $request->input('subject'),
 				"url" => $url_link,
@@ -81,7 +87,7 @@ class WebhookController extends Controller
 				curl_exec($ch);
 				curl_close($ch);
 		
-			
+			}
 			
 	}
 }

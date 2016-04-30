@@ -30,6 +30,8 @@ Route::get('errors/403', function()
 Route::post('/mail/webhook', 'Mail\WebhookController@webhook');
 Route::get('/mail/compose', 'Mail\MailController@getCompose');
 Route::post('/mail/compose', 'Mail\MailController@postCompose');
+Route::get('/mail/setting','Mail\SettingController@getSetting');
+Route::post('/mail/setting','Mail\SettingController@postSetting');
 Route::get('/mail/compose/{id}', array('as'=>'id','uses'=>'Mail\MailController@getCompose'));
 Route::get('/mail/delete/{id}', array('as'=>'id','uses'=>'Mail\MailController@getDeleteData'));
 Route::get('/mail/detail/{id}',array('as'=>'id','uses'=>'Mail\MailController@getInboxDetail'));

@@ -23,5 +23,4 @@ return array(
     '37a3dc5111fe8f707ab4c132ef1dbc62' => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
     '03a0f9473fe5a9e5365b4323f252c395' => $baseDir . '/app/Functions/Functions.php',
     'a0bff6ec887f029ff74fa63f4e82bf0c' => $baseDir . '/app/Classes/Telerivet/telerivet.php',
-    'ccc1ce34d36b0f0c7f6432e8d181e102' => $baseDir . '/app/Classes/Classes.php',
 );
