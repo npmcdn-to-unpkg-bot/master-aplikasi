@@ -166,29 +166,49 @@ class MailController extends Controller
 			$mail_emails->idUser = 1;
 			$mail_emails->save();
 		
-		return redirect('mail/inbox')->with('user',$user);
+		return redirect('mail/sent')->with('user',$user);
 	}
 	
-	public function getData()
+	public function getData($type)
 	{
 		$user = Auth::user();
-		$posts = DB::table('mail_emails')->select(['id', 'sender', 'from', 'timestamp','attachment_count', 'subject' ])->where('idUser',$user->id)->where('type',1)->orderBy('id','desc');
+		switch($type)
+		{
+			case "sent":
+				$type = "2";
+			break;
+			default:
+				$type = "1";	
+		}
+		$posts = DB::table('mail_emails')->select(['id', 'sender', 'from', 'timestamp','attachment_count', 'subject' ])->where('idUser',$user->id)->where('type',$type)->orderBy('id','desc');
 		
         return Datatables::of($posts)
 		->addColumn('from_sender', function ($post) {
                 return '<b>'. htmlentities($post->from) .'</b><br />'.date('Y-m-d H:i:s', $post->timestamp).'<br />'. $post->subject;
             })
 		->addColumn('action', function ($post) {
-                return '<button id="btn-del" type="button" onClick="window.location=\'/mail/compose/'.$post->id.'\'" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Reply </b></button>&nbsp;<button id="btn-edit" onClick="window.location=\'/mail/inbox/detail/'.$post->id.'\'" type="button" class="btn btn-success btn-sm"><b class="fa fa-pencil"> View </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
+                return '<button id="btn-del" type="button" onClick="window.location=\'/mail/compose/'.$post->id.'\'" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Reply </b></button>&nbsp;<button id="btn-edit" onClick="window.location=\'/mail/detail/'.$post->id.'\'" type="button" class="btn btn-success btn-sm"><b class="fa fa-pencil"> View </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
             })
 		->make(true);
 	}
 	
-	public function getIndex()
+	
+	
+	public function getIndex($type)
 	{
 		$user = Auth::user();
-    	return view('mail.inbox')->with('user',$user);
+		switch($type)
+		{
+			case "sent":
+				$type = "sent";
+			break;
+			default:
+				$type = "inbox";	
+		}
+    	return view('mail.inbox')->with('user',$user)->with('type',$type);
 	}
+	
+	
 	
 	public function getDownload($id)
 	{
@@ -210,7 +230,15 @@ class MailController extends Controller
 				   ->where('id',$id)
 				   ->where('idUser',$user->id)
 				   ->first();
-		return view('mail.inbox-detail')->with('result',$result)->with('user',$user);
+		switch($result->type)
+		{
+			case 2:
+				$type = "sent";
+			break;
+			default:	
+				$type = "inbox";
+		}
+		return view('mail.inbox-detail')->with('result',$result)->with('user',$user)->with('type',$type);
 	}
 	
 	public function getDeleteData($id)

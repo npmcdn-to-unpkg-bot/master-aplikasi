@@ -16,7 +16,7 @@
 			{
 				"processing": true,
        			"serverSide": true,
-        		"ajax": '/mail/inbox/data',
+        		"ajax": '/mail/{{$type}}/data',
 				columns: [
             		{data: 'from_sender', name: 'from_sender', orderable: false},
 					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'alignRight'}
@@ -34,7 +34,7 @@
 		$.ajax({
      	async: false,
      	type: 'GET',
-     	url: '/mail/inbox/delete/'+ id
+     	url: '/mail/delete/'+ id
 		}).done(function( msg ) {
 			table.ajax.reload( null, false );
 		});	

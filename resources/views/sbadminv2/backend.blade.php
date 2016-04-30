@@ -138,6 +138,9 @@
                                 <li>
                             		<a href="/mail/inbox"><i class="fa fa-fw fa-envelope-o"></i> Inbox</a>
                         		</li>
+                                <li>
+                            		<a href="/mail/sent"><i class="fa fa-fw fa-send"></i> Sent</a>
+                        		</li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

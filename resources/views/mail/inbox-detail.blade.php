@@ -12,9 +12,9 @@ function hapusAction(id)
 		$.ajax({
      	async: false,
      	type: 'GET',
-     	url: '/mail/inbox/delete/'+ id
+     	url: '/mail/delete/'+ id
 		}).done(function( msg ) {
-			window.location='/mail/inbox';
+			window.location='/mail/{{$type}}';
 		});	
 	}
 	
