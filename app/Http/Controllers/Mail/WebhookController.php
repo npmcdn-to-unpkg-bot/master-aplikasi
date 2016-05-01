@@ -19,12 +19,12 @@ class WebhookController extends Controller
 			
 			if(!$check)
 			{
-				exit();	
+				//exit();	
 			}
 			else
 			{
 				$idUser = $check->idUser;
-				exit($idUser);		
+				//exit($idUser);		
 			}
 			
 			$MailHeader = MailClass::MailHeader($request->input('message-headers'));
