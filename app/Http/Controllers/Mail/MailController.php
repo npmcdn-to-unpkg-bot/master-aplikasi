@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Mail;
 use App\Http\Controllers\Controller;
+use App\Classes\Mail\MailClass;
 use DB;
 use Auth;
 use Illuminate\Http\Request;
@@ -128,13 +129,14 @@ class MailController extends Controller
 		$konten_plain = "";
 		if($konten!="") $konten_plain = Html2Text\Html2Text::convert($konten);
 		
-			
-		
+		$mail = array();
+		$mail['mail_name'] = MailClass::getConf('mail_name',$user->id);	
+		$mail['mail_email'] = MailClass::getConf('mail_email',$user->id);
 		
 		$result = DB::table('mail_tmp')->where('key',$key)->where('idUser',$user->id)->get();
 		
-		Mail::send(['mail.html-format','mail.text-format'],['konten' => $konten], function ($m) use ($subject,$to,$result,$key,$user) {
-            $m->from('aku@budi.my.id', 'Budi');
+		Mail::send(['mail.html-format','mail.text-format'],['konten' => $konten], function ($m) use ($subject,$to,$result,$key,$user,$mail) {
+            $m->from($mail['mail_email'], $mail['mail_name']);
 			$m->to($to)->subject($subject);
 			foreach($result as $rs)
 			{
@@ -152,8 +154,8 @@ class MailController extends Controller
 		
 			$mail_emails = new mail_emails;
 			$mail_emails->recipient = $to;
-			$mail_emails->sender = 'aku@budi.my.id';
-			$mail_emails->from = 'Budi <aku@budi.my.id>';
+			$mail_emails->sender = $mail['mail_email'];
+			$mail_emails->from = $mail['mail_name'].' <'.$mail['mail_email'].'>';
 			$mail_emails->subject = $subject;
 			$mail_emails->body_plain = $konten_plain;
 			$mail_emails->stripped_text = $konten_plain;
