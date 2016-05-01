@@ -27,6 +27,8 @@ Route::get('/errors/403', function()
     return View::make('errors.403')->with('user',$user);
 });
 //========================================================================
+// Mail App Route
+//========================================================================
 Route::post('/mail/webhook', 'Mail\WebhookController@webhook');
 Route::get('/mail/compose', 'Mail\MailController@getCompose');
 Route::post('/mail/compose', 'Mail\MailController@postCompose');
@@ -41,6 +43,8 @@ Route::get('/mail/{type}', ['uses' =>'Mail\MailController@getIndex']);
 Route::get('/mail/{type}/data', ['uses' =>'Mail\MailController@getData']);
 Route::get('/mail/{type}/detail/{id}',array('uses'=>'Mail\MailController@getInboxDetail'));
 //========================================================================
+// Auth Route
+//========================================================================
 Route::get('/auth/login', 'Auth\AuthController@getLogin');
 Route::post('/auth/login', 'Auth\AuthController@postLogin');
 Route::get('/auth/logout', 'Auth\AuthController@getLogout');
@@ -54,6 +58,10 @@ Route::post('/auth/password/reset', 'Auth\PasswordController@postReset');
 Route::get('/auth/setting', 'Auth\SettingController@getSetting');
 Route::post('/auth/setting', 'Auth\SettingController@postSetting');
 //========================================================================
+// SMS App Route
+//========================================================================
+Route::get('/message/contact', 'Message\ContactController@getIndex');
+Route::get('/message/contact/data', 'Message\ContactController@getData');
 Route::get('/message/contact/edit/{id}', array('as'=>'id','uses'=>'Message\ContactController@getEditData'));
 Route::post('/message/contact/edit', 'Message\ContactController@postEditData');
 Route::get('/message/contact/delete/{id}', array('as'=>'id','uses'=>'Message\ContactController@getDeleteData'));
@@ -62,7 +70,8 @@ Route::post('/message/contact/add', 'Message\ContactController@postAddData');
 Route::get('/message/contact/import', 'Message\ContactController@getImportData');
 Route::post('/message/contact/import', 'Message\ContactController@postImportData');
 Route::get('/message/contact/empty', 'Message\ContactController@getEmptyContact');
-Route::get('/message/inbox/list', 'Message\SMSController@getListInbox');
+Route::get('/message/inbox', 'Message\SMSController@getIndex');
+Route::get('/message/inbox/data', 'Message\SMSController@getData');
 Route::get('/message/inbox/import', 'Message\SMSController@getImportData');
 Route::post('/message/inbox/import', 'Message\SMSController@postImportData');
 Route::get('/message/inbox/deleteMessage/{id}',array('as'=>'address','uses'=>'Message\SMSController@getDelMessage'));
@@ -77,14 +86,16 @@ Route::post('/message/account/edit', 'Message\AccountController@postEditData');
 Route::get('/message/account/add', 'Message\AccountController@getAddData');
 Route::post('/message/account/add', 'Message\AccountController@postAddData');
 Route::get('/message/account/delete/{id}', array('as'=>'id','uses'=>'Message\AccountController@getDeleteData'));
-//========================================================================
 Route::get('/message/send','Message\SMSController@getSend');
 Route::get('/message/send/search','Message\SMSController@getSearch');
 Route::post('/message/send','Message\SMSController@postSend');
-//========================================================================
 Route::get('/message/setting','Message\SettingController@getSetting');
 Route::post('/message/setting','Message\SettingController@postSetting');
 //========================================================================
+// Blog App Route
+//========================================================================
+Route::get('/blog/post', 'Blog\Backend\PostController@getIndex');
+Route::get('/blog/post/data', 'Blog\Backend\PostController@getData');
 Route::get('/blog/path', 'Blog\Backend\PathController@getIndex');
 Route::get('/blog/setting', 'Blog\Backend\SettingController@getSetting');
 Route::post('/blog/setting', 'Blog\Backend\SettingController@postSetting');
@@ -96,18 +107,4 @@ Route::post('/blog/post/add','Blog\Backend\PostController@postAddPost');
 Route::get('/blog/post/delete/{id}', array('as'=>'id','uses'=>'Blog\Backend\PostController@getDeleteData'));
 Route::post('/blog/image/add', 'Blog\Backend\PostController@postImageAdd');
 Route::post('/blog/image/delete', 'Blog\Backend\PostController@postImageDelete');
-//========================================================================
-Route::controller('/message/inbox', 'Message\SMSController', [
-    'getData'  => 'datatables.data',
-    'getIndex' => 'datatables',
-]);
-Route::controller('/message/contact', 'Message\ContactController', [
-    'getData'  => 'datatables.data',
-    'getIndex' => 'datatables',
-]);
-//========================================================================
-Route::controller('/blog/post', 'Blog\Backend\PostController', [
-    'getData'  => 'datatables.data',
-    'getIndex' => 'datatables',
-]);
 //========================================================================
