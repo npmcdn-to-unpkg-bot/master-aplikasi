@@ -17,13 +17,13 @@ class WebhookController extends Controller
 	{
 			$check = DB::table('mail_settings')->where('name','mail_email')->where('value',$request->input('recipient'))->first();
 			
-			if(count($check))
+			if($check->isEmpty())
 			{
-				$idUser = $check->idUser;	
+				exit();	
 			}
 			else
 			{
-				exit();	
+				$idUser = $check->idUser;		
 			}
 			
 			$MailHeader = MailClass::MailHeader($request->input('message-headers'));
