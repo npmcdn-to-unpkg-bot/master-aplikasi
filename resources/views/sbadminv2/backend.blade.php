@@ -83,7 +83,7 @@
                        @yield('user') <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu ">
-                        <li><a href="/mail/setting"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
+                        <li><a href="/auth/setting"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
                         <li class="divider"></li>
                         <li><a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>

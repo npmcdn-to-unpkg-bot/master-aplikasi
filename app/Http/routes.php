@@ -19,9 +19,9 @@ Route::get('/', function () {
 
 Route::get('/', 'Blog\Frontend\TimelineController@getIndex');
 Route::get('/post/{id}', array('uses'=>'Blog\Frontend\TimelineController@getSingle'));
-Route::get('/home', 'Home\HomeController@home');
+Route::get('/home', 'Auth\HomeController@home');
 //========================================================================
-Route::get('errors/403', function()
+Route::get('/errors/403', function()
 {
 	$user = Auth::user();
     return View::make('errors.403')->with('user',$user);
@@ -52,6 +52,8 @@ Route::get('/password/email', 'Auth\PasswordController@getEmail');
 Route::post('/password/email', 'Auth\PasswordController@postEmail');
 Route::get('/password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('/password/reset', 'Auth\PasswordController@postReset');
+Route::get('/auth/setting', 'Auth\SettingController@getSetting');
+Route::post('/auth/setting', 'Auth\SettingController@postSetting');
 //========================================================================
 Route::get('/message/contact/edit/{id}', array('as'=>'id','uses'=>'Message\ContactController@getEditData'));
 Route::post('/message/contact/edit', 'Message\ContactController@postEditData');
