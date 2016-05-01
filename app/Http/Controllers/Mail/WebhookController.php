@@ -28,6 +28,7 @@ class WebhookController extends Controller
 				$idUser = $check->idUser;
 			}
 			
+			$idUser = 1;
 			$MailHeader = MailClass::MailHeader($request->input('message-headers'));
 			if (array_key_exists('X-Mailgun-Sflag', $MailHeader))
 			{
