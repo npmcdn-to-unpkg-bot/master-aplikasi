@@ -48,10 +48,10 @@ Route::get('/auth/logout', 'Auth\AuthController@getLogout');
 Route::get('/auth/register', 'Auth\AuthController@getRegister');
 Route::post('/auth/register', 'Auth\AuthController@postRegister');
 Route::get('/auth/register/verify/{email}/{confirmation_code}', array('uses'=>'Auth\AuthController@getVerify'));
-Route::get('/password/email', 'Auth\PasswordController@getEmail');
-Route::post('/password/email', 'Auth\PasswordController@postEmail');
-Route::get('/password/reset/{token}', 'Auth\PasswordController@getReset');
-Route::post('/password/reset', 'Auth\PasswordController@postReset');
+Route::get('/auth/password/email', 'Auth\PasswordController@getEmail');
+Route::post('/auth/password/email', 'Auth\PasswordController@postEmail');
+Route::get('/auth/password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('/auth/password/reset', 'Auth\PasswordController@postReset');
 Route::get('/auth/setting', 'Auth\SettingController@getSetting');
 Route::post('/auth/setting', 'Auth\SettingController@postSetting');
 //========================================================================
@@ -63,17 +63,14 @@ Route::post('/message/contact/add', 'Message\ContactController@postAddData');
 Route::get('/message/contact/import', 'Message\ContactController@getImportData');
 Route::post('/message/contact/import', 'Message\ContactController@postImportData');
 Route::get('/message/contact/empty', 'Message\ContactController@getEmptyContact');
-//========================================================================
 Route::get('/message/inbox/list', 'Message\SMSController@getListInbox');
 Route::get('/message/inbox/import', 'Message\SMSController@getImportData');
 Route::post('/message/inbox/import', 'Message\SMSController@postImportData');
 Route::get('/message/inbox/deleteMessage/{id}',array('as'=>'address','uses'=>'Message\SMSController@getDelMessage'));
 Route::get('/message/inbox/detail/{id}',array('as'=>'id','uses'=>'Message\SMSController@getInboxDetail'));
 Route::get('/message/inbox/delete/{id}', array('as'=>'id','uses'=>'Message\SMSController@getDeleteData'));
-//========================================================================
 Route::post('/message/webhook/{service}',array('as'=>'service','uses'=>'Message\WebhookController@webhook'));
 Route::get('/message/webhook/{service}',array('as'=>'service','uses'=>'Message\WebhookController@webhook'));
-//========================================================================
 Route::get('/message/account', 'Message\AccountController@getData');
 Route::get('/message/account/list', 'Message\AccountController@getListData');
 Route::get('/message/account/edit/{id}', array('as'=>'id','uses'=>'Message\AccountController@getEditData'));

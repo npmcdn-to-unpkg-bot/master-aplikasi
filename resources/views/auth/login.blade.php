@@ -36,7 +36,7 @@
                             </fieldset>
                         </form>
                         <br />
-                        <a href="/password/email">Forgot password?</a> or <a href="/auth/register">Register</a>
+                        <a href="/auth/password/email">Forgot password?</a> or <a href="/auth/register">Register</a>
                     </div>
                 
 @endsection

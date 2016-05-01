@@ -52,13 +52,13 @@ var settings = {
 		
     },
     showDelete:true,
-	formData: { key: '{{$key}}' },
+	formData: { key: '{{$key}}', _token: '{{csrf_token()}}' },
     deleteCallback: function(data,pd)
 	{
     for(var i=0;i<data.length;i++)
     {
         
-		$.post("/mail/attach/delete",{op:"delete",name:data[i]},
+		$.post("/mail/attach/delete",{_token:"{{csrf_token()}}",name:data[i]},
         function(resp, textStatus, jqXHR)
         {
             //Show Message  

@@ -16,24 +16,9 @@ var settings = {
        // alert((data));
     },
     showDelete:false,
-    deleteCallback: function(data,pd)
-	{
-    for(var i=0;i<data.length;i++)
-    {
-        $.post("delete.php",{op:"delete",name:data[i]},
-        function(resp, textStatus, jqXHR)
-        {
-            //Show Message  
-            $("#status").append("<div>File Deleted</div>");      
-        });
-     }      
-    pd.statusbar.hide(); //You choice to hide/not.
-
-}
-}
+	formData: { _token: '{{csrf_token()}}' },
+	}
 var uploadObj = $("#mulitplefileuploader").uploadFile(settings);
-
-
 });
 
 function importContactClose()

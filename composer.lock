@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "be69db52173f6ef181de4bb23edbf7b7",
+    "hash": "a9a2c173528f64f0ad3ac294533ee7ad",
     "content-hash": "abb3f071a0820bddc87d66408889ec7c",
     "packages": [
         {
@@ -2971,16 +2971,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v6.10.1",
+            "version": "v6.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "3660c338b389037e1ec48b0a83a4e698422c0342"
+                "reference": "7e35c8359c00bb17c64eefcab3d72dca6b10cbed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/3660c338b389037e1ec48b0a83a4e698422c0342",
-                "reference": "3660c338b389037e1ec48b0a83a4e698422c0342",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/7e35c8359c00bb17c64eefcab3d72dca6b10cbed",
+                "reference": "7e35c8359c00bb17c64eefcab3d72dca6b10cbed",
                 "shasum": ""
             },
             "require": {
@@ -3024,7 +3024,7 @@
                 "laravel4",
                 "laravel5"
             ],
-            "time": "2016-03-22 04:29:19"
+            "time": "2016-04-30 01:52:38"
         }
     ],
     "packages-dev": [

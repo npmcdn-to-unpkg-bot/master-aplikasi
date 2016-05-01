@@ -16,7 +16,7 @@
         					</ul>
     					</div>
 						@endif
-                        <form role="form" method="POST" action="/password/reset">
+                        <form role="form" method="POST" action="/auth/password/reset">
                             <fieldset>
                             	{!! csrf_field() !!}
     							<input type="hidden" name="token" value="{{ $token }}">

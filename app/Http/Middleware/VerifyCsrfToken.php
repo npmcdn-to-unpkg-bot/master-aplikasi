@@ -12,15 +12,6 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        'message/webhook/Nexmo',
-		'message/webhook/Twilio',
-		'message/webhook/Telerivet',
-		'message/inbox/import',
-        'message/contact/import',
-		'blog/image/add',
-		'blog/image/delete',
-		'mail/attach/add',
-		'mail/attach/delete',
-		'mail/webhook'
+        '*webhook*'
     ];
 }
