@@ -15,6 +15,17 @@ class WebhookController extends Controller
 	
 	public function webhook(Request $request)
 	{
+			$check = DB::table('mail_settings')->where('name','mail_email')->where('value',$request->input('recipient'))->first();
+			
+			if(count($check))
+			{
+				$idUser = $check->idUser;	
+			}
+			else
+			{
+				exit();	
+			}
+			
 			$MailHeader = MailClass::MailHeader($request->input('message-headers'));
 			if (array_key_exists('X-Mailgun-Sflag', $MailHeader))
 			{
@@ -34,6 +45,8 @@ class WebhookController extends Controller
 				$type = 1;	
 			}
 			
+			
+			
 		    $mail_emails = new mail_emails;
 			$mail_emails->recipient = $request->input('recipient');
 			$mail_emails->sender = $request->input('sender');
@@ -51,7 +64,7 @@ class WebhookController extends Controller
 			$mail_emails->message_headers = $request->input('message-headers');
 			$mail_emails->content_id_map = $request->input('content-id-map');
 			$mail_emails->type = $type;
-			$mail_emails->idUser = 1;
+			$mail_emails->idUser = $idUser;
 			$mail_emails->save();
 			
 			if(!empty($_FILES))
@@ -78,7 +91,7 @@ class WebhookController extends Controller
 					'url'=> $cloudinary['url'],
 					'secure_url'=> $cloudinary['secure_url'],
 					'original_filename'=> $file['name'],
-					'idUser'=> 1]
+					'idUser'=> $idUser]
 					);
 					
 					
@@ -86,8 +99,8 @@ class WebhookController extends Controller
 			}
 			
 			
-			$pushover_user = MailClass::getConf('pushover_user',1);
-			$pushover_app = MailClass::getConf('pushover_app',1);
+			$pushover_user = MailClass::getConf('pushover_user',$idUser);
+			$pushover_app = MailClass::getConf('pushover_app',$idUser);
 			
 			
 			
