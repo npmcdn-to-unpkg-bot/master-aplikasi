@@ -18,19 +18,7 @@ class SettingController extends Controller
 	{
 		$user = Auth::user();
 		$setting = $request->input('setting');
-		if($setting=="pushover_setting")
-		{
-			$pushover_user = $request->input('pushover_user');
-			$pushover_app = $request->input('pushover_app');
-			
-			MessageClass::setConf('pushover_user',$pushover_user,$user->id);
-			MessageClass::setConf('pushover_app',$pushover_app,$user->id);
-			print('<div class="alert alert-success">
-					<ul>
-						Update Success          					
-					</ul>
-				</div>');
-		}
+		
 		
 		if($setting=="password_setting")
 		{
