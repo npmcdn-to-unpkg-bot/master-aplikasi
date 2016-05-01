@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/', 'Blog\Frontend\TimelineController@getIndex');
 Route::get('/post/{id}', array('uses'=>'Blog\Frontend\TimelineController@getSingle'));
-Route::get('/home', 'HomeController@home');
+Route::get('/home', 'Home\HomeController@home');
 //========================================================================
 Route::get('errors/403', function()
 {

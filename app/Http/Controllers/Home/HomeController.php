@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use Auth;
-use App\Classes\Message\MessageClass;
 use Config;
 use DB;
 
@@ -19,7 +18,7 @@ class HomeController extends Controller
 	protected function home()
 	{
 		$user = Auth::user();
-		return view('home')->with('user',$user);
+		return view('home.home')->with('user',$user);
 	}
 }
 ?>
