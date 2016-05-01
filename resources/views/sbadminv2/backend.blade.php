@@ -59,7 +59,6 @@
 </head>
 
 <body>
-<?php print(date('Y-m-d H:i:s')); ?>
     <div id="wrapper">
 
         <!-- Navigation -->

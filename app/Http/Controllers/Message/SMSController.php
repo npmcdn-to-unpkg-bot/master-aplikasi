@@ -60,7 +60,7 @@ class SMSController extends Controller
 				$text = MessageClass::last_message($sms->address);
 				$name = '<a href="/message/inbox/detail/'.$sms->id.'"><b>'.$sms->nama.'</b></a>';
 				$body = preg_replace( "/\r|\n/", "",$text['body']);
-				$tanggal = '<div style="font-size:11px;white-space: nowrap;color:#999999">'.tglIndo(strtotime($text['date']),"z",0) .'</div>';
+				$tanggal = '<div style="font-size:11px;white-space: nowrap;color:#999999">'.tglIndo(strtotime($text['date']),"z",7) .'</div>';
 				
 				if(MessageClass::haveUnread($sms->address)>0)
 				{
@@ -273,7 +273,7 @@ class SMSController extends Controller
 			$data[$count]['phone'] = $sms->phone;
 			$data[$count]['body'] = $sms->body;
 			$data[$count]['type'] = $sms->type;
-			$data[$count]['date'] = tglIndo(strtotime($sms->date),"z",0);
+			$data[$count]['date'] = tglIndo(strtotime($sms->date),"z",7);
 			$count++;
 		}
 			  	
