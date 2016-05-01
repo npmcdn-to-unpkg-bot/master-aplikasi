@@ -20,7 +20,9 @@
 ## Credit
 
 - Domain : Pindah - pindah tergantung registrar mana yang ngasih promo, asal harganya dibawah 60k per tahun :D
-- Hosting : [Openshift](https://www.openshift.com/).
+- Web Hosting : [Openshift](https://www.openshift.com/). Suka sekali dengan system `gear`-nya, walaupun agak susah untuk mensetup Nginx + PHP7 + MySQL 5.5 
 - Mail Server : [Mailgun](https://www.mailgun.org/).
-- Image & File Hosting : [Cloudinary](https://www.cloudinary.com)
-- DNS Server : [Cloudflare](https://www.cloudflare.com) 
+- Image & File Hosting : [Cloudinary](https://www.cloudinary.com).
+- DNS Server : [Cloudflare](https://www.cloudflare.com).
+
+Dan semuanya gratis kecuali domain hehehe :D :D :D
