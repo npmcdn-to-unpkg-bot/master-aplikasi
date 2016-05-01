@@ -28,7 +28,6 @@ Route::get('/errors/403', function()
 });
 //========================================================================
 Route::post('/mail/webhook', 'Mail\WebhookController@webhook');
-Route::get('/mail/webhook', 'Mail\WebhookController@webhook');
 Route::get('/mail/compose', 'Mail\MailController@getCompose');
 Route::post('/mail/compose', 'Mail\MailController@postCompose');
 Route::get('/mail/setting','Mail\SettingController@getSetting');
