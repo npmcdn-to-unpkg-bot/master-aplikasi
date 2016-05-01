@@ -71,7 +71,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">BUDI.MY.ID</a>
+                <a class="navbar-brand" href="/">ADMIN PANEL</a>
             </div>
             <!-- /.navbar-header -->
 
