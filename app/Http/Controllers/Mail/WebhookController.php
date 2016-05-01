@@ -17,7 +17,7 @@ class WebhookController extends Controller
 	{
 			$check = DB::table('mail_settings')->where('name','mail_email')->where('value',$request->input('recipient'))->first();
 			
-			if($check->isEmpty())
+			if(!$check)
 			{
 				exit();	
 			}
