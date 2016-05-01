@@ -21,14 +21,14 @@ class WebhookController extends Controller
 			
 			if(!$check)
 			{
-				//exit();
+				exit();
 			}
 			else
 			{
 				$idUser = $check->idUser;
 			}
 			
-			$idUser = 1;
+			
 			$MailHeader = MailClass::MailHeader($request->input('message-headers'));
 			if (array_key_exists('X-Mailgun-Sflag', $MailHeader))
 			{
