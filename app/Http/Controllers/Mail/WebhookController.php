@@ -21,7 +21,7 @@ class WebhookController extends Controller
 			
 			if(!$check)
 			{
-				exit();
+				//exit();
 			}
 			else
 			{
