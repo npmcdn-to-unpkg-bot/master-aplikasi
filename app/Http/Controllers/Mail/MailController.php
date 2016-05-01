@@ -187,7 +187,7 @@ class MailController extends Controller
 		
         return Datatables::of($posts)
 		->addColumn('from_sender', function ($post) {
-                return '<b>'. htmlentities($post->from) .'</b><br />'.date('Y-m-d H:i:s', $post->timestamp).'<br />'. $post->subject;
+                return '<b>'. htmlentities($post->from) .'</b><br />'.tglIndo(strtotime(date('Y-m-d H:i:s', $post->timestamp)),"z",0).'<br />'. $post->subject;
             })
 		->addColumn('action', function ($post) {
 				switch($post->type)

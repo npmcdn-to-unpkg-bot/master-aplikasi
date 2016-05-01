@@ -86,11 +86,14 @@ class PostController extends Controller
 	public function getData()
 	{
 		$user = Auth::user();
-		$posts = DB::table('blog_posts')->select(['id', 'judul', 'slug', 'tanggal', 'layout'])->where('idUser',$user->id);
+		$posts = DB::table('blog_posts')->select(['id', 'slug', 'tanggal', 'layout'])->where('idUser',$user->id);
 		
         return Datatables::of($posts)
 		->addColumn('jumlah', function ($post){
                 return BlogClass::jumlahFoto($post->id);
+            })
+		->editColumn('tanggal', function ($post){
+                return tglIndo(strtotime($post->tanggal),"z",0);
             })
 		->addColumn('action', function ($post) {
                 return '<button id="btn-edit" type="button" onClick="window.location=\'/blog/post/edit/'. $post->id .'\'" class="btn btn-success btn-sm"><b class="fa fa-pencil"> Edit </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
