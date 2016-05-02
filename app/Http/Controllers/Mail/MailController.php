@@ -280,7 +280,8 @@ class MailController extends Controller
 								
 		}
 		DB::table('mail_attachments')->where('email_id',$id)->where('idUser',$user->id)->delete();
-		DB::table('mail_emails')->where('id',$id)->where('idUser',$user->id)->delete();
+		//DB::table('mail_emails')->where('id',$id)->where('idUser',$user->id)->delete();
+		DB::table('mail_emails')->where('id',$id)->where('idUser',$user->id)->update(['type'=>0]);
 	}
 	
 	
