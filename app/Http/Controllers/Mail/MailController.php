@@ -201,32 +201,26 @@ class MailController extends Controller
 				{
 					case 0:
 						$type = 'trash';
+						$tambahan = '&nbsp;<button id="btn-del" type="button" onClick="move(\''. $post->id .'\')" class="btn btn-warning btn-sm"><b class="fa fa-mail-forward"> Move to inbox </b></button>';
+						$command = "del";	
 					break;
 					case 2:
 						$type = 'sent';
+						$tambahan = "";
+						$command = "hapus";
 					break;
 					case 3:
 						$type = 'spam';
+						$tambahan = '&nbsp;<button id="btn-del" type="button" onClick="move(\''. $post->id .'\')" class="btn btn-warning btn-sm"><b class="fa fa-mail-forward"> Move to inbox </b></button>';
+						$command = "hapus";
 					break;
 					default:
-						$type = 'inbox';	
+						$type = 'inbox';
+						$tambahan = "";
+						$command = "hapus";
 				}
 				
-				if($type=="trash")
-				{
-					$tambahan = '&nbsp;<button id="btn-del" type="button" onClick="move(\''. $post->id .'\')" class="btn btn-warning btn-sm"><b class="fa fa-mail-forward"> Move to inbox </b></button>';
-					$command = "del";	
-				}
-				else if($type=="spam")
-				{
-					$tambahan = '&nbsp;<button id="btn-del" type="button" onClick="move(\''. $post->id .'\')" class="btn btn-warning btn-sm"><b class="fa fa-mail-forward"> Move to inbox </b></button>';
-					$command = "hapus";	
-				}
-				else
-				{
-					$tambahan = "";
-					$command = "hapus";
-				}
+				
 				
 				$column = '<button id="btn-del" type="button" onClick="window.location=\'/mail/compose/'.$post->id.'\'" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Reply </b></button>&nbsp;<button id="btn-edit" onClick="window.location=\'/mail/'.$type.'/detail/'.$post->id.'\'" type="button" class="btn btn-success btn-sm"><b class="fa fa-pencil"> View </b></button>&nbsp;<button id="btn-del" type="button" onClick="'. $command .'(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>'. $tambahan;
                 return $column;
@@ -234,7 +228,40 @@ class MailController extends Controller
 		->make(true);
 	}
 	
-	
+	public function getInboxDetail($type,$id)
+	{
+		$user = Auth::user();
+		$result = \App\Models\Mail\mail_emails::with('attachments')
+				   ->where('id',$id)
+				   ->where('idUser',$user->id)
+				   ->first();
+		switch($result->type)
+		{
+			case 0:
+				$type = "trash";
+				$tambahan = '&nbsp;<button id="btn-del" type="button" onClick="move(\''. $result->id .'\')" class="btn btn-warning btn-sm"><b class="fa fa-mail-forward"> Move to inbox </b></button>';
+				$command = "del";
+			break;
+			case 2:
+				$type = "sent";
+				$tambahan = "";
+				$command = "hapus";
+			break;
+			case 3:
+				$type = "spam";
+				$tambahan = '&nbsp;<button id="btn-del" type="button" onClick="move(\''. $result->id .'\')" class="btn btn-warning btn-sm"><b class="fa fa-mail-forward"> Move to inbox </b></button>';
+ 				$command = "hapus";
+			break;
+			default:	
+				$type = "inbox";
+				$tambahan = "";
+				$command = "hapus";
+		}
+		
+		$button = '<button id="btn-del" type="button" onClick="window.location=\'/mail/compose/'.$result->id.'\'" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Reply </b></button>&nbsp;<button id="btn-del" type="button" onClick="'. $command .'(\''.$result->id.'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>'. $tambahan;
+		
+		return view('mail.mail-detail')->with('result',$result)->with('user',$user)->with('type',$type)->with('button',$button);
+	}
 	
 	public function getIndex($type)
 	{
@@ -271,32 +298,7 @@ class MailController extends Controller
 		return response()->download($path, $result->original_filename)->deleteFileAfterSend($path);
 	}
 	
-	public function getInboxDetail($type,$id)
-	{
-		$user = Auth::user();
-		$result = \App\Models\Mail\mail_emails::with('attachments')
-				   ->where('id',$id)
-				   ->where('idUser',$user->id)
-				   ->first();
-		switch($result->type)
-		{
-			case 0:
-				$type = "trash";
-			break;
-			case 2:
-				$type = "sent";
-			break;
-			case 3:
-				$type = "spam";
-			break;
-			default:	
-				$type = "inbox";
-		}
-		
-		$button = '<button id="btn-del" type="button" onClick="window.location=\'/mail/compose/'.$result->id.'\'" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Reply </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''.$result->id.'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
-		
-		return view('mail.mail-detail')->with('result',$result)->with('user',$user)->with('type',$type)->with('button',$button);
-	}
+	
 	
 	public function getDeleteData($id)
 	{
