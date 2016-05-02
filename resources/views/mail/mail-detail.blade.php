@@ -7,8 +7,11 @@
 <link rel="stylesheet" type="text/css" href="/bower_components/fancyBox/source/jquery.fancybox.css" media="screen" />
 <script src="/bower_components/jquery-confirm/jquery.confirm.min.js"></script>
 <script type="text/javascript">
-function hapusAction(id)
+
+	
+	function hapusAction(id)
 	{
+		var table = $('#dataTables-example').DataTable();
 		$.ajax({
      	async: false,
      	type: 'GET',
@@ -29,6 +32,66 @@ function hapusAction(id)
     			cancelButtonClass: "btn-default",
         		confirm: function(button) {
 					hapusAction(id);
+        		},
+       			cancel: function(button) {
+            		//alert("You cancelled.");
+        		}
+    			});
+	}
+	
+	function moveAction(id)
+	{
+		var table = $('#dataTables-example').DataTable();
+		$.ajax({
+     	async: false,
+     	type: 'GET',
+     	url: '/mail/move/'+ id
+		}).done(function( msg ) {
+			window.location='/mail/{{$type}}';
+		});	
+	}
+	
+	function move(id)
+	{
+				$.confirm({
+				title: "Perhatian",
+        		text: "Apakah anda yakin akan memindahnya?",
+				confirmButton: "Ya",
+    			cancelButton: "Batal",
+				confirmButtonClass: "btn-danger",
+    			cancelButtonClass: "btn-default",
+        		confirm: function(button) {
+					moveAction(id);
+        		},
+       			cancel: function(button) {
+            		//alert("You cancelled.");
+        		}
+    			});
+	}
+	
+	function delAction(id)
+	{
+		var table = $('#dataTables-example').DataTable();
+		$.ajax({
+     	async: false,
+     	type: 'GET',
+     	url: '/mail/delete/'+ id
+		}).done(function( msg ) {
+			window.location='/mail/{{$type}}';
+		});	
+	}
+	
+	function del(id)
+	{
+				$.confirm({
+				title: "Perhatian",
+        		text: "Apakah anda yakin akan menghapusnya secara permanen?",
+				confirmButton: "Ya",
+    			cancelButton: "Batal",
+				confirmButtonClass: "btn-danger",
+    			cancelButtonClass: "btn-default",
+        		confirm: function(button) {
+					delAction(id);
         		},
        			cancel: function(button) {
             		//alert("You cancelled.");
@@ -58,5 +121,5 @@ function hapusAction(id)
 <hr>
 @endif
 
-<button id="btn-del" type="button" onClick="window.location='/mail/compose/{{$result->id}}'" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Reply </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus('{{$result->id}}')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>
+<?= $button ?>
 @endsection
