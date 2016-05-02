@@ -1,5 +1,5 @@
 @extends('sbadminv2.backend')
-@section('title', 'Email Detail')
+@section('title', 'Email '. ucfirst($type) .' Detail')
 @section('user', $user->name )
 @section('content')
 
