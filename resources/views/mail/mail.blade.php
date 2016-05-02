@@ -34,7 +34,7 @@
 		$.ajax({
      	async: false,
      	type: 'GET',
-     	url: '/mail/delete/'+ id
+     	url: '/mail/trash/'+ id
 		}).done(function( msg ) {
 			table.ajax.reload( null, false );
 		});	
@@ -51,6 +51,66 @@
     			cancelButtonClass: "btn-default",
         		confirm: function(button) {
 					hapusAction(id);
+        		},
+       			cancel: function(button) {
+            		//alert("You cancelled.");
+        		}
+    			});
+	}
+	
+	function moveAction(id)
+	{
+		var table = $('#dataTables-example').DataTable();
+		$.ajax({
+     	async: false,
+     	type: 'GET',
+     	url: '/mail/move/'+ id
+		}).done(function( msg ) {
+			table.ajax.reload( null, false );
+		});	
+	}
+	
+	function move(id)
+	{
+				$.confirm({
+				title: "Perhatian",
+        		text: "Apakah anda yakin akan memindahnya?",
+				confirmButton: "Ya",
+    			cancelButton: "Batal",
+				confirmButtonClass: "btn-danger",
+    			cancelButtonClass: "btn-default",
+        		confirm: function(button) {
+					moveAction(id);
+        		},
+       			cancel: function(button) {
+            		//alert("You cancelled.");
+        		}
+    			});
+	}
+	
+	function delAction(id)
+	{
+		var table = $('#dataTables-example').DataTable();
+		$.ajax({
+     	async: false,
+     	type: 'GET',
+     	url: '/mail/delete/'+ id
+		}).done(function( msg ) {
+			table.ajax.reload( null, false );
+		});	
+	}
+	
+	function del(id)
+	{
+				$.confirm({
+				title: "Perhatian",
+        		text: "Apakah anda yakin akan menghapusnya secara permanen?",
+				confirmButton: "Ya",
+    			cancelButton: "Batal",
+				confirmButtonClass: "btn-danger",
+    			cancelButtonClass: "btn-default",
+        		confirm: function(button) {
+					delAction(id);
         		},
        			cancel: function(button) {
             		//alert("You cancelled.");

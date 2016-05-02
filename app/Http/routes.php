@@ -39,9 +39,11 @@ Route::get('/mail/delete/{id}', array('as'=>'id','uses'=>'Mail\MailController@ge
 Route::get('/mail/download/attachment/{id}',array('as'=>'id','uses'=>'Mail\MailController@getDownload'));
 Route::post('/mail/attach/add', 'Mail\MailController@postAttachAdd');
 Route::post('/mail/attach/delete', 'Mail\MailController@postAttachDelete');
+Route::get('/mail/move/{id}', array('as'=>'id','uses'=>'Mail\MailController@getMoveData'));
 Route::get('/mail/{type}', ['uses' =>'Mail\MailController@getIndex']);
 Route::get('/mail/{type}/data', ['uses' =>'Mail\MailController@getData']);
 Route::get('/mail/{type}/detail/{id}',array('uses'=>'Mail\MailController@getInboxDetail'));
+Route::get('/mail/trash/{id}', array('as'=>'id','uses'=>'Mail\MailController@getTrashData'));
 //========================================================================
 // Auth Route
 //========================================================================

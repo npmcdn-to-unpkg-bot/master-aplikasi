@@ -174,8 +174,12 @@ class MailController extends Controller
 	public function getData($type)
 	{
 		$user = Auth::user();
+		
 		switch($type)
 		{
+			case "trash":
+				$type = "0";
+			break;
 			case "sent":
 				$type = "2";
 			break;
@@ -185,6 +189,7 @@ class MailController extends Controller
 			default:
 				$type = "1";	
 		}
+		
 		$posts = DB::table('mail_emails')->select(['id', 'sender', 'from', 'timestamp','attachment_count', 'type', 'subject' ])->where('idUser',$user->id)->where('type',$type)->orderBy('id','desc');
 		
         return Datatables::of($posts)
@@ -194,6 +199,9 @@ class MailController extends Controller
 		->addColumn('action', function ($post) {
 				switch($post->type)
 				{
+					case 0:
+						$type = 'trash';
+					break;
 					case 2:
 						$type = 'sent';
 					break;
@@ -203,7 +211,20 @@ class MailController extends Controller
 					default:
 						$type = 'inbox';	
 				}
-                return '<button id="btn-del" type="button" onClick="window.location=\'/mail/compose/'.$post->id.'\'" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Reply </b></button>&nbsp;<button id="btn-edit" onClick="window.location=\'/mail/'.$type.'/detail/'.$post->id.'\'" type="button" class="btn btn-success btn-sm"><b class="fa fa-pencil"> View </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
+				
+				if($type=="trash")
+				{
+					$tambahan = '&nbsp;<button id="btn-del" type="button" onClick="move(\''. $post->id .'\')" class="btn btn-warning btn-sm"><b class="fa fa-mail-forward"> Move to inbox </b></button>';
+					$command = "del";	
+				}
+				else
+				{
+					$tambahan = "";
+					$command = "hapus";
+				}
+				
+				$column = '<button id="btn-del" type="button" onClick="window.location=\'/mail/compose/'.$post->id.'\'" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Reply </b></button>&nbsp;<button id="btn-edit" onClick="window.location=\'/mail/'.$type.'/detail/'.$post->id.'\'" type="button" class="btn btn-success btn-sm"><b class="fa fa-pencil"> View </b></button>&nbsp;<button id="btn-del" type="button" onClick="'. $command .'(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>'. $tambahan;
+                return $column;
             })
 		->make(true);
 	}
@@ -217,6 +238,9 @@ class MailController extends Controller
 		{
 			case "sent":
 				$type = "sent";
+			break;
+			case "trash":
+				$type = "trash";
 			break;
 			case "spam":
 				$type = "spam";
@@ -251,6 +275,9 @@ class MailController extends Controller
 				   ->first();
 		switch($result->type)
 		{
+			case 0:
+				$type = "trash";
+			break;
 			case 2:
 				$type = "sent";
 			break;
@@ -264,6 +291,29 @@ class MailController extends Controller
 	}
 	
 	public function getDeleteData($id)
+	{
+		$user = Auth::user();
+		
+		$result = DB::table('mail_attachments')->where('email_id',$id)->where('idUser',$user->id)->get();
+		foreach($result as $rs)
+		{
+			
+				\Cloudinary::config(array( 
+  					"cloud_name" => env('CLOUDINARY_NAME'), 
+  					"api_key" => env('CLOUDINARY_KEY'), 
+  					"api_secret" => env('CLOUDINARY_SECRET') 
+				));
+				
+				\Cloudinary\Uploader::destroy($rs->public_id,array("resource_type" => "raw"));
+								
+		}
+		DB::table('mail_attachments')->where('email_id',$id)->where('idUser',$user->id)->delete();
+		
+		DB::table('mail_emails')->where('id',$id)->where('idUser',$user->id)->delete();
+		DB::table('mail_emails')->where('id',$id)->where('idUser',$user->id)->update(['type'=>0]);
+	}
+	
+	public function getTrashData($id)
 	{
 		$user = Auth::user();
 		/*
@@ -286,6 +336,11 @@ class MailController extends Controller
 		DB::table('mail_emails')->where('id',$id)->where('idUser',$user->id)->update(['type'=>0]);
 	}
 	
+	public function getMoveData($id)
+	{
+		$user = Auth::user();
+		DB::table('mail_emails')->where('id',$id)->where('idUser',$user->id)->update(['type'=>1]);
+	}
 	
 }
 ?>
