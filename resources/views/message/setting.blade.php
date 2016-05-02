@@ -1,5 +1,5 @@
 @extends('sbadminv2.backend')
-@section('title', 'Setting')
+@section('title', 'Message Setting')
 @section('user', $user->name )
 @section('content')
 <script language="javascript">

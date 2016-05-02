@@ -1,5 +1,5 @@
 @extends('sbadminv2.backend')
-@section('title', 'Setting')
+@section('title', 'Blog Setting')
 @section('user', $user->name )
 @section('content')
 <link href="/bower_components/jquery-uploadfile/css/uploadfile.css" rel="stylesheet">
