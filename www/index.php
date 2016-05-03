@@ -82,7 +82,7 @@ function getConfig($strPath)
 
 
 $strParam  = isset($argv[1]) && !empty($argv[1]) ? $argv[1] : $_SERVER['argv'][1];
-$arrConfig = getConfig("config.xml");
+$arrConfig = getConfig($strParam);
 unset($strParam);
 
 if (empty($arrConfig)) {
