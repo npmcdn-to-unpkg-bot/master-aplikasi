@@ -16,7 +16,7 @@ var settings = {
        // alert((data));
     },
     showDelete:false,
-	formData: { _token: '{{csrf_token()}}' },
+	formData: { _token: '{{csrf_token()}}' }
 	}
 var uploadObj = $("#mulitplefileuploader").uploadFile(settings);
 });

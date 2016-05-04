@@ -85,7 +85,7 @@ class ContactController extends Controller
 	
 	public function getImportData()
 	{
-		return view('message/contact-import-vcard');
+		return view('message.contact-import-vcard');
 	}
 	
 	public function postAddData(Request $request)

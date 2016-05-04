@@ -11,12 +11,12 @@ var settings = {
     fileName: "myfile",
     allowedTypes:"vcf,vfc",	
     returnType:"json",
-	 onSuccess:function(files,data,xhr)
+	onSuccess:function(files,data,xhr)
     {
        // alert((data));
     },
     showDelete:false,
-	formData: { _token: '{{csrf_token()}}' }
+	formData: { _token: '<?php echo csrf_token(); ?>' }
     
 }
 var uploadObj = $("#mulitplefileuploader").uploadFile(settings);
