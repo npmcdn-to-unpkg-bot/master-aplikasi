@@ -12,7 +12,7 @@
         Please ensure, that you have defined your connection string properly.
         Ensure, that details like options='[double dash]client_encoding=UTF8' are included in your connection string (if necessary).
     -->
-    <target>pgsql:host=ec2-107-20-174-127.compute-1.amazonaws.com;port=5432;dbname=df8lpipusghel2;options=--client_encoding=UTF8,wnljkeisxfrmdb,rx_TMq53q1XwF7JX0zKEI1B_wg</target>
+    <target>pgsql:host=ec2-107-20-174-127.compute-1.amazonaws.com;port=5432;dbname=d1uu2uinnbf26c;options=--client_encoding=UTF8,cmfncbxbtqtate,482hqLD-yYkZHQTn0ipmZWHDRQ</target>
     
     <!-- 
         <encoding> - PHP encoding type. 
