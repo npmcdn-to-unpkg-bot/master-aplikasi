@@ -198,7 +198,9 @@
                     <li>
                         <a target="_blank" href="https://www.instagram.com/{{ $setting->instagram }}"><p class="fa fa-instagram"></p> Instagram</a>
                     </li>
-                    
+                    <li>
+                         <a target="_blank" href="https://github.com/budisteikul"><p class="fa fa-github"></p> Github</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
