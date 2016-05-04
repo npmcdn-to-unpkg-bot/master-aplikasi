@@ -165,7 +165,7 @@ class MailController extends Controller
 			$mail_emails->attachment_count = $attachment_count;
 			$mail_emails->timestamp = strtotime("now");
 			$mail_emails->type = 2;
-			$mail_emails->idUser = 1;
+			$mail_emails->idUser = $user->id;
 			$mail_emails->save();
 		
 		return redirect('mail/sent')->with('user',$user);

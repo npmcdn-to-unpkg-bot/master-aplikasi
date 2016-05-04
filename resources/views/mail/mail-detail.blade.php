@@ -106,7 +106,7 @@
 	<b>To :</b> {{ $result->recipient }}
 </div>
 <div>
-	<b>Date :</b> {{ date('Y-m-d H:i:s', $result->timestamp) }}
+	<b>Date :</b> <?php print(tglIndo(strtotime(date('Y-m-d H:i:s', $result->timestamp)),"z",7)); ?>
 </div>
 <hr>
 <b>{{ $result->subject }}</b>
