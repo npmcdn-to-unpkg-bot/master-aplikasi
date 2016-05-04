@@ -20,46 +20,18 @@ class SettingController extends Controller
 		$setting = $request->input('setting');
 		
 		
-		if($setting=="password_setting")
+		if($setting=="pushover_setting")
 		{
+			$pushover_user = $request->input('pushover_user');
+			$pushover_app = $request->input('pushover_app');
 			
-			$strError = "";
-			$current_password = $request->input('current_password');
-			$new_password = $request->input('new_password');
-			$confirm_new_password = $request->input('confirm_new_password');
-			
-			if($new_password!=$confirm_new_password)
-			{
-				$strError .= "<li>New password dan Confirm new password tidak sama</li>";
-			}
-			
-			if($strError=="")
-			{
-				
-				$credentials = ['email' => $user->email, 'password' => $current_password];
-				if (Auth::validate($credentials)) {
-    				
-					$user->password = bcrypt($new_password);
-					$user->save();
-					
-					print('<div class="alert alert-success">
+			MessageClass::setConf('pushover_user',$pushover_user,$user->id);
+			MessageClass::setConf('pushover_app',$pushover_app,$user->id);
+			print('<div class="alert alert-success">
 					<ul>
 						Update Success          					
 					</ul>
-					</div>');
-					
-				}
-				else
-				{
-					
-					$strError .= "<li>Password lama tidak cocok</li>";
-				}
-				
-			}
-			
-			
-			if($strError!="") print('<div class="alert alert-danger"><ul>'.$strError.'</ul></div>');
-			
+				</div>');
 		}
 		
 	}
