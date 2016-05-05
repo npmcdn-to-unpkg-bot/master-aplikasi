@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Support\Facades\Request;
 use App\Classes\Blog\BlogClass;
+use Redirect;
 
 class TimelineController extends Controller
 {
@@ -22,6 +23,7 @@ class TimelineController extends Controller
 				   ->orderBy('tanggal','desc')
 				   ->first();
 		
+		if(!count($last)) return Redirect('/auth/login');
 		
 		$last_attachment = DB::table('blog_attachments')->where('post_id',$last->id)->orderBy('id','asc')->first();
 		
