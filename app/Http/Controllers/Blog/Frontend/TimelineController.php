@@ -13,11 +13,6 @@ class TimelineController extends Controller
     	
 	}
 	
-	public function getPhpinfo()
-	{
-		phpinfo();
-	}
-	
 	public function getIndex(Request $request)
 	{
 		
