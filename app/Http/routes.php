@@ -18,6 +18,7 @@ Route::get('/', function () {
 */
 
 Route::get('/', 'Blog\Frontend\TimelineController@getIndex');
+Route::get('/phpinfo', 'Blog\Frontend\TimelineController@getPhpinfo');
 Route::get('/post/{id}', array('uses'=>'Blog\Frontend\TimelineController@getSingle'));
 Route::get('/home', 'Auth\HomeController@home');
 //========================================================================
