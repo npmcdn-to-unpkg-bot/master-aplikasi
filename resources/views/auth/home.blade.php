@@ -3,6 +3,6 @@
 @section('user', $user->name )
 @section('content')
 
-	
+<?php phpinfo(); ?>	
 
 @endsection
