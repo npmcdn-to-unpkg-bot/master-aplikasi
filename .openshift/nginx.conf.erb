@@ -55,6 +55,6 @@ server {
     	fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     	fastcgi_param PATH_INFO $fastcgi_script_name;
     	include <%= ENV['OPENSHIFT_NGINX_DIR'] %>/usr/nginx-<%= ENV['OPENSHIFT_NGINX_VERSION'] %>/conf/fastcgi_params;
-		include <%= ENV['OPENSHIFT_REPO_DIR'] %>/.openshift/export_env;
+		include <%= ENV['OPENSHIFT_REPO_DIR'] %>/.openshift/export_env.erb;
 	}
 }
