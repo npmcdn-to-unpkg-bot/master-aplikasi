@@ -45,7 +45,7 @@ server {
         }
 	
     location / {
-        index.php  index.html index.htm;
+        index index.php  index.html index.htm;
 		try_files $uri $uri/ @rewrites;
     }
 	
