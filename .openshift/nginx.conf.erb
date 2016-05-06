@@ -40,13 +40,11 @@ server {
 		add_header Cache-Control "public, must-revalidate, proxy-revalidate";
 	}
 	
-	location @rewrites {
-            rewrite ^(.*)$ /index.php/$1 last;
-        }
+	
 	
     location / {
         index.php  index.html index.htm;
-		try_files $uri $uri/ @rewrites;
+		
     }
 	
 	# pass the PHP scripts to PHP-FPM
@@ -55,6 +53,5 @@ server {
     	fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     	fastcgi_param PATH_INFO $fastcgi_script_name;
     	include <%= ENV['OPENSHIFT_NGINX_DIR'] %>/usr/nginx-<%= ENV['OPENSHIFT_NGINX_VERSION'] %>/conf/fastcgi_params;
-		# include <%= ENV['OPENSHIFT_REPO_DIR'] %>/.openshift/export_env;
 	}
 }
