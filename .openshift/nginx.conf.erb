@@ -50,7 +50,7 @@ server {
     }
 	
 	# pass the PHP scripts to PHP-FPM
-	location ~ \.php$ {
+	location ~ ^/index\.php(/|$) {
     	fastcgi_pass unix:<%= ENV['OPENSHIFT_PHP_SOCKET'] %>;
     	fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     	fastcgi_param PATH_INFO $fastcgi_script_name;
