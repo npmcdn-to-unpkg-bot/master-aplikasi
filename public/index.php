@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 
 /**
  * Laravel - A PHP Framework For Web Artisans
@@ -56,3 +57,7 @@ $response = $kernel->handle(
 $response->send();
 
 $kernel->terminate($request, $response);
+=======
+phpinfo();
+?>
+>>>>>>> 614c1977de9ba3fa62317f0486c589db45698579
