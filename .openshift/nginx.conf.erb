@@ -27,7 +27,7 @@ gzip_disable        "MSIE [1-6]\.";
 gzip_vary           on;
 
 server {
-    listen  <%= ENV['OPENSHIFT_PHP_IP'] %>:<%= ENV['OPENSHIFT_PHP_PORT'] %>;
+    listen  <%= ENV['OPENSHIFT_PHP_IP'] %>:<%= ENV['OPENSHIFT_PHP_PORT'] %> http2;
     root    <%= ENV['OPENSHIFT_REPO_DIR'] %>/public;
 	
 	location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|eot|mp4|ogg|ogv|webm)$ {
