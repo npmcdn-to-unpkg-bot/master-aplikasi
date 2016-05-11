@@ -11,12 +11,19 @@
 Title, Description, Header, and Socmed
 </div>
 <div class="panel-body">
+<div class="form-group">
+<b>Judul 1 :</b>
 <input type="text" name="judul1" class="form-control" value="{{ $setting->judul1 }}" placeholder="Judul">
-<br>
+</div>
+<div class="form-group">
+<b>Judul 2 :</b>
 <input type="text" name="judul2" class="form-control" value="{{ $setting->judul2 }}" placeholder="Judul">
-<br>
+</div>
+<div class="form-group">
+<b>Deskripsi :</b>
 <textarea name="deskripsi" class="form-control" style="height:200px;">{{ $setting->deskripsi }}</textarea>
-<br>
+</div>
+<div class="form-group">
 <div id="status"></div>
 <div id="mulitplefileuploader"><b class="fa fa-plus"> Upload </b></div>
 <script>
@@ -56,13 +63,23 @@ var uploadObj = $("#mulitplefileuploader").uploadFile(settings);
 });
 
 </script>
-<br>
+</div>
+<div class="form-group">
+<b>Facebook :</b>
 <input type="text" name="facebook" class="form-control" value="{{ $setting->facebook }}" placeholder="Facebook username">
-<br>
+</div>
+<div class="form-group">
+<b>Twitter :</b>
 <input type="text" name="twitter" class="form-control" value="{{ $setting->twitter }}" placeholder="Twitter username">
-<br>
+</div>
+<div class="form-group">
+<b>Instagram :</b>
 <input type="text" name="instagram" class="form-control" value="{{ $setting->instagram }}" placeholder="Instagram username">
-<br>
+</div>
+<div class="form-group">
+<b>Github :</b>
+<input type="text" name="github" class="form-control" value="{{ $setting->github }}" placeholder="Github username">
+</div>
 </div>
 <div class="panel-footer">
 <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">

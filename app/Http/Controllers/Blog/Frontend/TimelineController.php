@@ -47,6 +47,7 @@ class TimelineController extends Controller
 		$setting->facebook = BlogClass::getConf('facebook',1);
 		$setting->twitter = BlogClass::getConf('twitter',1);
 		$setting->instagram = BlogClass::getConf('instagram',1);
+		$setting->github = BlogClass::getConf('github',1);
 		$setting->url = $url;
 		$setting->image = $setting->header_url;
 		$setting->title = $setting->judul2;

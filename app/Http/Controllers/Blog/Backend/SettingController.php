@@ -30,6 +30,7 @@ class SettingController extends Controller
 		$setting->facebook = BlogClass::getConf('facebook');
 		$setting->twitter = BlogClass::getConf('twitter');
 		$setting->instagram = BlogClass::getConf('instagram');
+		$setting->github = BlogClass::getConf('github');
 		$key=md5(date('YmdHis'));
 		return view('blog.backend.setting')->with('user',$user)->with('setting',$setting)->with('key',$key);
 	}
@@ -44,6 +45,7 @@ class SettingController extends Controller
 		BlogClass::setConf('facebook',$request->input('facebook'));
 		BlogClass::setConf('twitter',$request->input('twitter'));
 		BlogClass::setConf('instagram',$request->input('instagram'));
+		BlogClass::setConf('github',$request->input('github'));
 		$result = DB::table('blog_tmp')->where('key',$key)->where('idUser',$user->id)->first();
 		if (count($result))
 		{
