@@ -325,7 +325,7 @@ class MailController extends Controller
 	public function getEmptyTrash()
 	{
 		$user = Auth::user();
-		$result = \App\Models\Mail\mail_emails::with('attachments')
+		$results = \App\Models\Mail\mail_emails::with('attachments')
 				   ->where('idUser',$user->id)
 				   ->where('type',0)
 				   ->get();
