@@ -28,66 +28,6 @@
 			
 	});
 	
-	function emptyTrashAction(id)
-	{
-		var table = $('#dataTables-example').DataTable();
-		$.ajax({
-     	async: false,
-     	type: 'GET',
-     	url: '/mail/trash/empty/'
-		}).done(function( msg ) {
-			table.ajax.reload( null, false );
-		});	
-	}
-	
-	function emptyTrash()
-	{
-				$.confirm({
-				title: "Perhatian",
-        		text: "Apakah anda yakin akan mengkosongkan trash?",
-				confirmButton: "Ya",
-    			cancelButton: "Batal",
-				confirmButtonClass: "btn-danger",
-    			cancelButtonClass: "btn-default",
-        		confirm: function(button) {
-					emptyTrashAction();
-        		},
-       			cancel: function(button) {
-            		//alert("You cancelled.");
-        		}
-    			});
-	}
-	
-	function hapusAction(id)
-	{
-		var table = $('#dataTables-example').DataTable();
-		$.ajax({
-     	async: false,
-     	type: 'GET',
-     	url: '/mail/trash/'+ id
-		}).done(function( msg ) {
-			table.ajax.reload( null, false );
-		});	
-	}
-	
-	function hapus(id)
-	{
-				$.confirm({
-				title: "Perhatian",
-        		text: "Apakah anda yakin akan menghapusnya?",
-				confirmButton: "Ya",
-    			cancelButton: "Batal",
-				confirmButtonClass: "btn-danger",
-    			cancelButtonClass: "btn-default",
-        		confirm: function(button) {
-					hapusAction(id);
-        		},
-       			cancel: function(button) {
-            		//alert("You cancelled.");
-        		}
-    			});
-	}
-	
 	function moveAction(id)
 	{
 		var table = $('#dataTables-example').DataTable();
@@ -111,6 +51,38 @@
     			cancelButtonClass: "btn-default",
         		confirm: function(button) {
 					moveAction(id);
+        		},
+       			cancel: function(button) {
+            		//alert("You cancelled.");
+        		}
+    			});
+	}
+	
+	@if($type=="trash")
+	
+	function emptyTrashAction(id)
+	{
+		var table = $('#dataTables-example').DataTable();
+		$.ajax({
+     	async: false,
+     	type: 'GET',
+     	url: '/mail/trash/empty'
+		}).done(function( msg ) {
+			table.ajax.reload( null, false );
+		});	
+	}
+	
+	function emptyTrash()
+	{
+				$.confirm({
+				title: "Perhatian",
+        		text: "Apakah anda yakin akan mengkosongkan trash?",
+				confirmButton: "Ya",
+    			cancelButton: "Batal",
+				confirmButtonClass: "btn-danger",
+    			cancelButtonClass: "btn-default",
+        		confirm: function(button) {
+					emptyTrashAction();
         		},
        			cancel: function(button) {
             		//alert("You cancelled.");
@@ -147,12 +119,46 @@
         		}
     			});
 	}
+	
+	@else
+	
+	function hapusAction(id)
+	{
+		var table = $('#dataTables-example').DataTable();
+		$.ajax({
+     	async: false,
+     	type: 'GET',
+     	url: '/mail/trash/'+ id
+		}).done(function( msg ) {
+			table.ajax.reload( null, false );
+		});	
+	}
+	
+	function hapus(id)
+	{
+				$.confirm({
+				title: "Perhatian",
+        		text: "Apakah anda yakin akan menghapusnya?",
+				confirmButton: "Ya",
+    			cancelButton: "Batal",
+				confirmButtonClass: "btn-danger",
+    			cancelButtonClass: "btn-default",
+        		confirm: function(button) {
+					hapusAction(id);
+        		},
+       			cancel: function(button) {
+            		//alert("You cancelled.");
+        		}
+    			});
+	}
+	
+	@endif
+	
 </script>
    <div style="float:right; margin-bottom:11px;">
     	@if($type=="trash")
-        <button type="button" class="btn btn-primary btn-sm" onClick="window.location='/mail/compose'"><b class="fa fa-plus"> Compose </b></button>
+        <button type="button" class="btn btn-primary btn-sm" onClick="emptyTrash()"><b class="fa fa-plus"> Empty Trash </b></button>
         @endif
-        <button type="button" class="btn btn-primary btn-sm" onClick="window.location='/mail/compose'"><b class="fa fa-plus"> Compose </b></button>
         
     </div>
 							<div class="dataTable_wrapper">
