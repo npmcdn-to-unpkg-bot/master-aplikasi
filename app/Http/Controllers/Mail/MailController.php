@@ -327,7 +327,7 @@ class MailController extends Controller
 		$user = Auth::user();
 		$result = \App\Models\Mail\mail_emails::with('attachments')
 				   ->where('idUser',$user->id)
-				   ->where('tipe',0)
+				   ->where('type',0)
 				   ->get();
 		foreach($results as $result)
 		{
