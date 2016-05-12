@@ -28,6 +28,36 @@
 			
 	});
 	
+	function emptyTrashAction(id)
+	{
+		var table = $('#dataTables-example').DataTable();
+		$.ajax({
+     	async: false,
+     	type: 'GET',
+     	url: '/mail/trash/empty/'
+		}).done(function( msg ) {
+			table.ajax.reload( null, false );
+		});	
+	}
+	
+	function emptyTrash()
+	{
+				$.confirm({
+				title: "Perhatian",
+        		text: "Apakah anda yakin akan mengkosongkan trash?",
+				confirmButton: "Ya",
+    			cancelButton: "Batal",
+				confirmButtonClass: "btn-danger",
+    			cancelButtonClass: "btn-default",
+        		confirm: function(button) {
+					emptyTrashAction();
+        		},
+       			cancel: function(button) {
+            		//alert("You cancelled.");
+        		}
+    			});
+	}
+	
 	function hapusAction(id)
 	{
 		var table = $('#dataTables-example').DataTable();
@@ -119,7 +149,9 @@
 	}
 </script>
    <div style="float:right; margin-bottom:11px;">
-    	
+    	@if($type=="trash")
+        <button type="button" class="btn btn-primary btn-sm" onClick="window.location='/mail/compose'"><b class="fa fa-plus"> Compose </b></button>
+        @endif
         <button type="button" class="btn btn-primary btn-sm" onClick="window.location='/mail/compose'"><b class="fa fa-plus"> Compose </b></button>
         
     </div>

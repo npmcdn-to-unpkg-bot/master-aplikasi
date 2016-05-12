@@ -318,31 +318,37 @@ class MailController extends Controller
 								
 		}
 		DB::table('mail_attachments')->where('email_id',$id)->where('idUser',$user->id)->delete();
-		
 		DB::table('mail_emails')->where('id',$id)->where('idUser',$user->id)->delete();
-		DB::table('mail_emails')->where('id',$id)->where('idUser',$user->id)->update(['type'=>0]);
+		
 	}
 	
-	public function getTrashData($id)
+	public function getEmptyTrash()
 	{
 		$user = Auth::user();
-		/*
-		$result = DB::table('mail_attachments')->where('email_id',$id)->where('idUser',$user->id)->get();
-		foreach($result as $rs)
+		$result = \App\Models\Mail\mail_emails::with('attachments')
+				   ->where('idUser',$user->id)
+				   ->where('tipe',0)
+				   ->get();
+		foreach($results as $result)
 		{
-			
+	    	foreach($result->attachments as $attachment)
+			{
 				\Cloudinary::config(array( 
   					"cloud_name" => env('CLOUDINARY_NAME'), 
   					"api_key" => env('CLOUDINARY_KEY'), 
   					"api_secret" => env('CLOUDINARY_SECRET') 
 				));
 				
-				\Cloudinary\Uploader::destroy($rs->public_id,array("resource_type" => "raw"));
-								
+				\Cloudinary\Uploader::destroy($attachment->public_id,array("resource_type" => "raw"));
+				DB::table('mail_attachments')->where('email_id',$attachment->id)->where('idUser',$user->id)->delete();
+			}
+			DB::table('mail_emails')->where('id',$result->id)->where('idUser',$user->id)->delete();
 		}
-		DB::table('mail_attachments')->where('email_id',$id)->where('idUser',$user->id)->delete();
-		*/
-		//DB::table('mail_emails')->where('id',$id)->where('idUser',$user->id)->delete();
+	}
+	
+	public function getTrashData($id)
+	{
+		$user = Auth::user();
 		DB::table('mail_emails')->where('id',$id)->where('idUser',$user->id)->update(['type'=>0]);
 	}
 	
