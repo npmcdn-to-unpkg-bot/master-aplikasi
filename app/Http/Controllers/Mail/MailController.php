@@ -194,7 +194,9 @@ class MailController extends Controller
 		
         return Datatables::of($posts)
 		->addColumn('from_sender', function ($post) {
-                return '<b>'. htmlentities($post->from) .'</b><br />'.tglIndo(strtotime(date('Y-m-d H:i:s', $post->timestamp)),"z",7).'<br />'. $post->subject;
+				$attachment_count = $post->attachment_count;
+				if($attachment_count=="") $attachment_count = 0;
+                return '<b>'. htmlentities($post->from) .'</b><br />'.tglIndo(strtotime(date('Y-m-d H:i:s', $post->timestamp)),"z",7).'<br />'. $post->subject .'<br /><small><i>Attachment : '. $attachment_count .'</i></small>';
             })
 		->addColumn('action', function ($post) {
 				switch($post->type)
