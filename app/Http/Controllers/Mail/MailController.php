@@ -324,6 +324,19 @@ class MailController extends Controller
 		
 	}
 	
+	public function getEmptySpam()
+	{
+		$user = Auth::user();
+		$results = \App\Models\Mail\mail_emails
+				   ::where('idUser',$user->id)
+				   ->where('type',3)
+				   ->get();
+		foreach($results as $result)
+		{
+			\App\Models\Mail\mail_emails::where('id',$result->id)->where('idUser',$user->id)->update(['type'=>0]);
+		}
+	}
+	
 	public function getEmptyTrash()
 	{
 		$user = Auth::user();

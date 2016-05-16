@@ -43,6 +43,7 @@ Route::get('/mail/move/{id}', array('as'=>'id','uses'=>'Mail\MailController@getM
 Route::get('/mail/{type}', ['uses' =>'Mail\MailController@getIndex']);
 Route::get('/mail/{type}/data', ['uses' =>'Mail\MailController@getData']);
 Route::get('/mail/{type}/detail/{id}',array('uses'=>'Mail\MailController@getInboxDetail'));
+Route::get('/mail/spam/empty', 'Mail\MailController@getEmptySpam');
 Route::get('/mail/trash/empty', 'Mail\MailController@getEmptyTrash');
 Route::get('/mail/trash/{id}', array('as'=>'id','uses'=>'Mail\MailController@getTrashData'));
 //========================================================================

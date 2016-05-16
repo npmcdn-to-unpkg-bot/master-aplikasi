@@ -60,7 +60,7 @@
 	
 	@if($type=="trash")
 	
-	function emptyTrashAction(id)
+	function emptyTrashAction()
 	{
 		var table = $('#dataTables-example').DataTable();
 		$.ajax({
@@ -122,6 +122,40 @@
 	
 	@else
 	
+	@if($type=="spam")
+	
+	function emptySpamAction()
+	{
+		var table = $('#dataTables-example').DataTable();
+		$.ajax({
+     	async: false,
+     	type: 'GET',
+     	url: '/mail/spam/empty'
+		}).done(function( msg ) {
+			table.ajax.reload( null, false );
+		});	
+	}
+	
+	function emptySpam()
+	{
+				$.confirm({
+				title: "Perhatian",
+        		text: "Apakah anda yakin akan mengkosongkan spam?",
+				confirmButton: "Ya",
+    			cancelButton: "Batal",
+				confirmButtonClass: "btn-danger",
+    			cancelButtonClass: "btn-default",
+        		confirm: function(button) {
+					emptySpamAction();
+        		},
+       			cancel: function(button) {
+            		//alert("You cancelled.");
+        		}
+    			});
+	}
+	
+	@endif
+	
 	function hapusAction(id)
 	{
 		var table = $('#dataTables-example').DataTable();
@@ -157,7 +191,10 @@
 </script>
    <div style="float:right; margin-bottom:11px;">
     	@if($type=="trash")
-        <button type="button" class="btn btn-primary btn-sm" onClick="emptyTrash()"><b class="fa fa-plus"> Empty Trash </b></button>
+        <button type="button" class="btn btn-warning btn-sm" onClick="emptyTrash()"><b class="fa fa-trash-o"> Empty Trash </b></button>
+        @endif
+        @if($type=="spam")
+        <button type="button" class="btn btn-warning btn-sm" onClick="emptySpam()"><b class="fa fa-trash-o"> Empty Spam </b></button>
         @endif
         
     </div>
