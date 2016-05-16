@@ -191,10 +191,10 @@
 </script>
    <div style="float:right; margin-bottom:11px;">
     	@if($type=="trash")
-        <button type="button" class="btn btn-warning btn-sm" onClick="emptyTrash()"><b class="fa fa-trash-o"> Empty Trash </b></button>
+        <button type="button" class="btn btn-danger btn-sm" onClick="emptyTrash()"><b class="fa fa-trash-o"> Empty Trash </b></button>
         @endif
         @if($type=="spam")
-        <button type="button" class="btn btn-warning btn-sm" onClick="emptySpam()"><b class="fa fa-trash-o"> Empty Spam </b></button>
+        <button type="button" class="btn btn-danger btn-sm" onClick="emptySpam()"><b class="fa fa-trash-o"> Empty Spam </b></button>
         @endif
         
     </div>
