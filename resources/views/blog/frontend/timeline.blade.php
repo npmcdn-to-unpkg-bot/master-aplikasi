@@ -170,7 +170,7 @@
 }
 
 .pace .pace-progress {
-  background: #29d;
+  background: #ffffff;
   position: fixed;
   z-index: 2000;
   top: 0;
