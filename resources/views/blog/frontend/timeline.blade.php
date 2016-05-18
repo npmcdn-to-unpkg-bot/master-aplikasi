@@ -155,6 +155,29 @@
         color: #63a0cc;
     }
 }
+
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #29d;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
 </style>	
     
     <link href="/bower_components/animate.css/animate.min.css" rel="stylesheet">
@@ -170,6 +193,9 @@
     
     <!-- Images Loaded -->
 	<script type="text/javascript" src="/bower_components/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    
+    <!-- PACE -->
+    <script type="text/javascript" src="/bower_components/PACE/pace.min.js"></script>
     
  <!-- ################################################################### -->
     
@@ -308,6 +334,7 @@
     });
 	});
 	</script>
+    
   	<script>
     $(function(){
       	var $container = $('.timeline');
@@ -322,17 +349,31 @@
           }
         },
         function( newElements ) {
+		  
 		  $('.timeline').infinitescroll('pause');
 		  $('.image-photo').attr('height','50');
 		  $('.image-photo').attr('width','50');
-		  
+		  $('.photoset-grid').imagesLoaded()
+  		  	.done( function( instance ) {
+     			 $('.image-photo').removeAttr('height');
+				 $('.image-photo').removeAttr('width');
+				 photogrid();
+				 $('.timeline').infinitescroll('resume');
+			 })
+  		   .progress( function( instance ) {
+     			 Pace.restart();
+			 })
+  
+
+		  /*
 		  $('.photoset-grid').imagesLoaded( function() {
+			  	 Pace.restart();
   				 $('.image-photo').removeAttr('height');
 				 $('.image-photo').removeAttr('width');
 				 photogrid();
 				 $('.timeline').infinitescroll('resume');
-				 
 		  });
+		  */
         }
       );
     });
