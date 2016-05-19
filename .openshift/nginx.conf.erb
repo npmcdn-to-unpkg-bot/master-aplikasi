@@ -49,8 +49,13 @@ server {
 		try_files $uri $uri/ @rewrites;
     }
 	
+	location /phpmyadmin {
+    	alias /var/lib/openshift/572f63887628e12a12000040/app-root/data/phpMyAdmin-4.6.1-english;
+  	}
+	
 	# pass the PHP scripts to PHP-FPM
-	location ~ ^/index\.php(/|$) {
+	location ~ \.php$ {
+	# location ~ ^/index\.php(/|$) {
     	fastcgi_pass unix:<%= ENV['OPENSHIFT_PHP_SOCKET'] %>;
     	fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     	fastcgi_param PATH_INFO $fastcgi_script_name;
