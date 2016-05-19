@@ -289,9 +289,12 @@
 					</p>
 				</div>
 				<div class="timeline-body">
-                
-					<div class="photoset-grid" style=" max-width:600px; visibility:hidden" data-layout="{{$result->layout}}">
+                	<div class="div-image-loading" style="text-align:center">
+                		
+					</div>
+                    <div class="photoset-grid" style=" max-width:600px; visibility:hidden" data-layout="{{$result->layout}}">
                     @foreach($result->attachments as $attachment)
+                    	
                     	<img class="image-photo" src="{{ str_replace('image/upload/','image/upload/c_fill,w_250/',$attachment->secure_url) }}" data-highres="{{ $attachment->secure_url }}" data-lightbox="image-{{$result->id}}">
                     @endforeach
                     </div>
@@ -349,7 +352,7 @@
           }
         },
         function( newElements ) {
-		  
+		  $('.div-image-loading').append('<img class="image-loading" src="progress.gif" width="250">');
 		  $('.timeline').infinitescroll('pause');
 		  $('.image-photo').attr('height','50');
 		  $('.image-photo').attr('width','50');
@@ -359,9 +362,10 @@
 				 $('.image-photo').removeAttr('width');
 				 photogrid();
 				 $('.timeline').infinitescroll('resume');
+				 $('.image-loading').hide();
 			 })
   		   .progress( function( instance ) {
-     			 Pace.restart();
+     			 //Pace.restart();
 			 })
   
 
