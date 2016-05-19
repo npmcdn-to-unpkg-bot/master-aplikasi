@@ -289,9 +289,7 @@
 					</p>
 				</div>
 				<div class="timeline-body">
-                	<div class="div-image-loading" style="text-align:center">
-                		
-					</div>
+                	
                     <div class="photoset-grid" style=" max-width:600px; visibility:hidden" data-layout="{{$result->layout}}">
                     @foreach($result->attachments as $attachment)
                     	
@@ -352,7 +350,6 @@
           }
         },
         function( newElements ) {
-		  $('.div-image-loading').append('<img class="image-loading" src="progress.gif" width="250">');
 		  $('.timeline').infinitescroll('pause');
 		  $('.image-photo').attr('height','50');
 		  $('.image-photo').attr('width','50');
@@ -362,11 +359,8 @@
 				 $('.image-photo').removeAttr('width');
 				 photogrid();
 				 $('.timeline').infinitescroll('resume');
-				 $('.image-loading').hide();
 			 })
-  		   .progress( function( instance ) {
-     			 //Pace.restart();
-			 })
+  		   
   
 
 		  /*
