@@ -50,12 +50,18 @@ server {
     }
 	
 	location /phpmyadmin {
-    	alias /var/lib/openshift/572f63887628e12a12000040/app-root/data/phpMyAdmin-4.6.1-english;
+		root /var/lib/openshift/572f63887628e12a12000040/app-root/data/phpMyAdmin-4.6.1-english;
+		index index.php
+		location ~ ^/phpmyadmin/(.+\.php)$ {
+    		fastcgi_pass unix:<%= ENV['OPENSHIFT_PHP_SOCKET'] %>;
+    		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    		fastcgi_param PATH_INFO $fastcgi_script_name;
+    		include <%= ENV['OPENSHIFT_PHP_DIR'] %>/usr/cartridge-<%= ENV['OPENSHIFT_PHP_VERSION'] %>/conf/fastcgi_params;
+    	} 
   	}
 	
 	# pass the PHP scripts to PHP-FPM
-	location ~ \.php$ {
-	# location ~ ^/index\.php(/|$) {
+	location ~ ^/index\.php(/|$) {
     	fastcgi_pass unix:<%= ENV['OPENSHIFT_PHP_SOCKET'] %>;
     	fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     	fastcgi_param PATH_INFO $fastcgi_script_name;
