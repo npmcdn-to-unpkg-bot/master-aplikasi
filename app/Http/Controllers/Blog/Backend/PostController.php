@@ -333,11 +333,5 @@ class PostController extends Controller
 		DB::table('blog_posts')->where('id',$id)->where('idUser',$user->id)->delete();
 	}
 	
-	public function getPostCapture()
-	{
-		$user = Auth::user();
-		return view('blog.backend.post-capture')->with('user',$user);
-	}
-	
 }
 ?>
