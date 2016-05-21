@@ -156,6 +156,7 @@ class PostController extends Controller
 		'judul' => $judul, 'slug' => $guid, 'konten' => $konten, 'layout' => $layout , 'tanggal' => $tanggal, 'idUser'=>$idUser, 'tipe_konten'=>$tipe_konten, 'tipe_post'=>$tipe_post
 		]);
 		
+		if($layout=="") $layout = 1;
 		
 		if($judul=="")
 		{
@@ -221,6 +222,8 @@ class PostController extends Controller
 		$nextid = DB::table('blog_posts')->insertGetId(
     		['judul' => $judul, 'slug'=>$guid, 'konten' => $konten, 'layout' => $layout , 'tanggal' => $tanggal, 'idUser'=>$idUser, 'tipe_konten'=>$tipe_konten, 'tipe_post'=>$tipe_post]
 			);
+		
+		if($layout=="") $layout = 1;
 		
 		if($judul=="")
 		{
