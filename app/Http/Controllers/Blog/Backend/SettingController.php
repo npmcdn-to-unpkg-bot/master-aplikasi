@@ -31,8 +31,13 @@ class SettingController extends Controller
 		$setting->twitter = BlogClass::getConf('twitter');
 		$setting->instagram = BlogClass::getConf('instagram');
 		$setting->github = BlogClass::getConf('github');
-		$key=md5(date('YmdHis'));
-		return view('blog.backend.setting')->with('user',$user)->with('setting',$setting)->with('key',$key);
+		$results = DB::table('blog_tmp')->where('key','header')->get();
+		foreach($results as $result)
+		{
+			unlink($result->file);	
+		}
+		DB::table('blog_tmp')->where('key','header')->delete();
+		return view('blog.backend.setting')->with('user',$user)->with('setting',$setting);
 	}
 	
 	public function postSetting(Request $request)

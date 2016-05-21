@@ -42,13 +42,13 @@ var settings = {
 		
     },
     showDelete:true,
-	formData: { key: '{{$key}}' },
+	formData: { key: 'header', _token: '{{csrf_token()}}' },
     deleteCallback: function(data,pd)
 	{
     for(var i=0;i<data.length;i++)
     {
         
-		$.post("/blog/image/delete",{op:"delete",name:data[i]},
+		$.post("/blog/image/delete",{_token:"{{csrf_token()}}",name:data[i]},
         function(resp, textStatus, jqXHR)
         {
             //Show Message  
@@ -83,7 +83,7 @@ var uploadObj = $("#mulitplefileuploader").uploadFile(settings);
 </div>
 <div class="panel-footer">
 <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
-<input type="hidden" name="key" value="{{$key}}">
+<input type="hidden" name="key" value="header">
 <input  class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Save">
 </div>
 </div>

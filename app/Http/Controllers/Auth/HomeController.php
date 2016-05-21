@@ -18,6 +18,7 @@ class HomeController extends Controller
 	protected function home()
 	{
 		$user = Auth::user();
+		
 		return view('auth.home')->with('user',$user);
 	}
 }

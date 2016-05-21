@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Blog\Backend;
 use App\Classes\Blog\BlogClass;
+use App\Classes\Blog\SimpleImage;
 use App\Http\Controllers\Controller;
 use DB;
 use Auth;
@@ -47,7 +48,22 @@ class PostController extends Controller
 		
 			list($width, $height, $type, $attr) = getimagesize($pathfile);
     		$size = getimagesize($pathfile);
-		
+			
+			if($key!="header"){
+				if($width>1280)
+				{
+					$img = new SimpleImage($pathfile); 
+					$img->fit_to_width(1280);
+					$img->save($pathfile);
+				}
+				else if($height>1280)
+				{
+					$img = new SimpleImage($pathfile); 
+					$img->fit_to_height(1280);
+					$img->save($pathfile);
+				}
+			}
+			
 			$cek = DB::table('blog_tmp')->where('idUser',$user->id)->where('file',$pathfile)->count();
 			if($cek==0)
 			{
@@ -71,7 +87,22 @@ class PostController extends Controller
 		
 				list($width, $height, $type, $attr) = getimagesize($pathfile);
     			$size = getimagesize($pathfile);
-		
+				
+				if($key!="header"){
+					if($width>1280)
+					{
+						$img = new SimpleImage($pathfile); 
+						$img->fit_to_width(1280);
+						$img->save($pathfile);
+					}
+				else if($height>1280)
+					{
+							$img = new SimpleImage($pathfile); 
+							$img->fit_to_height(1280);
+							$img->save($pathfile);
+					}
+				}
+				
 				$cek = DB::table('blog_tmp')->where('idUser',$user->id)->where('file',$pathfile)->count();
 				if($cek==0)
 				{
@@ -151,12 +182,14 @@ class PostController extends Controller
 		$layout = $request->input('layout');
 		$id = $request->input('id');
 		
+		if($layout=="") $layout = 1;
+		
 		$guid = BlogClass::makeSlug($judul,$idUser,$id);
 		DB::table('blog_posts')->where('id',$id)->where('idUser',$user->id)->update([
 		'judul' => $judul, 'slug' => $guid, 'konten' => $konten, 'layout' => $layout , 'tanggal' => $tanggal, 'idUser'=>$idUser, 'tipe_konten'=>$tipe_konten, 'tipe_post'=>$tipe_post
 		]);
 		
-		if($layout=="") $layout = 1;
+		
 		
 		if($judul=="")
 		{
@@ -219,11 +252,13 @@ class PostController extends Controller
 		$layout = $request->input('layout');
 		$guid = BlogClass::makeSlug($judul,$idUser);
 		
+		if($layout=="") $layout = 1;
+		
 		$nextid = DB::table('blog_posts')->insertGetId(
     		['judul' => $judul, 'slug'=>$guid, 'konten' => $konten, 'layout' => $layout , 'tanggal' => $tanggal, 'idUser'=>$idUser, 'tipe_konten'=>$tipe_konten, 'tipe_post'=>$tipe_post]
 			);
 		
-		if($layout=="") $layout = 1;
+		
 		
 		if($judul=="")
 		{
