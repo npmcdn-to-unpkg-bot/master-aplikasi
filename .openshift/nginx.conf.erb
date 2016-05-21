@@ -26,6 +26,8 @@ gzip_proxied        expired no-cache no-store private auth;
 gzip_disable        "MSIE [1-6]\.";
 gzip_vary           on;
 
+client_max_body_size 8M;
+
 server {
     listen  <%= ENV['OPENSHIFT_PHP_IP'] %>:<%= ENV['OPENSHIFT_PHP_PORT'] %>;
     root    <%= ENV['OPENSHIFT_REPO_DIR'] %>/public;
