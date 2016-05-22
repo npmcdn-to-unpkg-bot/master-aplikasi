@@ -31,7 +31,7 @@ var settings = {
     fileName: "myfile",
     allowedTypes:"jpg,jpeg",	
     returnType:"json",
-	acceptFiles:"image/*;capture=camera",
+	acceptFiles:"image/*",
 	uploadStr:"<i class=\"fa fa-camera fa-fw\"></i> Capture",
 	onSuccess:function(files,data,xhr)
     {
