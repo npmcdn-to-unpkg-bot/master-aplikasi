@@ -6,7 +6,7 @@
 <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 	<link href="/bower_components/jquery-uploadfile/css/uploadfile.css" rel="stylesheet">
-	<script src="/bower_components/jquery-uploadfile/js/jquery.uploadfile.min.js"></script>
+	<script src="/bower_components/jquery-uploadfile/js/jquery.uploadfile.js"></script>
 
 						@if (count($errors) > 0)
     					<div class="alert alert-danger">
@@ -31,6 +31,7 @@ var settings = {
     fileName: "myfile",
     allowedTypes:"jpg,jpeg",	
     returnType:"json",
+	acceptFiles:"image/*;capture=camera",
 	uploadStr:"<i class=\"fa fa-camera fa-fw\"></i> Capture",
 	onSuccess:function(files,data,xhr)
     {
