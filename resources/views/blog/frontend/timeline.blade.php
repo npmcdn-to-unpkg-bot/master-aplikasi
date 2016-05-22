@@ -9,7 +9,6 @@
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-  
 }
 .intro-header .site-heading {
   padding: 100px 0 30px;
@@ -34,8 +33,6 @@
   filter: alpha(opacity=60);
   
 }
-
-
 .transbox {
     margin: 20px;
 	border-radius: 10px;
@@ -45,7 +42,6 @@
     background: rgba(0,0,0,0.6);
 	filter: alpha(opacity=60);
 }
-
 .navbar-default {
     border-color: rgba(34,34,34,.05);
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
@@ -55,7 +51,6 @@
     transition: all .35s;
 	
 }
-
 .navbar-default .navbar-header .navbar-brand {
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
@@ -64,12 +59,10 @@
 	text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
   	filter: alpha(opacity=60);
 }
-
 .navbar-default .navbar-header .navbar-brand:hover,
 .navbar-default .navbar-header .navbar-brand:focus {
     color: #63a0cc;
 }
-
 .navbar-default .nav > li>a,
 .navbar-default .nav>li>a:focus {
     text-transform: uppercase;
@@ -77,98 +70,77 @@
     font-weight: 700;
     color: #BBBBBB;
 }
-
 .navbar-default .nav > li>a:hover,
 .navbar-default .nav>li>a:focus:hover {
     color: #63a0cc;
 }
-
 .navbar-default .nav > li.active>a,
 .navbar-default .nav>li.active>a:focus {
     color: #63a0cc!important;
     background-color: transparent;
 }
-
 .navbar-default .nav > li.active>a:hover,
 .navbar-default .nav>li.active>a:focus:hover {
     background-color: transparent;
 }
-
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
 	background: rgba(0,0,0,0.7);
 }
-
 .navbar-default .navbar-toggle {
 	background: rgba(0,0,0,0.7);
 }
-
-
-
 @media(min-width:768px) {
     .navbar-default {
         border-color: rgba(255,255,255,.3);
         background-color: transparent;
     }
-
     .navbar-default .navbar-header .navbar-brand {
         color: rgba(255,255,255,.7);
     }
-
     .navbar-default .navbar-header .navbar-brand:hover,
     .navbar-default .navbar-header .navbar-brand:focus {
         color: #fff;
     }
-
     .navbar-default .nav > li>a,
     .navbar-default .nav>li>a:focus {
         color: rgba(255,255,255,.7);
     }
-
     .navbar-default .nav > li>a:hover,
     .navbar-default .nav>li>a:focus:hover {
         color: #fff;
     }
-
     .navbar-default.affix {
         border-color: rgba(34,34,34,.05);
         background: rgba(0,0,0,0.7);
     }
-
     .navbar-default.affix .navbar-header .navbar-brand {
         
         color: #fff;
     }
-
     .navbar-default.affix .navbar-header .navbar-brand:hover,
     .navbar-default.affix .navbar-header .navbar-brand:focus {
         color: #63a0cc;
     }
-
     .navbar-default.affix .nav > li>a,
     .navbar-default.affix .nav>li>a:focus {
         color: #fff;
     }
-
     .navbar-default.affix .nav > li>a:hover,
     .navbar-default.affix .nav>li>a:focus:hover {
         color: #63a0cc;
     }
 }
-
 .pace {
   -webkit-pointer-events: none;
   pointer-events: none;
-
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
 }
-
 .pace-inactive {
   display: none;
 }
-
 .pace .pace-progress {
   background: #ffffff;
   position: fixed;
@@ -198,7 +170,6 @@
     <script type="text/javascript" src="/bower_components/PACE/pace.min.js"></script>
     
  <!-- ################################################################### -->
-    
    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -211,7 +182,6 @@
                 </button>
                 <a class="navbar-brand page-scroll" href="/">{{ $setting->judul1 }}</a>
             </div>
-
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
@@ -233,12 +203,8 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-    
 <!-- ################################################################### -->
-
 	<header class="intro-header" style="background-image: url('{{ $setting->header_url }}')">
-        
-                
                     <div class="site-heading">
                     <div class="transbox">
                         <h1 style="padding:5px;">{{ $setting->judul2 }}</h1>
@@ -247,12 +213,8 @@
                     </div>
                     <a class="page-scroll" href="#section"><i class="fa fa-angle-down infinite animated fadeInDown" style="font-size: 50px; color:#FFFFFF; margin-top:30px"></i></a>
                     </div>
-              
-         
     </header>
- 
 <!-- ################################################################### -->
-
  <section id="section"  style="background-color:#e9f0f5; max-width:780px; margin:0 auto;">
  	<ul class="timeline">
 	<?php
@@ -322,8 +284,8 @@
     })
     </script>
 	<a href="#0" class="cd-top">Top</a>
-    <link href="/codyhouse/back-to-top/css/style.css" rel="stylesheet">
-    <script src="/codyhouse/back-to-top/js/main.js"></script>
+    <link href="/bower_components/back-to-top/css/style.css" rel="stylesheet">
+    <script src="/bower_components/back-to-top/js/main.js"></script>
 	<script>
 	$(function() {
     $('a.page-scroll').bind('click', function(event) {
@@ -360,18 +322,6 @@
 				 photogrid();
 				 $('.timeline').infinitescroll('resume');
 			 })
-  		   
-  
-
-		  /*
-		  $('.photoset-grid').imagesLoaded( function() {
-			  	 Pace.restart();
-  				 $('.image-photo').removeAttr('height');
-				 $('.image-photo').removeAttr('width');
-				 photogrid();
-				 $('.timeline').infinitescroll('resume');
-		  });
-		  */
         }
       );
     });
@@ -387,11 +337,9 @@
 				borderActive: true,
 				onInit: function(){},
     			onComplete: function(){
-        
 					$('.photoset-grid').css({
             		'visibility': 'visible'
         			});
-
     			}
  			});
 		}
