@@ -123,8 +123,11 @@
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Blog<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                            	<li>
+                            		<a href="/blog/post/add"><i class="fa fa-camera fa-fw"></i> Capture</a>
+                        		</li>
                                 <li>
-                            		<a href="/blog/post"><i class="fa fa-pencil-square fa-fw"></i> Photo</a>
+                            		<a href="/blog/post"><i class="fa fa-photo fa-fw"></i> Photo</a>
                         		</li>
                                 <li>
                             		<a href="/blog/setting"><i class="fa fa-gear fa-fw"></i> Settings</a>

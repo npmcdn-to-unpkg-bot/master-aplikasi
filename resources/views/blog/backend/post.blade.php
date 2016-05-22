@@ -62,11 +62,7 @@
     			});
 	}
 </script>
-   <div style="float:right; margin-bottom:11px;">
-    	
-        <button type="button" class="btn btn-primary btn-sm" onClick="window.location='/blog/post/add'"><b class="fa fa-plus"> Add Photo </b></button>
-        
-    </div>
+   
 							<div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
