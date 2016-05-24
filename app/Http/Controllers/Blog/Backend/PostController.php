@@ -269,13 +269,14 @@ class PostController extends Controller
 			
 		$result = DB::table('blog_tmp')->where('key',$key)->where('idUser',$user->id)->get();
 		
-		
+		// ====================================================================================
+		$path = DB::table('blog_access')->where('account','path')->where('idUser',$user->id)->first();
+		$authorization = "Authorization: Bearer ". $path->access_token;
+		// ====================================================================================
 		
 		
 		foreach($result as $rs)
 		{
-			
-			
 			
 			\Cloudinary::config(array( 
   				"cloud_name" => env('CLOUDINARY_NAME'), 
@@ -284,8 +285,6 @@ class PostController extends Controller
 			));
 			
 			$cloudinary = \Cloudinary\Uploader::upload($rs->file);
-			
-			
 			
 			DB::table('blog_attachments')
 			->insert([
@@ -305,33 +304,12 @@ class PostController extends Controller
 			'idUser'=> $user->id]
 			);
 			
-			
-			
 			DB::table('blog_tmp')->where('key',$key)->where('file',$rs->file)->where('idUser',$user->id)->delete();
 			unlink($rs->file);
 			
-			
-		}
-				
-				// ====================================================================================
-				/*
-				$upload_path = DB::table('blog_attachments')
-							   ->where('post_id',$nextid)
-							   ->where('idUser',$user->id)
-							   ->orderBy('id','desc')
-							   ->first();
-							   
-				 $judul_path = DB::table('blog_posts')
-							   ->where('id',$nextid)
-							   ->where('idUser',$user->id)
-							   ->orderBy('tanggal','desc')
-							   ->first();
-							   
-				$path = DB::table('blog_access')->where('account','path')->where('idUser',$user->id)->first();
-				$authorization = "Authorization: Bearer ". $path->access_token;
-				
-			    $url = 'https://partner.path.com/1/moment/photo';
-				$string_path = '{ "source_url": "'.$upload_path->secure_url.'", "caption": "'.$judul_path->judul.' - '.secure_url('').'", "private": true }';
+			// ====================================================================================
+				$url = 'https://partner.path.com/1/moment/photo';
+				$string_path = '{ "source_url": "'.$cloudinary['secure_url'].'", "caption": "'.$judul.' - '.secure_url('').'", "private": true }';
 				$ch = curl_init();
 				curl_setopt($ch,CURLOPT_URL, $url);
 				curl_setopt($ch,CURLOPT_POST, count($string_path));
@@ -340,12 +318,9 @@ class PostController extends Controller
 				curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 				$result = curl_exec($ch);
 				curl_close($ch);
-				*/
-				// ====================================================================================
-			
-			
-			
-			
+			// ====================================================================================
+		}
+				
     	return redirect('/blog/post')->with('user',$user);
 	}
 	
