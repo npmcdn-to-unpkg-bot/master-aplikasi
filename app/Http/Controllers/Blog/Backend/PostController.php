@@ -152,7 +152,7 @@ class PostController extends Controller
 		}
 		
 		DB::table('blog_tmp')->where('idUser',$user->id)->delete();
-		$tanggal = date('Y-m-d H:i:s');
+		$tanggal = date("Y-m-d H:i:s", strtotime('+7 hours'));
 		$key = md5(date('YmdHis'));
     	return view('blog.backend.post-add')->with('user',$user)->with('tanggal',$tanggal)->with('key',$key);
 	}
