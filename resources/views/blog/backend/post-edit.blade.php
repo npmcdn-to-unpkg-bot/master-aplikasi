@@ -64,6 +64,7 @@ var uploadObj = $("#mulitplefileuploader").uploadFile(settings);
 <br>
 <input type="hidden" name="tipe_post" value="post">
 <input type="hidden" name="tipe_konten" value="gallery">
+<input type="text" name="konten" value="{{$result->konten}}" class="form-control" placeholder="Caption"><br>
 <input type="text" name="layout" value="{{$result->layout}}" class="form-control"><br>			
                 <div class='input-group date' id='datetimepicker1'>
                     <input type="text" name="tanggal" readonly value="{{$result->tanggal}}" id="date1" class="form-control">

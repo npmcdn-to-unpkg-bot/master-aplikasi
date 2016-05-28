@@ -259,6 +259,9 @@
                     @endforeach
                     </div>
                     
+                    @if(!empty($result->konten))
+                    <div>{{ $result->konten }}</div>
+                    @endif
                 </div>
             </div>
          </li>
