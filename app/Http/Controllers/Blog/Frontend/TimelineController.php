@@ -76,7 +76,6 @@ class TimelineController extends Controller
     	$setting = $stdClass->make('stdClass');
 		$setting->judul1 = BlogClass::getConf('judul1',1);
 		$setting->judul2 = BlogClass::getConf('judul2',1);
-		$setting->deskripsi = BlogClass::getConf('deskripsi',1);
 		$setting->header_url = BlogClass::getConf('header_url',1);
 		$setting->facebook = BlogClass::getConf('facebook',1);
 		$setting->twitter = BlogClass::getConf('twitter',1);
@@ -84,7 +83,14 @@ class TimelineController extends Controller
 		$setting->url = $url;
 		$setting->image = $last_attachment->secure_url;
 		$setting->title = $last->judul ." ". $setting->judul1;
-		
+		if(empty($last->konten))
+		{
+			$setting->deskripsi = BlogClass::getConf('deskripsi',1);	
+		}
+		else
+		{
+			$setting->deskripsi = $last->konten;
+		}
 		return view('blog.frontend.timeline-single')->with('setting',$setting)->with('last',$last)->with('last_attachment',$last_attachment);
 	}
 	

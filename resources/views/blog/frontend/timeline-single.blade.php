@@ -27,7 +27,17 @@
         	<img class="image-photo" src="{{ str_replace('image/upload/','image/upload/c_fill,w_500/',$attachment->secure_url) }}" data-highres="{{ $attachment->secure_url }}" data-lightbox="image-{{$last->id}}">
     	@endforeach
     </div>
-    
+    @if(!empty($last->konten))
+    <div style="padding: 5px;
+	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.39);
+	-moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.39);
+	-webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.39);
+	background-color:#fff;
+	margin: 5px 0px 5px 0px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;">{{ $last->konten }}</div>
+    @endif
     <div class="fb-like" data-href="{{ secure_url('/post/'. $last->slug .'/') }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
     <div style="margin-top:20px;">
     <p>Penasaran dengan foto - foto yang lain, klik tombol di bawah ini untuk membuka timeline</p>
