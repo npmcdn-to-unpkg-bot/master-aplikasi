@@ -26,6 +26,10 @@ Route::get('/errors/403', function()
 	$user = Auth::user();
     return View::make('errors.403')->with('user',$user);
 });
+Route::get('/phpinfo', function()
+{
+	phpinfo();
+});
 //========================================================================
 // Mail App Route
 //========================================================================

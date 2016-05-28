@@ -21,5 +21,7 @@ class HomeController extends Controller
 		
 		return view('auth.home')->with('user',$user);
 	}
+	
+	
 }
 ?>
