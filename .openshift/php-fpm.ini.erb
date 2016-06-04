@@ -716,7 +716,7 @@ user_dir =
 ; http://php.net/extension-dir
 ; extension_dir = "./"
 ; On windows:
-extension_dir = "<%= ENV['OPENSHIFT_PHP_EXTENSION_DIR'] %>"
+extension_dir = <%= ENV['OPENSHIFT_PHP_EXTENSION_DIR'] %>
 
 ; Directory where the temporary files should be placed.
 ; Defaults to the system default (see sys_get_temp_dir)
@@ -790,7 +790,7 @@ file_uploads = On
 
 ; Maximum allowed size for uploaded files.
 ; http://php.net/upload-max-filesize
-upload_max_filesize = 8M
+upload_max_filesize = 2M
 
 ; Maximum number of files that can be uploaded via a single request
 max_file_uploads = 20

@@ -156,7 +156,7 @@ class Api {
   
   function transformation($transformation, $options=array()) {
     $uri = array("transformations", $this->transformation_string($transformation));
-    return $this->call_api("get", $uri, $this->only($options, array("max_results")), $options);    
+    return $this->call_api("get", $uri, $this->only($options, array("next_cursor", "max_results")), $options);
   }
   
   function delete_transformation($transformation, $options=array()) {
@@ -249,6 +249,7 @@ class Api {
     $api_secret = \Cloudinary::option_get($options, "api_secret", \Cloudinary::config_get("api_secret"));
     if (!$api_secret) throw new \InvalidArgumentException("Must supply api_secret");
     $api_url = implode("/", array_merge(array($prefix, "v1_1", $cloud_name), $uri));
+    $params = array_filter($params,function($v){ return !is_null($v) && ($v !== "" );});
     if ($method == "get")
     {
         $api_url .= "?" . preg_replace("/%5B\d+%5D/", "%5B%5D", http_build_query($params));

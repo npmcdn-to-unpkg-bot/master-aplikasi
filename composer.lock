@@ -67,12 +67,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cloudinary/cloudinary_php.git",
-                "reference": "94582b6bc7d6c5b97f9aae441d7d25e6fd93ef76"
+                "reference": "7840ffa853b3f9baf4ceaf94a8f28b9c79e35979"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/94582b6bc7d6c5b97f9aae441d7d25e6fd93ef76",
-                "reference": "94582b6bc7d6c5b97f9aae441d7d25e6fd93ef76",
+                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/7840ffa853b3f9baf4ceaf94a8f28b9c79e35979",
+                "reference": "7840ffa853b3f9baf4ceaf94a8f28b9c79e35979",
                 "shasum": ""
             },
             "require": {
@@ -111,7 +111,7 @@
                 "image management",
                 "sdk"
             ],
-            "time": "2016-03-22 14:54:00"
+            "time": "2016-06-02 12:28:20"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
