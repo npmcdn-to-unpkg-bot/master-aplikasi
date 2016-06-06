@@ -44,23 +44,29 @@ class SMSController extends Controller
 		
 		$user = Auth::user();
 		
-		$smss = DB::table('msg_messages')->select('msg_messages.id','msg_messages.address','msg_contacts.nama')
-				->join('msg_contacts', 'msg_messages.address', '=', 'msg_contacts.phone')
+		$smss = DB::table('msg_messages')->select('msg_messages.id','msg_messages.address','msg_contacts.nama','msg_messages.body','msg_messages.date','msg_messages.type')
+				->leftJoin('msg_contacts', 'msg_messages.address', '=', 'msg_contacts.phone')
 				->where('msg_messages.idUser',$user->id)
-				->where('archived',0)
-				->whereIn('date',query($user->id))
-				->groupBy('address')
+				->where('msg_messages.archived',0)
+				->whereIn('msg_messages.date',query($user->id))
+				->groupBy('msg_messages.address')
 				->groupBy('msg_contacts.nama')
 				->groupBy('msg_messages.id')
 				->orderBy('date','desc');
 		
 		
         return Datatables::of($smss)
+		->filterColumn('body', function($query, $keyword) {
+                $query->where("msg_messages.address", 'like',"%{$keyword}%")->orWhere("msg_messages.body", 'like',"%{$keyword}%");
+            })
 		->addColumn('body', function ($sms) {
-				$text = MessageClass::last_message($sms->address);
-				$name = '<a href="/message/inbox/detail/'.$sms->id.'"><b>'.$sms->nama.'</b></a>';
-				$body = preg_replace( "/\r|\n/", "",$text['body']);
-				$tanggal = '<div style="font-size:11px;white-space: nowrap;color:#999999">'.tglIndo(strtotime($text['date']),"z",7) .'</div>';
+				
+				$namacontact = $sms->nama;
+				if($namacontact=="") $namacontact = $sms->address;
+				$name = '<a href="/message/inbox/detail/'.$sms->id.'"><b>'.$namacontact .'</b></a>';
+				$body = preg_replace( "/\r|\n/", "",$sms->body);
+				if($sms->type==2) $body = "You : ". $body;
+				$tanggal = '<div style="font-size:11px;white-space: nowrap;color:#999999">'.tglIndo(strtotime($sms->date),"z",7) .'</div>';
 				
 				if(MessageClass::haveUnread($sms->address)>0)
 				{
@@ -72,9 +78,10 @@ class SMSController extends Controller
 				}
 				
 				$data = '<div'.$warna.'>'. $name .'<br />'.$body.'<br />'.$tanggal.'</div>';
-                
+				
 				return $data;
             })
+		
 		->addColumn('action', function ($sms) {
                 return '<button id="btn-del" onClick="hapus(\''. $sms->address .'\')" type="button" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
             })

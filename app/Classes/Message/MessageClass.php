@@ -117,25 +117,6 @@ use DB;
 			}
         }
 		
-		public static function last_message($address)
-		{
-			$user = Auth::user();
-			$idUser = $user->id;	
-			$result = DB::table('msg_messages')
-					  ->select('body','date','type')
-					  ->where('address',$address)
-					  ->where('idUser',$user->id)
-					  ->where('archived',0)
-					  ->orderBy('date','desc')
-					  ->skip(0)->take(1)
-				      ->first();
-			$body = array();
-			$message = $result->body;
-			if($result->type == 2) $message = "You: ".$message ;
-			$body['body'] = $message;
-			$body['date'] = $result->date;
-			return $body;
-		}
 		
 		public static function NameContact($number,$idUser="")
 		{
