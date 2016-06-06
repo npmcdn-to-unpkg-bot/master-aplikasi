@@ -193,7 +193,10 @@ class MailController extends Controller
 		$posts = DB::table('mail_emails')->select(['id', 'sender', 'from', 'timestamp','attachment_count', 'type', 'subject' ])->where('idUser',$user->id)->where('type',$type)->orderBy('id','desc');
 		
         return Datatables::of($posts)
-		->addColumn('from_sender', function ($post) {
+		->filterColumn('sender', function($query, $keyword) {
+                $query->where("sender", 'like',"%{$keyword}%")->orWhere("subject", 'like',"%{$keyword}%");
+            })
+		->addColumn('sender', function ($post) {
 				$attachment_count = $post->attachment_count;
 				if($attachment_count=="") $attachment_count = 0;
                 return '<b>'. htmlentities($post->from) .'</b><br />'.tglIndo(strtotime(date('Y-m-d H:i:s', $post->timestamp)),"z",7).'<br />'. $post->subject .'<br /><small><i>Attachment : '. $attachment_count .'</i></small>';

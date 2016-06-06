@@ -18,7 +18,7 @@
        			"serverSide": true,
         		"ajax": '/mail/{{$type}}/data',
 				columns: [
-            		{data: 'from_sender', name: 'from_sender', orderable: false, "width": "60%"},
+            		{data: 'sender', name: 'sender', orderable: false, "width": "60%"},
 					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'alignRight', "width": "40%"}
             		
         		],
