@@ -70,7 +70,7 @@ class SMSController extends Controller
 				
 				if(MessageClass::haveUnread($sms->address)>0)
 				{
-					$warna = ' style="background-color:#BAE3F8;"';
+					$warna = ' style="background-color:#DEF1FF;"';
 				}
 				else
 				{
