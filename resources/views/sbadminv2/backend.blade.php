@@ -155,6 +155,9 @@
                             		<a href="/mail/trash"><i class="fa fa-fw fa-trash-o"></i> Trash</a>
                         		</li>
                                 <li>
+                                	<a href="/mail/account"><i class="fa fa-signal fa-fw"></i> Accounts</a>
+                        		</li>
+                                <li>
                                 	<a href="/mail/setting"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         		</li>
                             </ul>

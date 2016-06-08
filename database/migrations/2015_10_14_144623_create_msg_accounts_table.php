@@ -17,7 +17,7 @@ class CreateMsgAccountsTable extends Migration
 			$table->string('service',50)->nullable();
 			$table->string('api_key',100)->nullable();
 			$table->string('api_secret',100)->nullable();
-			$table->string('phone',50)->nullable();
+			$table->string('phone',50)->unique();
 			$table->tinyInteger('voice')->nullable();
 			$table->integer('idUser')->nullable();
             $table->nullableTimestamps();
@@ -37,6 +37,9 @@ class CreateMsgAccountsTable extends Migration
      */
     public function down()
     {
+		Schema::table('msg_accounts', function (Blueprint $table) {
+            $table->dropUnique('msg_accounts_phone_unique');
+        });
 		Schema::table('msg_accounts', function (Blueprint $table) {
             $table->dropForeign('msg_accounts_iduser_foreign');
         });

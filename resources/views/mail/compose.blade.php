@@ -29,10 +29,28 @@ tinymce.init({
     					</div>
 						@endif
 <form method="post" action="/mail/compose">
+<b>From :</b><br />
+<select id="account" name="account" class="form-control">
+@foreach($accounts as $account)
+@if(old('account')==$account->id)
+<option value="{{ $account->id }}" selected>{{ $account->email }}</option>
+@else
+<option value="{{ $account->id }}">{{ $account->email }}</option>
+@endif
+@endforeach
+</select><br />
 <b>To :</b><br />
+@if(empty(old('subject')))
 <input type="text" name="to" class="form-control" value="{{ $from }}"><br>
+@else
+<input type="text" name="to" class="form-control" value="{{ old('to') }}"><br>
+@endif
 <b>Subject :</b><br />
+@if(empty(old('subject')))
 <input type="text" name="subject" class="form-control" value="{{ $subject }}"><br> 
+@else
+<input type="text" name="subject" class="form-control" value="{{ old('subject') }}"><br> 
+@endif
 <b>Message :</b><br />
 <textarea name="konten" style="width:100%">{{ $replay_message }}</textarea><br>  
 <strong>Attachment :</strong>

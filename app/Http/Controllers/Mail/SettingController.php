@@ -32,19 +32,7 @@ class SettingController extends Controller
 				</div>');
 		}
 		
-		if($setting=="mail_setting")
-		{
-			$mail_name = $request->input('mail_name');
-			$mail_email = $request->input('mail_email');
-			
-			MailClass::setConf('mail_name',$mail_name,$user->id);
-			MailClass::setConf('mail_email',$mail_email,$user->id);
-			print('<div class="alert alert-success">
-					<ul>
-						Update Success          					
-					</ul>
-				</div>');
-		}
+		
 		
 	}
 	

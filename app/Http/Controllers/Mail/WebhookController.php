@@ -15,7 +15,8 @@ class WebhookController extends Controller
 	
 	public function webhook(Request $request)
 	{
-			$check = DB::table('mail_settings')->where('name','mail_email')->where('value',$request->input('recipient'))->first();
+			
+			$check = DB::table('mail_accounts')->where('email',$request->input('recipient'))->first();
 			
 			$idUser = "";
 			

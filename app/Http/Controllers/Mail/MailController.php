@@ -90,6 +90,8 @@ class MailController extends Controller
 		$user = Auth::user();
 		$key = md5(date('YmdHis'));
 		
+		$accounts = DB::table('mail_accounts')->where('idUser',$user->id)->get();
+		
 		$email = \App\Models\Mail\mail_emails::where('idUser',$user->id)->where('id',$id)->first();
 		if(count($email))
 		{
@@ -104,7 +106,7 @@ class MailController extends Controller
 			$replay_message = "";
 		}
 		
-		return view('mail.compose')->with('user',$user)->with('key',$key)->with('replay_message',$replay_message)->with('from',$from)->with('subject',$subject);
+		return view('mail.compose')->with('user',$user)->with('key',$key)->with('replay_message',$replay_message)->with('from',$from)->with('subject',$subject)->with('accounts',$accounts);
 	}
 	
 	public function postCompose(Request $request)
@@ -124,14 +126,17 @@ class MailController extends Controller
 		
 		$subject =  $request->input('subject');
 		$to =  $request->input('to');
+		$account =  $request->input('account');
 		$konten =  $request->input('konten');
 		$key = $request->input('key');
 		$konten_plain = "";
 		if($konten!="") $konten_plain = Html2Text\Html2Text::convert($konten);
 		
 		$mail = array();
-		$mail['mail_name'] = MailClass::getConf('mail_name',$user->id);	
-		$mail['mail_email'] = MailClass::getConf('mail_email',$user->id);
+		$from_email = DB::table('mail_accounts')->where('id',$account)->where('idUser', $user->id)->first();
+		
+		$mail['mail_name'] = $from_email->name;	
+		$mail['mail_email'] = $from_email->email;	
 		
 		$result = DB::table('mail_tmp')->where('key',$key)->where('idUser',$user->id)->get();
 		

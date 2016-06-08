@@ -34,6 +34,13 @@ Route::group(['middleware' => 'auth'], function () {
 //========================================================================
 // Mail App Route
 //========================================================================
+Route::get('/mail/account', 'Mail\AccountController@getIndex');
+Route::get('/mail/account/data', 'Mail\AccountController@getData');
+Route::get('/mail/account/add', 'Mail\AccountController@getAddData');
+Route::post('/mail/account/add', 'Mail\AccountController@postAddData');
+Route::get('/mail/account/edit/{id}', array('as'=>'id','uses'=>'Mail\AccountController@getEditData'));
+Route::post('/mail/account/edit', 'Mail\AccountController@postEditData');
+Route::get('/mail/account/delete/{id}', array('as'=>'id','uses'=>'Mail\AccountController@getDeleteData'));
 Route::post('/mail/webhook', 'Mail\WebhookController@webhook');
 Route::get('/mail/compose', 'Mail\MailController@getCompose');
 Route::post('/mail/compose', 'Mail\MailController@postCompose');
