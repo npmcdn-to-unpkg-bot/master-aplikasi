@@ -85,7 +85,7 @@ class MailController extends Controller
 		echo json_encode($ret);
 	}
 		
-	public function getCompose($id="")
+	public function getCompose($id=0)
 	{
 		$user = Auth::user();
 		$key = md5(date('YmdHis'));
