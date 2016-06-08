@@ -35,7 +35,7 @@ tinymce.init({
 @if(old('account')==$account->id)
 <option value="{{ $account->id }}" selected>{{ $account->email }}</option>
 @else
-<option value="{{ $account->id }}">{{ $account->name .' <'. $account->email .'>' }}</option>
+<option value="{{ $account->id }}">{{ $account->name }}</option>
 @endif
 @endforeach
 </select><br />
