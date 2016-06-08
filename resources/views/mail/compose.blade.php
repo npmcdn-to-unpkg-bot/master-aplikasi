@@ -30,15 +30,18 @@ tinymce.init({
 						@endif
 <form method="post" action="/mail/compose">
 <b>From :</b><br />
+<!--email_off-->
 <select id="account" name="account" class="form-control">
 @foreach($accounts as $account)
 @if(old('account')==$account->id)
 <option value="{{ $account->id }}" selected>{{ $account->email }}</option>
 @else
-<option value="{{ $account->id }}">{{ $account->name }}</option>
+<option value="{{ $account->id }}">{{ $account->name .' <'. $account->email .'>' }}</option>
 @endif
 @endforeach
-</select><br />
+</select>
+<!--/email_off-->
+<br />
 <b>To :</b><br />
 @if(empty(old('subject')))
 <input type="text" name="to" class="form-control" value="{{ $from }}"><br>
