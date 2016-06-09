@@ -139,7 +139,6 @@
   color: #FFF;
   margin: 0 auto;
   padding: 3px 0;
-  font-weight: bold;
   text-align: center;
   border-radius: 3px;
   -webkit-box-shadow: 0 0 11px rgba(0,0,0,0.35);
