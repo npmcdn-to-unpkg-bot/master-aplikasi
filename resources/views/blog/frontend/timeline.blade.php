@@ -133,7 +133,7 @@
 
 .tldate {
   display: block;
-  width: 200px;
+  width: 150px;
   background: #c03b44;
   border: 1px solid #ffffff;
   color: #FFF;
