@@ -45,7 +45,7 @@
 .navbar-default {
     border-color: rgba(34,34,34,.05);
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-    background: rgba(0,0,0,0.7);
+    background-color:#000000;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -112,10 +112,9 @@
     }
     .navbar-default.affix {
         border-color: rgba(34,34,34,.05);
-        background: rgba(0,0,0,0.7);
+        background-color:#000000;
     }
     .navbar-default.affix .navbar-header .navbar-brand {
-        
         color: #fff;
     }
     .navbar-default.affix .navbar-header .navbar-brand:hover,
@@ -131,24 +130,20 @@
         color: #63a0cc;
     }
 }
-.pace {
-  -webkit-pointer-events: none;
-  pointer-events: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-.pace-inactive {
-  display: none;
-}
-.pace .pace-progress {
-  background: #ffffff;
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  right: 100%;
-  width: 100%;
-  height: 2px;
+
+.tldate {
+  display: block;
+  width: 200px;
+  background: #c03b44;
+  border: 1px solid #ffffff;
+  color: #FFF;
+  margin: 0 auto;
+  padding: 3px 0;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 11px rgba(0,0,0,0.35);
+  font-size: 1em;
 }
 </style>	
     
@@ -165,9 +160,7 @@
     
     <!-- Images Loaded -->
 	<script type="text/javascript" src="/bower_components/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    
-    <!-- PACE -->
-    <script type="text/javascript" src="/bower_components/PACE/pace.min.js"></script>
+   
     
  <!-- ################################################################### -->
    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
