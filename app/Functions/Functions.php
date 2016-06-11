@@ -2,6 +2,7 @@
 
 function timeAgo($timestamp){
     $datetime1=new DateTime("now");
+	$datetime1->modify('+7 hour');
     $datetime2=date_create($timestamp);
     $diff=date_diff($datetime1, $datetime2);
     $timemsg='';
