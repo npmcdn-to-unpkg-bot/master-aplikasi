@@ -30,6 +30,10 @@ class ContactController extends Controller
 		$contacts = DB::table('msg_contacts')->select(['nama', 'phone', 'id'])->where('idUser',$user->id);
 		
         return Datatables::of($contacts)
+		->filterColumn('nama', function($query, $keyword) {
+				$kondisi = (DB::getConfig('driver') == "pgsql" ? "ILIKE" : "LIKE");
+                $query->where("msg_contacts.nama",$kondisi,"%{$keyword}%");
+            })
 		->addColumn('action', function ($contact) {
                 return '<button id="btn-send" onClick="sendSMS(\''. $contact->phone .'\');" type="button" class="btn btn-primary btn-sm"><b class="fa fa-edit"> Send SMS </b></button>&nbsp;<button id="btn-edit" onClick="editContact('.$contact->id.')" type="button" class="btn btn-success btn-sm"><b class="fa fa-pencil"> Edit </b></button>&nbsp;<button id="btn-del" onClick="hapus('.$contact->id.')" type="button" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
             })

@@ -57,7 +57,8 @@ class SMSController extends Controller
 		
         return Datatables::of($smss)
 		->filterColumn('body', function($query, $keyword) {
-                $query->where("msg_messages.address", 'like',"%{$keyword}%")->orWhere("msg_messages.body", 'like',"%{$keyword}%");
+				$kondisi = (DB::getConfig('driver') == "pgsql" ? "ILIKE" : "LIKE");
+                $query->where("msg_messages.address",$kondisi,"%{$keyword}%")->orWhere("msg_messages.body",$kondisi,"%{$keyword}%");
             })
 		->addColumn('body', function ($sms) {
 				

@@ -199,7 +199,8 @@ class MailController extends Controller
 		
         return Datatables::of($posts)
 		->filterColumn('sender', function($query, $keyword) {
-                $query->where("sender", 'like',"%{$keyword}%")->orWhere("subject", 'like',"%{$keyword}%");
+				$kondisi = (DB::getConfig('driver') == "pgsql" ? "ILIKE" : "LIKE");
+                $query->where("sender",$kondisi,"%{$keyword}%")->orWhere("subject",$kondisi,"%{$keyword}%");
             })
 		->addColumn('sender', function ($post) {
 				$attachment_count = $post->attachment_count;
