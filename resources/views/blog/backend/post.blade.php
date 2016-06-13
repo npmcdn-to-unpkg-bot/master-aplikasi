@@ -21,7 +21,7 @@
 				columns: [
             		{data: 'slug', name: 'slug'},
 					{data: 'tanggal', name: 'tanggal'},
-					{data: 'jumlah', name: 'jumlah', searchable: false},
+					{data: 'jumlah', name: 'jumlah', searchable: false, orderable: false},
 					{data: 'layout', name: 'layout'},
 					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'alignRight'}
             		
