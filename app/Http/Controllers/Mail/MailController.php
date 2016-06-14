@@ -195,7 +195,7 @@ class MailController extends Controller
 				$type = "1";	
 		}
 		
-		$posts = DB::table('mail_emails')->select(['id', 'sender', 'from', 'timestamp','attachment_count', 'type', 'subject' ])->where('idUser',$user->id)->where('type',$type)->orderBy('id','desc');
+		$posts = DB::table('mail_emails')->select(['id', 'sender', 'from', 'timestamp','attachment_count', 'type', 'subject', 'read' ])->where('idUser',$user->id)->where('type',$type)->orderBy('id','desc');
 		
         return Datatables::of($posts)
 		->filterColumn('sender', function($query, $keyword) {
@@ -205,7 +205,8 @@ class MailController extends Controller
 		->addColumn('sender', function ($post) {
 				$attachment_count = $post->attachment_count;
 				if($attachment_count=="") $attachment_count = 0;
-                return '<b>'. htmlentities($post->from) .'</b><br />'.tglIndo(strtotime(date('Y-m-d H:i:s', $post->timestamp)),"z",7).'<br />'. $post->subject .'<br /><small><i>Attachment : '. $attachment_count .'</i></small>';
+				$warna = ($post->read==0 ? ' style="background-color:#DEF1FF;"' : '');
+				return '<div'.$warna.'><b>'. htmlentities($post->from) .'</b><br />'.tglIndo(strtotime(date('Y-m-d H:i:s', $post->timestamp)),"z",7).'<br />'. $post->subject .'<br /><small><i>Attachment : '. $attachment_count .'</i></small></div>';
             })
 		->addColumn('action', function ($post) {
 				switch($post->type)
@@ -242,6 +243,10 @@ class MailController extends Controller
 	public function getInboxDetail($type,$id)
 	{
 		$user = Auth::user();
+		\App\Models\Mail\mail_emails::with('attachments')
+				   ->where('id',$id)
+				   ->where('idUser',$user->id)
+				   ->update(['read'=>1]);
 		$result = \App\Models\Mail\mail_emails::with('attachments')
 				   ->where('id',$id)
 				   ->where('idUser',$user->id)

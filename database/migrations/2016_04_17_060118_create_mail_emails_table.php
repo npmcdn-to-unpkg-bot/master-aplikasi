@@ -29,6 +29,7 @@ class CreateMailEmailsTable extends Migration
 			$table->string('signature',255)->nullable();
 			$table->longText('message_headers')->nullable();
 			$table->string('content_id_map',255)->nullable();
+			$table->tinyInteger('read')->default(0);
 			$table->tinyInteger('type')->nullable();
             $table->integer('idUser')->nullable();
             $table->nullableTimestamps();
