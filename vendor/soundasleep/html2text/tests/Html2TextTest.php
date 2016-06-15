@@ -60,4 +60,16 @@ class Html2TextTest extends PHPUnit_Framework_TestCase {
 		$this->doTest("non-breaking-spaces");
 	}
 
+	function testUtf8Example() {
+		$this->doTest("utf8-example");
+	}
+
+	function testWindows1252Example() {
+		$this->doTest("windows-1252-example");
+	}
+
+	function testMsoffice() {
+		$this->doTest("msoffice");
+	}
+
 }
