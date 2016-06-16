@@ -243,12 +243,15 @@
 					</p>
 				</div>
 				<div class="timeline-body">
-                	
+                	<div id="loading" style="background: url(/bower_components/lightbox2/dist/images/loading.gif) no-repeat center;">
                     <div class="photoset-grid" style=" max-width:600px; visibility:hidden" data-layout="{{$result->layout}}">
+                    
                     @foreach($result->attachments as $attachment)
                     	
                     	<img class="image-photo" src="{{ str_replace('image/upload/','image/upload/c_fill,w_250/',$attachment->secure_url) }}" data-highres="{{ $attachment->secure_url }}" data-lightbox="image-{{$result->id}}">
+                        
                     @endforeach
+                    </div>
                     </div>
                     
                     @if(!empty($result->konten))
@@ -316,6 +319,7 @@
 				 $('.image-photo').removeAttr('width');
 				 photogrid();
 				 $('.timeline').infinitescroll('resume');
+				 $("#loading").removeAttr("style")
 			 })
         }
       );
