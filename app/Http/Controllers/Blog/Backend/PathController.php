@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Blog;
+namespace App\Http\Controllers\Blog\Backend;
 use App\Http\Controllers\Controller;
 use DB;
 use Auth;
