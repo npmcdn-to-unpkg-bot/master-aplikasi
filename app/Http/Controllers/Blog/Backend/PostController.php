@@ -309,7 +309,8 @@ class PostController extends Controller
 			
 			// ====================================================================================
 				$url = 'https://partner.path.com/1/moment/photo';
-				$string_path = '{ "source_url": "'.$cloudinary['secure_url'].'", "caption": "'.$judul.' - '.secure_url('').'", "private": true }';
+				if($konten=="") $konten = $judul.' - '.secure_url('');
+				$string_path = '{ "source_url": "'.$cloudinary['secure_url'].'", "caption": "'.$konten.'", "private": false }';
 				$ch = curl_init();
 				curl_setopt($ch,CURLOPT_URL, $url);
 				curl_setopt($ch,CURLOPT_POST, count($string_path));
