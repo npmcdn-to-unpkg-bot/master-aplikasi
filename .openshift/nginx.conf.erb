@@ -33,18 +33,18 @@ server {
     	root    <%= ENV['OPENSHIFT_REPO_DIR'] %>/public;
 	
 	location /phpmyadmin {
-               root /var/lib/openshift/5752c5110c1e663fec0000b3/app-root/data/;
+               root /var/lib/openshift/<%= ENV['OPENSHIFT_APP_UUID'] %>/app-root/data/;
                index index.php index.html index.htm;
                location ~ ^/phpmyadmin/(.+\.php)$ {
                        try_files $uri =404;
-                       root /var/lib/openshift/5752c5110c1e663fec0000b3/app-root/data/;
+                       root /var/lib/openshift/<%= ENV['OPENSHIFT_APP_UUID'] %>/app-root/data/;
                        fastcgi_pass unix:<%= ENV['OPENSHIFT_PHP_SOCKET'] %>;
                        fastcgi_index index.php;
                        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
                        include <%= ENV['OPENSHIFT_PHP_DIR'] %>/usr/conf/fastcgi_params;
                }
                location ~* ^/phpmyadmin/(.+\.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt))$ {
-                       root /var/lib/openshift/5752c5110c1e663fec0000b3/app-root/data/;
+                       root /var/lib/openshift/<%= ENV['OPENSHIFT_APP_UUID'] %>/app-root/data/;
                }
    	}
         
