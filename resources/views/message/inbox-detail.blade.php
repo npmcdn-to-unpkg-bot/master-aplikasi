@@ -204,7 +204,7 @@ function send()
     	</select>
    </div>
     <div class="form-group">
-    <label>To</label>
+    <label>Text</label>
     	<textarea name="text" id="text" cols="45" rows="5" class="form-control"></textarea>
     <input type="hidden" name="to" id="to" autocomplete="off" value="{{$address->address}}" class="form-control" />
     </div>
