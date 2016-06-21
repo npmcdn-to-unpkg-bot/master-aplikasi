@@ -32,21 +32,21 @@ server {
     	listen  <%= ENV['OPENSHIFT_PHP_IP'] %>:<%= ENV['OPENSHIFT_PHP_PORT'] %>;
     	root    <%= ENV['OPENSHIFT_REPO_DIR'] %>/public;
 	
-	# location /phpmyadmin {
-    #            root /var/lib/openshift/<%= ENV['OPENSHIFT_APP_UUID'] %>/app-root/data/;
-    #            index index.php index.html index.htm;
-    #            location ~ ^/phpmyadmin/(.+\.php)$ {
-    #                    try_files $uri =404;
-    #                    root /var/lib/openshift/<%= ENV['OPENSHIFT_APP_UUID'] %>/app-root/data/;
-    #                    fastcgi_pass unix:<%= ENV['OPENSHIFT_PHP_SOCKET'] %>;
-    #                    fastcgi_index index.php;
-    #                    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    #                    include <%= ENV['OPENSHIFT_PHP_DIR'] %>/usr/conf/fastcgi_params;
-    #            }
-    #            location ~* ^/phpmyadmin/(.+\.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt))$ {
-    #                    root /var/lib/openshift/<%= ENV['OPENSHIFT_APP_UUID'] %>/app-root/data/;
-    #            }
-   	# }
+	 location /phpmyadmin {
+                root /var/lib/openshift/<%= ENV['OPENSHIFT_APP_UUID'] %>/app-root/data/;
+                index index.php index.html index.htm;
+                location ~ ^/phpmyadmin/(.+\.php)$ {
+                        try_files $uri =404;
+                        root /var/lib/openshift/<%= ENV['OPENSHIFT_APP_UUID'] %>/app-root/data/;
+                        fastcgi_pass unix:<%= ENV['OPENSHIFT_PHP_SOCKET'] %>;
+                        fastcgi_index index.php;
+                        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                        include <%= ENV['OPENSHIFT_PHP_DIR'] %>/usr/conf/fastcgi_params;
+                }
+                location ~* ^/phpmyadmin/(.+\.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt))$ {
+                        root /var/lib/openshift/<%= ENV['OPENSHIFT_APP_UUID'] %>/app-root/data/;
+                }
+   	 }
         
 	
 	location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|eot|mp4|ogg|ogv|webm)$ {
