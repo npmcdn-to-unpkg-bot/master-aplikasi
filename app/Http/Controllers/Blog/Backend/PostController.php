@@ -120,9 +120,6 @@ class PostController extends Controller
 		$posts = DB::table('blog_posts')->select(['id', 'slug', 'tanggal', 'layout'])->where('idUser',$user->id);
 		
         return Datatables::of($posts)
-		->addColumn('jumlah', function ($post){
-                return BlogClass::jumlahFoto($post->id);
-            })
 		->editColumn('tanggal', function ($post){
                 return tglIndo(strtotime($post->tanggal),"z",0);
             })

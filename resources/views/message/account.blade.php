@@ -16,7 +16,7 @@
 				"aoColumns" : [   
         			{  },
 					{  },   
-        			{ sClass: "alignRight" }  
+        			{ sClass: "text-center" }  
     			],
 				"ajax": "/message/account/list",
 				"columnDefs": [ {"bSortable": false,"targets": -1,"data": null,"defaultContent": "<button id=\"btn-edit\" type=\"button\" class=\"btn btn-success btn-sm\"><b class=\"fa fa-pencil\"> Edit </b></button>&nbsp;<button id=\"btn-del\" type=\"button\" class=\"btn btn-danger btn-sm\"><b class=\"fa fa-trash-o\"> Delete </b></button>"} ]

@@ -19,7 +19,7 @@
         		"ajax": '/mail/{{$type}}/data',
 				columns: [
             		{data: 'sender', name: 'sender', orderable: false, "width": "60%"},
-					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'alignRight', "width": "40%"}
+					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center', "width": "40%"}
             		
         		],
 				"pagingType": "full_numbers"

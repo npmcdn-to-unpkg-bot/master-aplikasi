@@ -19,7 +19,7 @@
 				columns: [
             		{data: 'nama', name: 'nama'},
             		{data: 'phone', name: 'phone'},
-					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'alignRight'}
+					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
             		
         		],
 				"pagingType": "full_numbers"

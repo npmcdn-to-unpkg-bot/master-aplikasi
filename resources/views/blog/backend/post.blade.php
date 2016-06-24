@@ -21,9 +21,8 @@
 				columns: [
             		{data: 'slug', name: 'slug'},
 					{data: 'tanggal', name: 'tanggal'},
-					{data: 'jumlah', name: 'jumlah', searchable: false, orderable: false},
 					{data: 'layout', name: 'layout'},
-					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'alignRight'}
+					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
             		
         		],
 				"pagingType": "full_numbers"
@@ -69,7 +68,6 @@
                                         <tr>
                                             <th>Slug</th>
                                             <th>Tanggal</th>
-                                            <th>Jumlah</th>
                                             <th>Layout</th>
                                             <th></th>
                                         </tr>

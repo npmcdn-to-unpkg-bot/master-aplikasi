@@ -19,7 +19,7 @@
 				columns: [
             		{data: 'name', name: 'name'},
             		{data: 'email', name: 'email'},
-					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'alignRight'}
+					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
             		
         		],
 				"pagingType": "full_numbers"
