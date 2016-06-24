@@ -36,7 +36,7 @@ class AuthController extends Controller
      * @var string
      */
 	
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin';
 	protected $loginPath = '/auth/login';
 	protected $redirectAfterLogout = '/';
 
@@ -54,7 +54,7 @@ class AuthController extends Controller
 	{
 		if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'active' => 1])) {
             // Authentication passed...
-            return redirect()->intended('/home');
+            return redirect()->intended('/admin');
         }
 		return redirect()->intended('/auth/login');
 	}
@@ -74,7 +74,7 @@ class AuthController extends Controller
 			{
 				DB::table('users')->where('id',$rs->id)->update(['active' => 1]);	
 				Auth::loginUsingId($rs->id);
-    			return Redirect::to('home');
+    			return Redirect::to('admin');
 			}
 		}
 	}

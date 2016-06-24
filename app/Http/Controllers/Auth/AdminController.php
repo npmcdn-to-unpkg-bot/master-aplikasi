@@ -7,7 +7,7 @@ use Config;
 use DB;
 
 
-class HomeController extends Controller
+class AdminController extends Controller
 {
 	public function __construct()
 	{
@@ -15,11 +15,11 @@ class HomeController extends Controller
 		$this->middleware('check.level:100');
 	}
 	
-	protected function home()
+	protected function admin()
 	{
 		$user = Auth::user();
 		
-		return view('auth.home')->with('user',$user);
+		return view('auth.admin')->with('user',$user);
 	}
 	
 	

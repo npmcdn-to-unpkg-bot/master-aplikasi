@@ -98,7 +98,7 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href="/home"><i class="fa fa-home fa-fw"></i> Dashboard</a>
+                            <a href="/admin"><i class="fa fa-home fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Message<span class="fa arrow"></span></a>
