@@ -12,7 +12,10 @@
 		"doctrine/dbal": "^2.5",
         "yajra/laravel-datatables-oracle": "^6.9",
 		"cloudinary/cloudinary_php": "dev-master",
-		"soundasleep/html2text": "~0.2"
+		"soundasleep/html2text": "~0.2",
+		"aws/aws-sdk-php":"~3.0",
+		"graham-campbell/flysystem": "^3.0",
+		"league/flysystem-aws-s3-v3": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

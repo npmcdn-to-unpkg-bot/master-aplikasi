@@ -8,6 +8,17 @@
 
 ##Change Log
 
+### v6.13.1 - 2016-06-23
+    - Add option to manually set the total records.
+        -New method: ->setTotalRecords(int total)
+    - Addresses count queries performance issue like #578.
+
+### v6.13.0 - 2016-06-23
+    - Add Auto-Index Column. #597
+    - Add method 'addIndexColumn()' to compliment PR#597.
+        - Note: addIndexColumn can be used without the builder.
+    - Add config file descriptions for reference.
+
 ### v6.12.0 - 2016-06-23
     - Add support for ajax data function. #613
     - Update dataTable service query return docblock and stub.

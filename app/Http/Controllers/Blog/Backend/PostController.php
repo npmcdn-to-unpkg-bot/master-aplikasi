@@ -12,6 +12,7 @@ use Yajra\Datatables\Datatables;
 use Validator;
 use Redirect;
 use File;
+use Storage;
 
 class PostController extends Controller
 {
