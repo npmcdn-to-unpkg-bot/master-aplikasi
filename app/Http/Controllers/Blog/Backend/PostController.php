@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use DB;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Input;
 use Yajra\Datatables\Datatables;
 use Validator;
 use Redirect;
 use File;
+use Storage;
 
 class PostController extends Controller
 {
@@ -18,6 +20,7 @@ class PostController extends Controller
 	{
     	$this->middleware('auth');
 	}
+		
 		
 	public function postImageDelete(Request $request)
 	{
