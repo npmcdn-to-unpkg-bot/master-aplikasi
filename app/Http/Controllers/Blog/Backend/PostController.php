@@ -24,7 +24,6 @@ class PostController extends Controller
 	public function getBackup()
 	{
 		$results = DB::table('blog_attachments')->get();
-		mkdir("temp");
 		foreach($results as $result)
 		{
 			copy($result->secure_url, "temp/". $result->public_id .'.'. $result->format);
