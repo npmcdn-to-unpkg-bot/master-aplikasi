@@ -56,10 +56,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => 'AKIAJV6IXI6HPJA3ZQXA',
-            'secret' => '7b//UDWWqK4S0yKblSNgpfsMJ/lCJuSsqv0wWsTH',
-            'region' => 'Singapore',
-            'bucket' => 'budi-cdn',
+            'key' => 'your-key',
+            'secret' => 'your-secret',
+            'region' => 'your-region',
+            'bucket' => 'your-bucket',
         ],
 
     ],
