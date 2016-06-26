@@ -21,17 +21,6 @@ class PostController extends Controller
     	$this->middleware('auth');
 	}
 		
-	public function getBackup()
-	{
-		$results = DB::table('blog_attachments')->get();
-		foreach($results as $result)
-		{
-			copy($result->secure_url, "temp/". $result->public_id .'.'. $result->format);
-			$s3 = Storage::disk('s3');
-    		$s3->put($result->public_id .'.'. $result->format, "temp/". $result->public_id .'.'. $result->format);
-		}
-	}
-	
 		
 	public function postImageDelete(Request $request)
 	{

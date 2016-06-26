@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 's3',
+    'default' => 'local',
 
     /*
     |--------------------------------------------------------------------------
@@ -56,10 +56,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => 'AKIAIAPWPCX4NHPZ5L5Q',
-            'secret' => 'jNlMt0eklKSxDuRxmtr0DS5j8BQkkaOOr2ShZ97M',
-            'region' => 'ap-southeast-1',
-            'bucket' => 'budi-cdn',
+            'key' => 'your-key',
+            'secret' => 'your-secret',
+            'region' => 'your-region',
+            'bucket' => 'your-bucket',
         ],
 
     ],
