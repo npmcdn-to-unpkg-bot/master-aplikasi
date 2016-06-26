@@ -58,7 +58,7 @@ return [
             'driver' => 's3',
             'key' => 'AKIAIAPWPCX4NHPZ5L5Q',
             'secret' => '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',
-            
+            'region' => 'ap-southeast-1',
             'bucket' => 'budi-cdn',
         ],
 
