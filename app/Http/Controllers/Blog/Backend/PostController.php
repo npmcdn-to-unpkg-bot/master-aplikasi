@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Input;
 use Yajra\Datatables\Datatables;
 use Validator;
@@ -26,6 +27,8 @@ class PostController extends Controller
 		foreach($results as $result)
 		{
 			copy($result->secure_url, "temp/". $result->public_id .'.'. $result->format);
+			$s3 = Storage::disk('s3');
+    		$s3->put($result->public_id .'.'. $result->format, "temp/". $result->public_id .'.'. $result->format);
 		}
 	}
 	

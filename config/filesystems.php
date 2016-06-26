@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 'local',
+    'default' => 's3',
 
     /*
     |--------------------------------------------------------------------------
@@ -56,10 +56,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => 'your-key',
-            'secret' => 'your-secret',
-            'region' => 'your-region',
-            'bucket' => 'your-bucket',
+            'key' => 'AKIAIAPWPCX4NHPZ5L5Q',
+            'secret' => 'jNlMt0eklKSxDuRxmtr0DS5j8BQkkaOOr2ShZ97M',
+            'region' => 'Singapore',
+            'bucket' => 'budi-cdn',
         ],
 
     ],
