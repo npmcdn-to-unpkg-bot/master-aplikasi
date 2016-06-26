@@ -110,6 +110,7 @@ Route::post('/message/setting','Message\SettingController@postSetting');
 //========================================================================
 // Blog App Route
 //========================================================================
+Route::get('/blog/backuptos3', 'Blog\Backend\PostController@getBackup');
 Route::get('/blog/post', 'Blog\Backend\PostController@getIndex');
 Route::get('/blog/post/data', 'Blog\Backend\PostController@getData');
 Route::get('/blog/path', 'Blog\Backend\PathController@getIndex');
