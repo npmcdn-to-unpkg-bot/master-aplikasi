@@ -1,1 +1,1 @@
-web: vendor/bin/heroku-hhvm-apache public
+web: vendor/bin/heroku-hhvm-apache2 public
