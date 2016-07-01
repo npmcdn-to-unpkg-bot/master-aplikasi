@@ -34,7 +34,7 @@ class TimelineController extends Controller
 				   ->orderBy('tanggal','desc')
 				   ->paginate(6);
 		
-		if($_SERVER['HTTP_CF_VISITOR']!="") $results->setPath(secure_url('')."/");
+		if(isset($_SERVER['HTTP_CF_VISITOR'])) $results->setPath(secure_url('')."/");
 		
 		$url = Request::url();
 		
