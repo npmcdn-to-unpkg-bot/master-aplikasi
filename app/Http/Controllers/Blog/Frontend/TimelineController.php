@@ -36,6 +36,11 @@ class TimelineController extends Controller
 		
 		if(isset($_SERVER['HTTP_CF_VISITOR'])) $results->setPath(secure_url('')."/");
 		
+		if(isset($_SERVER['HTTP_X_FORWARDED_PROTO']))
+		{
+			if($_SERVER['HTTP_X_FORWARDED_PROTO']=="https") $results->setPath(secure_url('')."/");
+		}
+		
 		$url = Request::url();
 		
 		$stdClass = app();
