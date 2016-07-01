@@ -46,6 +46,7 @@ class TimelineController extends Controller
 		$stdClass = app();
     	$setting = $stdClass->make('stdClass');
 		$setting->judul1 = BlogClass::getConf('judul1',1);
+		if($setting->judul1=="") $setting->judul1 = str_ireplace("www.","",$_SERVER['HTTP_HOST']);
 		$setting->judul2 = BlogClass::getConf('judul2',1);
 		$setting->deskripsi = BlogClass::getConf('deskripsi',1);
 		$setting->header_url = BlogClass::getConf('header_url',1);
