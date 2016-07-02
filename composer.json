@@ -7,7 +7,6 @@
     "require": {
         "hhvm": "^3.5",
 		"ext-gd": "*",
-		"ext-pgsql": "*",
         "laravel/framework": "5.2.*",
 		"twilio/sdk": "^4.5",
         "guzzlehttp/guzzle": "~5.3|~6.0",
