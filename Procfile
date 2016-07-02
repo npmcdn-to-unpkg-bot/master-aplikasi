@@ -1,1 +1,1 @@
-web: vendor/bin/heroku-hhvm-apache2 public/
+web: vendor/bin/heroku-hhvm-nginx public/ -I hhvm_custom.ini
