@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "hhvm": "^3.6",
+        "php": "7.0.7",
 		"ext-gd": "*",
         "laravel/framework": "5.2.*",
 		"twilio/sdk": "^4.5",
@@ -41,18 +41,18 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "hhvm -r \"copy('.env.example', '.env');\""
+            "php -r \"copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "hhvm artisan key:generate"
+            "php artisan key:generate"
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "hhvm artisan optimize"
+            "php artisan optimize"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "hhvm artisan optimize"
+            "php artisan optimize"
         ]
     },
     "config": {
