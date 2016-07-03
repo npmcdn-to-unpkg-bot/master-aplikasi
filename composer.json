@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "7.0.7",
+        "php": ">=5.5.9",
 		"ext-gd": "*",
         "laravel/framework": "5.2.*",
 		"twilio/sdk": "^4.5",
