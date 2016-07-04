@@ -83,7 +83,6 @@ class WebhookController extends Controller
 				"url" => $url_link,
 				"url_title" => "Reply to ". $kontak,
   				),
-  				CURLOPT_SAFE_UPLOAD => true,
 				));
 				curl_exec($ch);
 				curl_close($ch);
