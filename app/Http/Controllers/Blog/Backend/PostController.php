@@ -208,7 +208,7 @@ class PostController extends Controller
   				"api_secret" => env('CLOUDINARY_SECRET') 
 			));
 			
-			$cloudinary = \Cloudinary\Uploader::upload($rs->file);
+			$cloudinary = \Cloudinary\Uploader::upload(realpath($rs->file));
 			
 			
 			
@@ -284,7 +284,7 @@ class PostController extends Controller
   				"api_secret" => env('CLOUDINARY_SECRET') 
 			));
 			
-			$cloudinary = \Cloudinary\Uploader::upload($rs->file);
+			$cloudinary = \Cloudinary\Uploader::upload(realpath($rs->file));
 			
 			DB::table('blog_attachments')
 			->insert([
