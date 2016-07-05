@@ -81,7 +81,7 @@ class WebhookController extends Controller
   						"api_secret" => env('CLOUDINARY_SECRET') 
 					));
 											   
-					$cloudinary = \Cloudinary\Uploader::upload($file['tmp_name'],array("resource_type" => "raw"));
+					$cloudinary = \Cloudinary\Uploader::upload(realpath($file['tmp_name']),array("resource_type" => "raw"));
 					DB::table('mail_attachments')
 					->insert([
 					'email_id'=>$mail_emails->id,
