@@ -145,7 +145,7 @@ class MailController extends Controller
 			$m->to($to)->subject($subject);
 			foreach($result as $rs)
 			{
-				$m->attach($rs->file);
+				$m->attach(realpath($rs->file));
 			}
         });
 		
