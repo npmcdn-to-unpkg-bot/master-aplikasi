@@ -21,16 +21,35 @@ Route::get('/', 'Blog\Frontend\TimelineController@getIndex');
 Route::get('/post/{id}', array('uses'=>'Blog\Frontend\TimelineController@getSingle'));
 Route::get('/admin', 'Auth\AdminController@admin');
 //========================================================================
+
 Route::get('/errors/403', function()
 {
 	$user = Auth::user();
     return View::make('errors.403')->with('user',$user);
 });
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/phpinfo', function ()    {
         phpinfo();
     });
 });
+//========================================================================
+// Auth Route
+//========================================================================
+Route::get('/auth/login', 'Auth\AuthController@getLogin');
+Route::post('/auth/login', 'Auth\AuthController@postLogin');
+Route::get('/auth/logout', 'Auth\AuthController@getLogout');
+Route::get('/auth/register', 'Auth\AuthController@getRegister');
+Route::post('/auth/register', 'Auth\AuthController@postRegister');
+Route::get('/auth/register/verify/{email}/{confirmation_code}', array('uses'=>'Auth\AuthController@getVerify'));
+Route::get('/auth/password/email', 'Auth\PasswordController@getEmail');
+Route::post('/auth/password/email', 'Auth\PasswordController@postEmail');
+Route::get('/auth/password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('/auth/password/reset', 'Auth\PasswordController@postReset');
+Route::get('/auth/setting', 'Auth\SettingController@getSetting');
+Route::post('/auth/setting', 'Auth\SettingController@postSetting');
+
+Route::group(['middleware' => 'auth'], function () {
 //========================================================================
 // Mail App Route
 //========================================================================
@@ -59,20 +78,9 @@ Route::get('/mail/spam/empty', 'Mail\MailController@getEmptySpam');
 Route::get('/mail/trash/empty', 'Mail\MailController@getEmptyTrash');
 Route::get('/mail/trash/{id}', array('as'=>'id','uses'=>'Mail\MailController@getTrashData'));
 //========================================================================
-// Auth Route
-//========================================================================
-Route::get('/auth/login', 'Auth\AuthController@getLogin');
-Route::post('/auth/login', 'Auth\AuthController@postLogin');
-Route::get('/auth/logout', 'Auth\AuthController@getLogout');
-Route::get('/auth/register', 'Auth\AuthController@getRegister');
-Route::post('/auth/register', 'Auth\AuthController@postRegister');
-Route::get('/auth/register/verify/{email}/{confirmation_code}', array('uses'=>'Auth\AuthController@getVerify'));
-Route::get('/auth/password/email', 'Auth\PasswordController@getEmail');
-Route::post('/auth/password/email', 'Auth\PasswordController@postEmail');
-Route::get('/auth/password/reset/{token}', 'Auth\PasswordController@getReset');
-Route::post('/auth/password/reset', 'Auth\PasswordController@postReset');
-Route::get('/auth/setting', 'Auth\SettingController@getSetting');
-Route::post('/auth/setting', 'Auth\SettingController@postSetting');
+});
+
+Route::group(['middleware' => 'auth'], function () {
 //========================================================================
 // SMS App Route
 //========================================================================
@@ -108,6 +116,10 @@ Route::post('/message/send','Message\SMSController@postSend');
 Route::get('/message/setting','Message\SettingController@getSetting');
 Route::post('/message/setting','Message\SettingController@postSetting');
 //========================================================================
+});
+
+Route::group(['middleware' => 'auth'], function () {
+//========================================================================
 // Blog App Route
 //========================================================================
 Route::get('/blog/post', 'Blog\Backend\PostController@getIndex');
@@ -124,3 +136,4 @@ Route::get('/blog/post/delete/{id}', array('as'=>'id','uses'=>'Blog\Backend\Post
 Route::post('/blog/image/add', 'Blog\Backend\PostController@postImageAdd');
 Route::post('/blog/image/delete', 'Blog\Backend\PostController@postImageDelete');
 //========================================================================
+});
