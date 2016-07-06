@@ -215,12 +215,27 @@
 	?>
     @foreach($results as $result)
     	<?php
+		
+		$aaa = $result->tanggal;
+		$cek_tanggal = DB::table('blog_posts')
+					   ->where('tanggal',function($query) use ($aaa){
+						  $query->select(DB::Raw(' min(tanggal) '))->from('blog_posts')->where('tanggal','>',$aaa);
+						  })
+					   ->where('idUser',1)
+					   ->first();
+					   
+		if(isset($cek_tanggal->tanggal)) $tanggal = strtoupper(date("F",strtotime($cek_tanggal->tanggal)) ." ". date("Y",strtotime($cek_tanggal->tanggal)));
+		
+		
 		$time=strtotime($result->tanggal);
 		$day=date("d",$time);
 		$month=date("F",$time);
 		$MONTH=date("M",$time);
 		$year=date("Y",$time);
 		$tanggal2 = strtoupper($month ." ". $year);
+		
+		//print($cek_tanggal->tanggal ." ". $result->tanggal);
+		
 		if(($tanggal!=$tanggal2))
 		{
 			$tanggal = $tanggal2;
