@@ -262,8 +262,16 @@
                     <div class="photoset-grid" style=" max-width:600px; visibility:hidden" data-layout="{{$result->layout}}">
                     
                     @foreach($result->attachments as $attachment)
-                    	
-                    	<img class="image-photo" src="{{ str_replace('image/upload/','image/upload/c_fill,w_250/',$attachment->secure_url) }}" data-highres="{{ $attachment->secure_url }}" data-lightbox="image-{{$result->id}}">
+                    	<?php
+						$img250 = str_replace('image/upload/','image/upload/c_fill,w_250/',$attachment->secure_url);
+						// https://res.cloudinary.com/budi/image/upload/c_fill,w_250/v1466941131/a4vowyevad4j4a2ure6l.jpg
+						// https://s3-ap-southeast-1.amazonaws.com/budi-cdn/250/a4vowyevad4j4a2ure6l.jpeg
+						$img250 = str_replace("https://res.cloudinary.com/budi/image/upload/c_fill,w_250/v1466941131/","https://budi-cdn.s3.amazonaws.com/250/",$img250);
+						
+						$imgfull = $attachment->secure_url;
+						$imgfull = str_replace("https://res.cloudinary.com/budi/image/upload/v1466941131/","https://budi-cdn.s3.amazonaws.com/",$imgfull);
+						?>
+                    	<img class="image-photo" src="{{ $img250 }}" data-highres="{{ $imgfull }}" data-lightbox="image-{{$result->id}}">
                         
                     @endforeach
                     </div>
