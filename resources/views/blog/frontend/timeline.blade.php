@@ -263,7 +263,7 @@
                     
                     @foreach($result->attachments as $attachment)
                     	
-                    	<img class="image-photo" src="https://d2bj65itxrgd3i.cloudfront.net/250/{{ $attachment->public_id }}.jpg" data-highres="https://d2bj65itxrgd3i.cloudfront.net/{{ $attachment->public_id }}.jpg" data-lightbox="image-{{$result->id}}">
+                    	<img class="image-photo" src="{{ str_replace('image/upload/','image/upload/c_fill,w_250/',$attachment->secure_url) }}" data-highres="{{ $attachment->secure_url }}" data-lightbox="image-{{$result->id}}">
                         
                     @endforeach
                     </div>
