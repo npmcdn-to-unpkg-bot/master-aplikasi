@@ -28,11 +28,10 @@ Route::get('/errors/403', function()
     return View::make('errors.403')->with('user',$user);
 });
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/phpinfo', function ()    {
-        phpinfo();
-    });
-});
+Route::post('/mail/webhook', 'Mail\WebhookController@webhook');
+Route::post('/message/webhook/{service}',array('as'=>'service','uses'=>'Message\WebhookController@webhook'));
+Route::get('/message/webhook/{service}',array('as'=>'service','uses'=>'Message\WebhookController@webhook'));
+
 //========================================================================
 // Auth Route
 //========================================================================
@@ -49,7 +48,11 @@ Route::post('/auth/password/reset', 'Auth\PasswordController@postReset');
 Route::get('/auth/setting', 'Auth\SettingController@getSetting');
 Route::post('/auth/setting', 'Auth\SettingController@postSetting');
 
-
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/phpinfo', function ()    {
+        phpinfo();
+    });
+});
 //========================================================================
 // Mail App Route
 //========================================================================
@@ -60,7 +63,6 @@ Route::post('/mail/account/add', 'Mail\AccountController@postAddData');
 Route::get('/mail/account/edit/{id}', array('as'=>'id','uses'=>'Mail\AccountController@getEditData'));
 Route::post('/mail/account/edit', 'Mail\AccountController@postEditData');
 Route::get('/mail/account/delete/{id}', array('as'=>'id','uses'=>'Mail\AccountController@getDeleteData'));
-Route::post('/mail/webhook', 'Mail\WebhookController@webhook');
 Route::get('/mail/compose', 'Mail\MailController@getCompose');
 Route::post('/mail/compose', 'Mail\MailController@postCompose');
 Route::get('/mail/setting','Mail\SettingController@getSetting');
@@ -78,8 +80,6 @@ Route::get('/mail/spam/empty', 'Mail\MailController@getEmptySpam');
 Route::get('/mail/trash/empty', 'Mail\MailController@getEmptyTrash');
 Route::get('/mail/trash/{id}', array('as'=>'id','uses'=>'Mail\MailController@getTrashData'));
 //========================================================================
-
-
 
 //========================================================================
 // SMS App Route
@@ -101,8 +101,6 @@ Route::post('/message/inbox/import', 'Message\SMSController@postImportData');
 Route::get('/message/inbox/deleteMessage/{id}',array('as'=>'address','uses'=>'Message\SMSController@getDelMessage'));
 Route::get('/message/inbox/detail/{id}',array('as'=>'id','uses'=>'Message\SMSController@getInboxDetail'));
 Route::get('/message/inbox/delete/{id}', array('as'=>'id','uses'=>'Message\SMSController@getDeleteData'));
-Route::post('/message/webhook/{service}',array('as'=>'service','uses'=>'Message\WebhookController@webhook'));
-Route::get('/message/webhook/{service}',array('as'=>'service','uses'=>'Message\WebhookController@webhook'));
 Route::get('/message/account', 'Message\AccountController@getData');
 Route::get('/message/account/list', 'Message\AccountController@getListData');
 Route::get('/message/account/edit/{id}', array('as'=>'id','uses'=>'Message\AccountController@getEditData'));
@@ -116,8 +114,6 @@ Route::post('/message/send','Message\SMSController@postSend');
 Route::get('/message/setting','Message\SettingController@getSetting');
 Route::post('/message/setting','Message\SettingController@postSetting');
 //========================================================================
-
-
 
 //========================================================================
 // Blog App Route
