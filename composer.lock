@@ -1939,23 +1939,23 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.2",
+            "version": "v5.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8"
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1,<0.9.4"
+                "mockery/mockery": "~0.9.1"
             },
             "type": "library",
             "extra": {
@@ -1988,7 +1988,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-05-01 08:45:47"
+            "time": "2016-07-08 11:51:25"
         },
         {
             "name": "symfony/console",
@@ -2971,16 +2971,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v6.15.0",
+            "version": "v6.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "c1bbfc01434f1ebe808f75a339a6ded5557d3664"
+                "reference": "514c671b3de1a0e0e59dc9e1e7f987eb3d67fef3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/c1bbfc01434f1ebe808f75a339a6ded5557d3664",
-                "reference": "c1bbfc01434f1ebe808f75a339a6ded5557d3664",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/514c671b3de1a0e0e59dc9e1e7f987eb3d67fef3",
+                "reference": "514c671b3de1a0e0e59dc9e1e7f987eb3d67fef3",
                 "shasum": ""
             },
             "require": {
@@ -3027,7 +3027,7 @@
                 "laravel4",
                 "laravel5"
             ],
-            "time": "2016-07-05 01:37:34"
+            "time": "2016-07-13 05:35:29"
         }
     ],
     "packages-dev": [
