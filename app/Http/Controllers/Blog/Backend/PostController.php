@@ -217,12 +217,12 @@ class PostController extends Controller
 		}
 			
 		$result = DB::table('blog_tmp')->where('key',$key)->where('idUser',$user->id)->get();
-		$result_sort = DB::table('blog_attachments')->where('post_id',$id)->where('idUser',$user->id)->max('sort');
+		$sort_order = DB::table('blog_attachments')->where('post_id',$id)->where('idUser',$user->id)->max('sort');
 		
-		//$sort_order = $result_sort->sort;
+		
 		foreach($result as $rs)
 		{
-			//$sort_order++;
+			$sort_order++;
 			\Cloudinary::config(array( 
   				"cloud_name" => env('CLOUDINARY_NAME'), 
   				"api_key" => env('CLOUDINARY_KEY'), 
@@ -235,7 +235,7 @@ class PostController extends Controller
 			
 			DB::table('blog_attachments')
 			->insert([
-			'post_id'=>$nextid,
+			'post_id'=>$id,
 			'public_id'=> $cloudinary['public_id'],
 			'version'=> $cloudinary['version'],
 			'signature'=> $cloudinary['signature'],
