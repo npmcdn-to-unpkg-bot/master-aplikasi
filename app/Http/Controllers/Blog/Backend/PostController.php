@@ -161,7 +161,7 @@ class PostController extends Controller
 	{
 		$user = Auth::user();
 		$result = DB::table('blog_posts')->where('idUser',$user->id)->where('id',$id)->first();
-		$result_attachments = DB::table('blog_attachments')->where('post_id',$result->id)->where('idUser',$user->id)->orderBy('short','asc')->get();
+		$result_attachments = DB::table('blog_attachments')->where('post_id',$result->id)->where('idUser',$user->id)->orderBy('sort','asc')->get();
 		$key = md5(date('YmdHis'));
 		return view('blog.backend.post-edit')
 			   ->with('user',$user)
@@ -196,7 +196,7 @@ class PostController extends Controller
 			->where('id', $rs->id)
 			->where('post_id',$id)
 			->where('idUser',$user->id)
-			->update(['short'=>$aaa]);
+			->update(['sort'=>$aaa]);
 		}
 		
 		
@@ -217,9 +217,12 @@ class PostController extends Controller
 		}
 			
 		$result = DB::table('blog_tmp')->where('key',$key)->where('idUser',$user->id)->get();
+		$result_sort = DB::table('blog_attachments')->where('post_id',$id)->where('idUser',$user->id)->max('sort');
 		
+		//$sort_order = $result_sort->sort;
 		foreach($result as $rs)
 		{
+			//$sort_order++;
 			\Cloudinary::config(array( 
   				"cloud_name" => env('CLOUDINARY_NAME'), 
   				"api_key" => env('CLOUDINARY_KEY'), 
@@ -245,6 +248,7 @@ class PostController extends Controller
 			'etag'=> $cloudinary['etag'],
 			'url'=> $cloudinary['url'],
 			'secure_url'=> $cloudinary['secure_url'],
+			'sort'=>$sort_order,
 			'idUser'=> $user->id]
 			);
 			
@@ -292,10 +296,10 @@ class PostController extends Controller
 		$authorization = "Authorization: Bearer ". $path->access_token;
 		// ====================================================================================
 		
-		$short_order = 0 ;
+		$sort_order = 0 ;
 		foreach($result as $rs)
 		{
-			$short_order++;
+			$sort_order++;
 			\Cloudinary::config(array( 
   				"cloud_name" => env('CLOUDINARY_NAME'), 
   				"api_key" => env('CLOUDINARY_KEY'), 
@@ -319,7 +323,7 @@ class PostController extends Controller
 			'etag'=> $cloudinary['etag'],
 			'url'=> $cloudinary['url'],
 			'secure_url'=> $cloudinary['secure_url'],
-			'short'=>$short_order,
+			'sort'=>$sort_order,
 			'idUser'=> $user->id]
 			);
 			

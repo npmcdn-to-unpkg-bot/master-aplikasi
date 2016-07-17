@@ -26,12 +26,12 @@ class TimelineController extends Controller
 		
 		if(!count($last)) return Redirect('/auth/login');
 		
-		$last_attachment = DB::table('blog_attachments')->where('post_id',$last->id)->orderBy('short','asc')->first();
+		$last_attachment = DB::table('blog_attachments')->where('post_id',$last->id)->orderBy('sort','asc')->first();
 		
 		
 		$results = \App\Models\Blog\blog_posts::with(array('attachments' => function($query)
 				   {
-					   $query->orderBy('short', 'asc');
+					   $query->orderBy('sort', 'asc');
 				   }
 				   ))
 				   ->where('tipe_konten','gallery')
@@ -81,7 +81,7 @@ class TimelineController extends Controller
 				   ->first();
 		
 		
-		$last_attachment = DB::table('blog_attachments')->where('post_id',$last->id)->orderBy('short','asc')->first();
+		$last_attachment = DB::table('blog_attachments')->where('post_id',$last->id)->orderBy('sort','asc')->first();
 		
 		$url = Request::url();
 		
