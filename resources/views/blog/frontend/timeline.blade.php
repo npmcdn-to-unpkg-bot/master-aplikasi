@@ -207,7 +207,7 @@
                     </div>
     </header>
 <!-- ################################################################### -->
- <section id="section"  style="background-color:#e9f0f5; max-width:780px; margin:0 auto;">
+ <section id="section"  style="background-color:#e9f0f5; max-width:1024px; margin:0 auto;">
  	<ul class="timeline">
 	<?php
 	$i = 1;
@@ -263,7 +263,7 @@
                     
                     @foreach($result->attachments as $attachment)
                     	
-                    	<img class="image-photo" src="{{ str_replace('image/upload/','image/upload/c_fill,w_250/',$attachment->secure_url) }}" data-highres="{{ $attachment->secure_url }}" data-lightbox="image-{{$result->id}}">
+                    	<img class="image-photo" src="{{ str_replace('image/upload/','image/upload/c_fill,w_500/',$attachment->secure_url) }}" data-highres="{{ $attachment->secure_url }}" data-lightbox="image-{{$result->id}}">
                         
                     @endforeach
                     </div>
