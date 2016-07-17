@@ -37,6 +37,7 @@ class CreateBlogAttachmentsTable extends Migration
 			$table->string('etag',255)->nullable();
 			$table->string('url',255)->nullable();
 			$table->string('secure_url',255)->nullable();
+			$table->integer('short')->nullable();
 			$table->integer('idUser');
             $table->nullableTimestamps();
         });

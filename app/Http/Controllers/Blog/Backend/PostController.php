@@ -161,9 +161,14 @@ class PostController extends Controller
 	{
 		$user = Auth::user();
 		$result = DB::table('blog_posts')->where('idUser',$user->id)->where('id',$id)->first();
-		
+		$result_attachments = DB::table('blog_attachments')->where('post_id',$result->id)->where('idUser',$user->id)->orderBy('short','asc')->get();
 		$key = md5(date('YmdHis'));
-		return view('blog.backend.post-edit')->with('user',$user)->with('key',$key)->with('result',$result)->with('id',$id);
+		return view('blog.backend.post-edit')
+			   ->with('user',$user)
+			   ->with('key',$key)
+			   ->with('result',$result)
+			   ->with('result_attachments',$result_attachments)
+			   ->with('id',$id);
 	}
 	
 	public function postEditPost(Request $request)
@@ -181,6 +186,19 @@ class PostController extends Controller
 		$konten = $request->input('konten');
 		$layout = $request->input('layout');
 		$id = $request->input('id');
+		
+		$result = DB::table('blog_attachments')->where('post_id',$id)->where('idUser',$user->id)->get();
+		foreach($result as $rs)
+		{
+			$aaa = $request->input('attachment_'. $rs->id);
+			if($aaa=="") $aaa = 0;
+			DB::table('blog_attachments')
+			->where('id', $rs->id)
+			->where('post_id',$id)
+			->where('idUser',$user->id)
+			->update(['short'=>$aaa]);
+		}
+		
 		
 		if($layout=="") $layout = 1;
 		
@@ -274,10 +292,10 @@ class PostController extends Controller
 		$authorization = "Authorization: Bearer ". $path->access_token;
 		// ====================================================================================
 		
-		
+		$short_order = 0 ;
 		foreach($result as $rs)
 		{
-			
+			$short_order++;
 			\Cloudinary::config(array( 
   				"cloud_name" => env('CLOUDINARY_NAME'), 
   				"api_key" => env('CLOUDINARY_KEY'), 
@@ -301,6 +319,7 @@ class PostController extends Controller
 			'etag'=> $cloudinary['etag'],
 			'url'=> $cloudinary['url'],
 			'secure_url'=> $cloudinary['secure_url'],
+			'short'=>$short_order,
 			'idUser'=> $user->id]
 			);
 			

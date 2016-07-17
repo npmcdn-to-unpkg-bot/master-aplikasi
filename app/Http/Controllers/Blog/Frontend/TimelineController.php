@@ -20,19 +20,26 @@ class TimelineController extends Controller
 		$last = \App\Models\Blog\blog_posts::with('attachments')
 				   ->where('tipe_konten','gallery')
 				   ->where('idUser',1)
+				   ->where('status',1)
 				   ->orderBy('tanggal','desc')
 				   ->first();
 		
 		if(!count($last)) return Redirect('/auth/login');
 		
-		$last_attachment = DB::table('blog_attachments')->where('post_id',$last->id)->orderBy('id','asc')->first();
+		$last_attachment = DB::table('blog_attachments')->where('post_id',$last->id)->orderBy('short','asc')->first();
 		
 		
-		$results = \App\Models\Blog\blog_posts::with('attachments')
+		$results = \App\Models\Blog\blog_posts::with(array('attachments' => function($query)
+				   {
+					   $query->orderBy('short', 'asc');
+				   }
+				   ))
 				   ->where('tipe_konten','gallery')
 				   ->where('idUser',1)
+				   ->where('status',1)
 				   ->orderBy('tanggal','desc')
 				   ->paginate(6);
+		
 		
 		if(isset($_SERVER['HTTP_CF_VISITOR'])) $results->setPath(secure_url('')."/");
 		
@@ -74,7 +81,7 @@ class TimelineController extends Controller
 				   ->first();
 		
 		
-		$last_attachment = DB::table('blog_attachments')->where('post_id',$last->id)->orderBy('id','asc')->first();
+		$last_attachment = DB::table('blog_attachments')->where('post_id',$last->id)->orderBy('short','asc')->first();
 		
 		$url = Request::url();
 		

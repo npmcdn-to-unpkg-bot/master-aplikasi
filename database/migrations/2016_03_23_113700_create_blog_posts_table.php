@@ -23,6 +23,7 @@ class CreateBlogPostsTable extends Migration
 			$table->dateTime('tanggal')->nullable();
 			$table->longText('konten')->nullable();
 			$table->string('layout')->nullable();
+			$table->tinyInteger('status')->default(1);
             $table->integer('idUser')->nullable();
             $table->nullableTimestamps();
         });
