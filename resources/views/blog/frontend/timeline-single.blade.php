@@ -23,8 +23,34 @@
  <section id="section"  style="background-color:#e9f0f5; max-width:500px; margin:20px auto;">
  <div style="margin-left:10px; margin-right:10px;">
  	<div class="photoset-grid" style=" max-width:500px; visibility:hidden;" data-layout="{{$last->layout}}">
+    				<?php
+					$a = $last->layout;
+					$b = str_split($a);
+					$c = 0 ;
+					$e = 0 ;
+					?>
     	@foreach($last->attachments as $attachment)
-        	<img class="image-photo" src="{{ str_replace('image/upload/','image/upload/c_fill,w_500/',$attachment->secure_url) }}" data-highres="{{ $attachment->secure_url }}" data-lightbox="image-{{$last->id}}">
+        				<?php
+						$e++;
+						$d = $b[$c]; // 2
+						if($e==$d)
+						{
+							$c++;
+							$e=0;
+						}
+						if($d>1)
+						{
+						?>
+						<img class="image-photo" src="{{ str_replace('image/upload/','image/upload/c_fill,w_250/',$attachment->secure_url) }}" data-highres="{{ $attachment->secure_url }}" data-lightbox="image-{{$last->id}}">
+						<?php	
+						}
+						else
+						{
+						?>
+                    	<img class="image-photo" src="{{ str_replace('image/upload/','image/upload/c_fill,w_500/',$attachment->secure_url) }}" data-highres="{{ $attachment->secure_url }}" data-lightbox="image-{{$last->id}}">
+                        <?php
+						}
+						?>
     	@endforeach
     </div>
     @if(!empty($last->konten))

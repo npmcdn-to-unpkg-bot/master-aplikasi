@@ -73,13 +73,18 @@ class TimelineController extends Controller
 	{
 		
 		
-		$last = \App\Models\Blog\blog_posts::with('attachments')
+		$last = \App\Models\Blog\blog_posts::with(array('attachments' => function($query)
+				   {
+					   $query->orderBy('sort', 'asc');
+				   }
+				   ))
 				   ->where('tipe_konten','gallery')
 				   ->where('idUser',1)
 				   ->where('slug',$id)
 				   ->orderBy('tanggal','desc')
 				   ->first();
 		
+		if(!isset($last)) return redirect("/");
 		
 		$last_attachment = DB::table('blog_attachments')->where('post_id',$last->id)->orderBy('sort','asc')->first();
 		

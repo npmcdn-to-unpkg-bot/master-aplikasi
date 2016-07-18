@@ -18,7 +18,6 @@ Route::get('/', function () {
 */
 
 Route::get('/', 'Blog\Frontend\TimelineController@getIndex');
-Route::get('/post/{id}', array('uses'=>'Blog\Frontend\TimelineController@getSingle'));
 Route::get('/admin', 'Auth\AdminController@admin');
 //========================================================================
 
@@ -132,3 +131,5 @@ Route::get('/blog/post/delete/{id}', array('as'=>'id','uses'=>'Blog\Backend\Post
 Route::post('/blog/image/add', 'Blog\Backend\PostController@postImageAdd');
 Route::post('/blog/image/delete', 'Blog\Backend\PostController@postImageDelete');
 //========================================================================
+
+Route::get('/{id}', array('uses'=>'Blog\Frontend\TimelineController@getSingle'));
