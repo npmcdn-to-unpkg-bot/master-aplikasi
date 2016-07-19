@@ -196,7 +196,7 @@
         <!-- /.container-fluid -->
     </nav>
 <!-- ################################################################### -->
-	<header class="intro-header" style="background-image: url('{{ $setting->header_url }}')">
+	<header class="intro-header" style="background-image: url('{{ $setting->header_url }}'); background-color:#000000">
                     <div class="site-heading">
                     <div class="transbox">
                         <h1 style="padding:5px;">{{ $setting->judul2 }}</h1>
