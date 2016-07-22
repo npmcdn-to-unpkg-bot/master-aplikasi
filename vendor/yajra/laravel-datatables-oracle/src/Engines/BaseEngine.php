@@ -5,9 +5,7 @@ namespace Yajra\Datatables\Engines;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
-use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
-use League\Fractal\Serializer\DataArraySerializer;
 use Yajra\Datatables\Contracts\DataTableEngineContract;
 use Yajra\Datatables\Helper;
 use Yajra\Datatables\Processors\DataProcessor;
@@ -597,10 +595,10 @@ abstract class BaseEngine implements DataTableEngineContract
     {
         if ($this->autoFilter && $this->request->isSearchable()) {
             $this->filtering();
-        } else {
-            if (is_callable($this->filterCallback)) {
-                call_user_func($this->filterCallback, $this->filterCallbackParameters);
-            }
+        }
+
+        if (is_callable($this->filterCallback)) {
+            call_user_func($this->filterCallback, $this->filterCallbackParameters);
         }
 
         $this->columnSearch();
@@ -648,11 +646,11 @@ abstract class BaseEngine implements DataTableEngineContract
             //If parameter is class assuming it requires object
             //Else just pass array by default
             if ($parameter->getClass()) {
-                $resource = new Collection($this->results(), new $this->transformer());
+                $resource = new Collection($this->results(), $this->createTransformer());
             } else {
                 $resource = new Collection(
                     $this->getProcessedData($object),
-                    new $this->transformer()
+                    $this->createTransformer()
                 );
             }
 
@@ -667,6 +665,20 @@ abstract class BaseEngine implements DataTableEngineContract
         }
 
         return new JsonResponse($output);
+    }
+
+    /**
+     * Get or create transformer instance.
+     *
+     * @return \League\Fractal\TransformerAbstract
+     */
+    protected function createTransformer()
+    {
+        if ($this->transformer instanceof \League\Fractal\TransformerAbstract) {
+            return $this->transformer;
+        }
+
+        return new $this->transformer();
     }
 
     /**
@@ -716,11 +728,11 @@ abstract class BaseEngine implements DataTableEngineContract
      *
      * @param  \Closure $callback
      * @param  mixed $parameters
-     * @return void
+     * @param  bool $autoFilter
      */
-    public function overrideGlobalSearch(\Closure $callback, $parameters)
+    public function overrideGlobalSearch(\Closure $callback, $parameters, $autoFilter = false)
     {
-        $this->autoFilter               = false;
+        $this->autoFilter               = $autoFilter;
         $this->isFilterApplied          = true;
         $this->filterCallback           = $callback;
         $this->filterCallbackParameters = $parameters;
