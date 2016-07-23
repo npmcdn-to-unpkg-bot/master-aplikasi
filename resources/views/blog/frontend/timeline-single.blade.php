@@ -64,7 +64,7 @@
 	-moz-border-radius: 3px;
 	border-radius: 3px;">{{ $last->konten }}</div>
     @endif
-    <div class="fb-like" data-href="{{ secure_url('/post/'. $last->slug .'/') }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+    <div class="fb-like" data-href="{{ secure_url('/'. $last->slug .'/') }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
     <div style="margin-top:20px;">
     <p>Penasaran dengan foto - foto yang lain, klik tombol di bawah ini untuk membuka timeline</p>
     <a href="/" class="btn btn-primary btn-xs page-scroll">Open Timeline</a>
