@@ -23,7 +23,11 @@
 <form method="post" action="/blog/post/edit">
 @foreach($result_attachments as $attachment)
 <img style="padding-bottom:5px;" src="{{ str_replace('image/upload/','image/upload/c_fill,w_250/',$attachment->secure_url) }}"><br />
-<input type="text" class="form-control" style="width:50px;" name="attachment_{{ $attachment->id }}" value="{{ $attachment->sort }}"><br /><br />
+<input type="text" class="form-control" style="width:50px; float:left" name="attachment_{{ $attachment->id }}" value="{{ $attachment->sort }}">&nbsp;
+<label class="checkbox-inline">
+<input type="checkbox" name="del_attachment_{{ $attachment->id }}" value="hapus">Delete
+</label>
+<br /><br />
 @endforeach
 <div id="status"></div>
 <div id="mulitplefileuploader"><b class="fa fa-plus"> Upload </b></div>

@@ -197,6 +197,17 @@ class PostController extends Controller
 			->where('post_id',$id)
 			->where('idUser',$user->id)
 			->update(['sort'=>$aaa]);
+			
+			$bbb = $request->input('del_attachment_'. $rs->id);
+			if($bbb=="hapus")
+			{
+				DB::table('blog_attachments')
+				->where('id', $rs->id)
+				->where('post_id',$id)
+				->where('idUser',$user->id)
+				->delete();
+			}
+			
 		}
 		
 		
