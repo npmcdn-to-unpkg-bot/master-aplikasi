@@ -206,6 +206,14 @@ class PostController extends Controller
 				->where('post_id',$id)
 				->where('idUser',$user->id)
 				->delete();
+				
+				\Cloudinary::config(array( 
+  					"cloud_name" => env('CLOUDINARY_NAME'), 
+  					"api_key" => env('CLOUDINARY_KEY'), 
+  					"api_secret" => env('CLOUDINARY_SECRET') 
+				));
+				
+				\Cloudinary\Uploader::destroy($rs->public_id);
 			}
 			
 		}
