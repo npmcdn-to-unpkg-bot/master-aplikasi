@@ -41,7 +41,6 @@
     border: 0px;
     background: rgba(0,0,0,0.6);
 	filter: alpha(opacity=60);
-	padding-top:5px; 
 	padding-bottom:2px;  
 }
 .navbar-default {
@@ -203,9 +202,11 @@
                     <div class="site-heading">
                     <div class="transbox">
                         <h1 style="padding:5px;">{{ $setting->judul2 }}</h1>
-<hr style="max-width:50px;border-color: #c03b44;border-width: 3px;">
-<p style="margin-left:15px; margin-right:15px; margin-bottom:20px; padding:5px;">{{ $setting->deskripsi }}<center>{{ $setting->facebook_deskripsi }}</center></p>
-
+						<hr style="max-width:50px;border-color: #c03b44;border-width: 3px;">
+						<p style="margin-left:15px; margin-right:15px; margin-bottom:20px; padding:5px;">
+							{{ $setting->deskripsi }}
+							<center>{{ $setting->facebook_deskripsi }}</center>
+						</p>
                     </div>
                     <a class="page-scroll" href="#section"><i class="fa fa-angle-down infinite animated fadeInDown" style="font-size: 50px; color:#FFFFFF; margin-top:30px"></i></a>
                     </div>
