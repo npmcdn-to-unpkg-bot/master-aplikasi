@@ -2,12 +2,27 @@
 namespace App\Classes\Blog;
 use Auth;
 use DB;
+use DateTime;
 
 class BlogClass {
 	public static function jumlahFoto($id)
 	{
 		return DB::table('blog_attachments')->where('post_id',$id)->count();
 	}
+	
+	public static function countMoments($idUser)
+		{
+			$result = DB::table('blog_posts')->where('idUser',$idUser)->min('tanggal');
+			$birthdate = new DateTime($result);
+			$today     = new DateTime();
+			$interval  = $today->diff($birthdate);
+			$aaa = $interval->format('%y years');
+			$result = DB::table('blog_posts')->where('idUser',$idUser)->count();
+			$aaa = $aaa .", ". $result ." moments";
+			$result = DB::table('blog_attachments')->where('idUser',$idUser)->count();
+			$aaa = $aaa .", ". $result ." photos";
+			return $aaa;
+		}
 	
 	public static function setConf($name,$value,$idUser="")
 		{

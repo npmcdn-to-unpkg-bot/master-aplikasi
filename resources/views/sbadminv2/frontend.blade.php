@@ -57,7 +57,7 @@
 	<meta property="og:title"	content="{{ $setting->title }}" />
 	<meta property="fb:app_id" content="251775208502162" />
     <meta property="og:image"	content="{{ $setting->image }}" />
-	<meta property="og:description"   content="{{ $setting->deskripsi }}" />
+	<meta property="og:description"   content="{{ $setting->facebook_deskripsi }}" />
 
     
 </head>

@@ -41,6 +41,8 @@
     border: 0px;
     background: rgba(0,0,0,0.6);
 	filter: alpha(opacity=60);
+	padding-top:5px; 
+	padding-bottom:2px;  
 }
 .navbar-default {
     border-color: rgba(34,34,34,.05);
@@ -144,6 +146,7 @@
   -webkit-box-shadow: 0 0 11px rgba(0,0,0,0.35);
   font-size: 1em;
 }
+
 </style>	
     
     <link href="/bower_components/animate.css/animate.min.css" rel="stylesheet">

@@ -56,13 +56,14 @@ class TimelineController extends Controller
 		if($setting->judul1=="") $setting->judul1 = str_ireplace("www.","",$_SERVER['HTTP_HOST']);
 		$setting->judul2 = BlogClass::getConf('judul2',1);
 		$setting->deskripsi = BlogClass::getConf('deskripsi',1);
+		$setting->facebook_deskripsi = BlogClass::countMoments(1);
 		$setting->header_url = BlogClass::getConf('header_url',1);
 		$setting->facebook = BlogClass::getConf('facebook',1);
 		$setting->twitter = BlogClass::getConf('twitter',1);
 		$setting->instagram = BlogClass::getConf('instagram',1);
 		$setting->github = BlogClass::getConf('github',1);
 		$setting->url = $url;
-		$setting->image = $setting->header_url;
+		$setting->image = $last_attachment->secure_url;
 		$setting->title = $setting->judul2;
 		
 		return view('blog.frontend.timeline')->with('setting',$setting)->with('results',$results);
@@ -101,6 +102,7 @@ class TimelineController extends Controller
 		$setting->url = $url;
 		$setting->image = $last_attachment->secure_url;
 		$setting->title = $last->judul ." ". $setting->judul1;
+		$setting->facebook_deskripsi = BlogClass::countMoments(1);
 		if(empty($last->konten))
 		{
 			$setting->deskripsi = BlogClass::getConf('deskripsi',1);	
