@@ -34,8 +34,8 @@ class PathController extends Controller
 			    $url = 'https://partner.path.com/oauth2/access_token';
 				$fields = array(
 						'grant_type' => 'authorization_code',
-						'client_id' => '59422c0c7805f214ea5b4ad0dd7ae98f140f3348',
-						'client_secret' => '04addf25b054a1e0b2b0be994c69b2c199a89663',
+						'client_id' => '8157a07833d7b090dfc0b21f29df9fc8623fd13f',
+						'client_secret' => 'a46128c9183a1f9c601f8fa4e55829d1a05a7386',
 						'code' => $request->input('code')
 				);
 				foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }

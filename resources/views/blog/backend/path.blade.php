@@ -3,6 +3,6 @@
 @section('user', $user->name )
 @section('content')
 
-<a href="https://partner.path.com/oauth2/authenticate?response_type=code&client_id=59422c0c7805f214ea5b4ad0dd7ae98f140f3348">Auth Path</a>
+<a href="https://partner.path.com/oauth2/authenticate?response_type=code&client_id=8157a07833d7b090dfc0b21f29df9fc8623fd13f">Auth Path</a>
 
 @endsection
