@@ -8,15 +8,7 @@
 <link href="/bower_components/photoset-grid/css/main.css" rel="stylesheet">
 <script type="text/javascript" src="/bower_components/photoset-grid/jquery.photoset-grid.min.js"></script>
 
-<!-- Facebook SDK -->    
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=251775208502162";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+
 
 <!-- ################################################################### -->
 
@@ -64,9 +56,8 @@
 	-moz-border-radius: 3px;
 	border-radius: 3px;">{{ $last->konten }}</div>
     @endif
-    <div class="fb-like" data-href="{{ secure_url('/'. $last->slug .'/') }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
     <div style="margin-top:20px;">
-    <p>Penasaran dengan foto - foto yang lain, klik tombol di bawah ini untuk membuka timeline</p>
+    <p>Click button below to open timeline</p>
     <a href="/" class="btn btn-primary btn-xs page-scroll">Open Timeline</a>
     </div>
     
