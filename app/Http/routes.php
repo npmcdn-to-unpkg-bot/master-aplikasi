@@ -128,6 +128,7 @@ Route::post('/blog/post/edit','Blog\Backend\PostController@postEditPost');
 Route::get('/blog/post/add','Blog\Backend\PostController@getAddPost');
 Route::post('/blog/post/add','Blog\Backend\PostController@postAddPost');
 Route::get('/blog/post/delete/{id}', array('as'=>'id','uses'=>'Blog\Backend\PostController@getDeleteData'));
+Route::get('/blog/post/publish/{id}/{status}', array('uses'=>'Blog\Backend\PostController@getPublishData'));
 Route::post('/blog/image/add', 'Blog\Backend\PostController@postImageAdd');
 Route::post('/blog/image/delete', 'Blog\Backend\PostController@postImageDelete');
 //========================================================================

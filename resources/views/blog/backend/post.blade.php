@@ -31,6 +31,18 @@
 			
 	});
 	
+	function publish(id, status)
+	{
+		var table = $('#dataTables-example').DataTable();
+		$.ajax({
+     	async: false,
+     	type: 'GET',
+     	url: '/blog/post/publish/'+ id +'/'+ status
+		}).done(function( msg ) {
+			table.ajax.reload( null, false );
+		});	
+	}
+	
 	function hapusAction(id)
 	{
 		var table = $('#dataTables-example').DataTable();

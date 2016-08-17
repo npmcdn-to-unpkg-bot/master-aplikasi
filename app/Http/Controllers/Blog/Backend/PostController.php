@@ -120,14 +120,26 @@ class PostController extends Controller
 	public function getData()
 	{
 		$user = Auth::user();
-		$posts = DB::table('blog_posts')->select(['id', 'slug', 'tanggal', 'layout'])->where('idUser',$user->id);
+		$posts = DB::table('blog_posts')->select(['id', 'slug', 'tanggal', 'layout', 'status'])->where('idUser',$user->id);
 		
         return Datatables::of($posts)
 		->editColumn('tanggal', function ($post){
                 return tglIndo(strtotime($post->tanggal),"z",0);
             })
 		->addColumn('action', function ($post) {
-                return '<button id="btn-edit" type="button" onClick="window.location=\'/blog/post/edit/'. $post->id .'\'" class="btn btn-success btn-sm"><b class="fa fa-pencil"> Edit </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>';
+				if($post->status==1)
+				{
+					$label = "Published"	;
+					$status = 0;
+					$button = "btn-info";
+				}
+				else
+				{
+					$label = "Pending";
+					$status = 1;
+					$button = "btn-warning";
+				}
+                return '<button id="btn-edit" type="button" onClick="window.location=\'/blog/post/edit/'. $post->id .'\'" class="btn btn-success btn-sm"><b class="fa fa-pencil"> Edit </b></button>&nbsp;<button id="btn-del" type="button" onClick="hapus(\''. $post->id .'\')" class="btn btn-danger btn-sm"><b class="fa fa-trash-o"> Delete </b></button>&nbsp;<button id="btn-del" type="button" onClick="publish(\''. $post->id .'\',\''. $status .'\')" class="btn '.$button.' btn-sm"><b class="fa fa-paper-plane-o"> '.$label.' </b></button>';
             })
 		->make(true);
 	}
@@ -384,6 +396,12 @@ class PostController extends Controller
 				
 		}
 		DB::table('blog_posts')->where('id',$id)->where('idUser',$user->id)->delete();
+	}
+	
+	public function getPublishData($id,$status)
+	{
+		$user = Auth::user();
+		DB::table('blog_posts')->where('id',$id)->where('idUser',$user->id)->update(['status'=>$status]);
 	}
 	
 }
