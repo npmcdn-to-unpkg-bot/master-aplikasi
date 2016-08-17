@@ -66,19 +66,23 @@ var uploadObj = $("#mulitplefileuploader").uploadFile(settings);
 </div>
 <div class="form-group">
 <b>Facebook :</b>
-<input type="text" name="facebook" class="form-control" value="{{ $setting->facebook }}" placeholder="Facebook username">
+<input type="text" name="facebook" class="form-control" value="{{ $setting->facebook }}" placeholder="Facebook link">
 </div>
 <div class="form-group">
 <b>Twitter :</b>
-<input type="text" name="twitter" class="form-control" value="{{ $setting->twitter }}" placeholder="Twitter username">
+<input type="text" name="twitter" class="form-control" value="{{ $setting->twitter }}" placeholder="Twitter link">
 </div>
 <div class="form-group">
 <b>Instagram :</b>
-<input type="text" name="instagram" class="form-control" value="{{ $setting->instagram }}" placeholder="Instagram username">
+<input type="text" name="instagram" class="form-control" value="{{ $setting->instagram }}" placeholder="Instagram link">
+</div>
+<div class="form-group">
+<b>Path :</b>
+<input type="text" name="path" class="form-control" value="{{ $setting->path }}" placeholder="Path link">
 </div>
 <div class="form-group">
 <b>Github :</b>
-<input type="text" name="github" class="form-control" value="{{ $setting->github }}" placeholder="Github username">
+<input type="text" name="github" class="form-control" value="{{ $setting->github }}" placeholder="Github link">
 </div>
 </div>
 <div class="panel-footer">

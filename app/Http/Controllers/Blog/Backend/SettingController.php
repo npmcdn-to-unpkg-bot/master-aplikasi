@@ -31,6 +31,7 @@ class SettingController extends Controller
 		$setting->twitter = BlogClass::getConf('twitter');
 		$setting->instagram = BlogClass::getConf('instagram');
 		$setting->github = BlogClass::getConf('github');
+		$setting->path = BlogClass::getConf('path');
 		$results = DB::table('blog_tmp')->where('key','header')->get();
 		foreach($results as $result)
 		{
@@ -51,6 +52,7 @@ class SettingController extends Controller
 		BlogClass::setConf('twitter',$request->input('twitter'));
 		BlogClass::setConf('instagram',$request->input('instagram'));
 		BlogClass::setConf('github',$request->input('github'));
+		BlogClass::setConf('path',$request->input('path'));
 		$result = DB::table('blog_tmp')->where('key',$key)->where('idUser',$user->id)->first();
 		if (count($result))
 		{

@@ -179,18 +179,56 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+                	<?php
+					if($setting->facebook!="")
+					{
+					?>
                     <li>
-                         <a target="_blank" href="https://www.facebook.com/{{ $setting->facebook }}"><p class="fa fa-facebook-square"></p> Facebook</a>
+                         <a target="_blank" href="{{ $setting->facebook }}"><p class="fa fa-facebook-square"></p> Facebook</a>
                     </li>
+                    <?php
+					}
+					?>
+                    <?php
+					if($setting->twitter!="")
+					{
+					?>
                     <li>
-                        <a target="_blank" href="https://www.twitter.com/{{ $setting->twitter }}"><p class="fa fa-twitter-square"></p> Twitter</a>
+                        <a target="_blank" href="{{ $setting->twitter }}"><p class="fa fa-twitter-square"></p> Twitter</a>
                     </li>
+                    <?php
+					}
+					?>
+                    <?php
+					if($setting->instagram!="")
+					{
+					?>
                     <li>
-                        <a target="_blank" href="https://www.instagram.com/{{ $setting->instagram }}"><p class="fa fa-instagram"></p> Instagram</a>
+                        <a target="_blank" href="{{ $setting->instagram }}"><p class="fa fa-instagram"></p> Instagram</a>
                     </li>
+                    <?php
+					}
+					?>
+                    <?php
+					if($setting->path!="")
+					{
+					?>
                     <li>
-                         <a target="_blank" href="https://www.github.com/{{ $setting->github }}"><p class="fa fa-github"></p> Github</a>
+                         <a target="_blank" href="{{ $setting->path }}"><p class="fa fa-pinterest"></p> Path</a>
                     </li>
+                    <?php
+					}
+					?>
+                    <?php
+					if($setting->github!="")
+					{
+					?>
+                    <li>
+                         <a target="_blank" href="{{ $setting->github }}"><p class="fa fa-github"></p> Github</a>
+                    </li>
+                    <?php
+					}
+					?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
