@@ -18,6 +18,23 @@ class PathController extends Controller
 	public function getIndex(Request $request)
 	{
 		$user = Auth::user();
+		$path = DB::table('blog_access')->where('account','path')->where('idUser',$user->id)->first();
+		$authorization = "Authorization: Bearer ". $path->access_token;
+		
+		// ====================================================================================
+				$url = 'https://partner.path.com/1/user/self/friends';
+				//if($konten=="") $konten = $judul.' - '.secure_url('');
+				//$string_path = '{ "source_url": "'.$cloudinary['secure_url'].'", "caption": "'.$konten.'", "ic": true }';
+				$ch = curl_init();
+				curl_setopt($ch,CURLOPT_URL, $url);
+				//curl_setopt($ch,CURLOPT_POST, count($string_path));
+				//curl_setopt($ch,CURLOPT_POSTFIELDS, $string_path);
+				curl_setopt($ch,CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+				curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+				$result = curl_exec($ch);
+				print($result);
+				curl_close($ch);
+			// ====================================================================================
     	return view('blog.backend.path')->with('user',$user);
 	}
 	
@@ -34,8 +51,8 @@ class PathController extends Controller
 			    $url = 'https://partner.path.com/oauth2/access_token';
 				$fields = array(
 						'grant_type' => 'authorization_code',
-						'client_id' => '8157a07833d7b090dfc0b21f29df9fc8623fd13f',
-						'client_secret' => 'a46128c9183a1f9c601f8fa4e55829d1a05a7386',
+						'client_id' => '69801cea67dc3cf2e208a84a01cba02684983060',
+						'client_secret' => 'af9953efe2623115ee5d1d2a6719aebaba583d3e',
 						'code' => $request->input('code')
 				);
 				foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
@@ -47,7 +64,7 @@ class PathController extends Controller
 				//curl_setopt($ch,CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 				curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 				$result = curl_exec($ch);
-				
+				exit($result);
 				$test = explode('"',$result);
 				
 				curl_close($ch);
