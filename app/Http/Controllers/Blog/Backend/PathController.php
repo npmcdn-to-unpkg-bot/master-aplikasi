@@ -32,7 +32,7 @@ class PathController extends Controller
 				curl_setopt($ch,CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
 				curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 				$result = curl_exec($ch);
-				print($result);
+				print_r($result);
 				curl_close($ch);
 			// ====================================================================================
     	return view('blog.backend.path')->with('user',$user);
@@ -51,8 +51,8 @@ class PathController extends Controller
 			    $url = 'https://partner.path.com/oauth2/access_token';
 				$fields = array(
 						'grant_type' => 'authorization_code',
-						'client_id' => '69801cea67dc3cf2e208a84a01cba02684983060',
-						'client_secret' => 'af9953efe2623115ee5d1d2a6719aebaba583d3e',
+						'client_id' => '2cf8069650a4053293bb474e685a371feebe060b',
+						'client_secret' => 'a10a8805d3c1a6da3801a8b7f149960eb9597c66',
 						'code' => $request->input('code')
 				);
 				foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }

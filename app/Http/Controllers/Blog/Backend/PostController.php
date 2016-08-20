@@ -365,26 +365,16 @@ class PostController extends Controller
 				$url = 'https://partner.path.com/1/moment/photo';
 				if($konten=="") $konten = $judul.' - '.secure_url('');
 				
-				$fields = array(
-            'username' => "annonymous",
-            'api_key' => 'aaaa'
-        );
-
-//url-ify the data for the POST
-$field_string = http_build_query($fields);
+				$field_string = '{"source": "path", "id": "52c35e455d43aaba04c7ca67" }';
 				
-				print_r($field_string);
-				exit();
-				$string_path = '{ "source_url": "'.$cloudinary['secure_url'].'", "caption": "'.$konten.'", "tags": '.$field_string.' , "private": true }';
+				$string_path = '{ "source_url": "'.$cloudinary['secure_url'].'", "caption": "'.$konten.'", "private": true, "tags": {"user": {"source": "path", "id": "52c35e455d43aaba04c7ca67"}}}';
 				
+				exit($string_path);
 				$ch = curl_init();
 				curl_setopt($ch,CURLOPT_URL, $url);
 				curl_setopt($ch,CURLOPT_POST, 1);
 				curl_setopt($ch,CURLOPT_POST, count($string_path));
 				curl_setopt($ch,CURLOPT_POSTFIELDS, $string_path);
-				
-				
-				
 				curl_setopt($ch,CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
 				curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 				$result = curl_exec($ch);
