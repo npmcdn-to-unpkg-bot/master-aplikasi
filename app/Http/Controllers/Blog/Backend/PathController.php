@@ -64,7 +64,7 @@ class PathController extends Controller
 				//curl_setopt($ch,CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 				curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 				$result = curl_exec($ch);
-				print($result);
+				
 				$test = explode('"',$result);
 				
 				curl_close($ch);
@@ -85,7 +85,7 @@ class PathController extends Controller
 		}
 		
 				
-				
+		exit($result);		
 		
     	return Redirect('/blog/path');
 	}
