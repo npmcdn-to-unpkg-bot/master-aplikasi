@@ -365,11 +365,8 @@ class PostController extends Controller
 				$url = 'https://partner.path.com/1/moment/photo';
 				if($konten=="") $konten = $judul.' - '.secure_url('');
 				
-				$field_string = '{"source": "path", "id": "52c35e455d43aaba04c7ca67" }';
+				$string_path = '{ "source_url": "'.$cloudinary['secure_url'].'", "caption": "'.$konten.'", "private": true }';
 				
-				$string_path = '{ "source_url": "'.$cloudinary['secure_url'].'", "caption": "'.$konten.'", "private": true, "tags": {"user": {"source": "path", "id": "52c35e455d43aaba04c7ca67"}}}';
-				
-				exit($string_path);
 				$ch = curl_init();
 				curl_setopt($ch,CURLOPT_URL, $url);
 				curl_setopt($ch,CURLOPT_POST, 1);
@@ -378,7 +375,6 @@ class PostController extends Controller
 				curl_setopt($ch,CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
 				curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 				$result = curl_exec($ch);
-				exit($result);
 				curl_close($ch);
 			// ====================================================================================
 		}
