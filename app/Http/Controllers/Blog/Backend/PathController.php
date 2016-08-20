@@ -64,7 +64,7 @@ class PathController extends Controller
 				//curl_setopt($ch,CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 				curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 				$result = curl_exec($ch);
-				exit($result);
+				print($result);
 				$test = explode('"',$result);
 				
 				curl_close($ch);
