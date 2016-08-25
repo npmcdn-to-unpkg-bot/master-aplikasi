@@ -13,10 +13,8 @@ class BlogClass {
 	public static function countMoments($idUser)
 		{
 			$result = DB::table('blog_posts')->where('idUser',$idUser)->min('tanggal');
-			$birthdate = new DateTime($result);
-			$today     = new DateTime();
-			$interval  = $today->diff($birthdate);
-			$aaa = $interval->format('%y years');
+			$tahun = date('Y');
+			$aaa = $tahun - $result ." years";
 			$result = DB::table('blog_posts')->where('idUser',$idUser)->count();
 			$aaa = $aaa .", ". $result ." moments";
 			$result = DB::table('blog_attachments')->where('idUser',$idUser)->count();
