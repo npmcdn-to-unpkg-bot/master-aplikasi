@@ -7,7 +7,15 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+                <?php
+				$url_login = url('/login');
+				if(isset($_SERVER['HTTP_CF_VISITOR'])) $url_login =  secure_url('')."/login";
+				if(isset($_SERVER['HTTP_X_FORWARDED_PROTO']))
+				{
+					if($_SERVER['HTTP_X_FORWARDED_PROTO']=="https") $url_login =  secure_url('')."/login";
+				}
+				?>
+                    <form class="form-horizontal" role="form" method="POST" action="{{ $url_login }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
