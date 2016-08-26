@@ -47,9 +47,11 @@ To change the background of a range of cells we can use `->setBackground($color,
 
     // Set borders with array
     $cells->setBorder(array(
-        'top'   => array(
-            'style' => 'solid'
-        ),
+        'borders' => array(
+            'top'   => array(
+                'style' => 'solid'
+            ),
+        )
     ));
 
 ### Set horizontal alignment
@@ -60,4 +62,4 @@ To change the background of a range of cells we can use `->setBackground($color,
 ### Set vertical alignment
 
     // Set vertical alignment to middle
-     $cells->setValignment('center');
+     $cells->setValignment('middle');

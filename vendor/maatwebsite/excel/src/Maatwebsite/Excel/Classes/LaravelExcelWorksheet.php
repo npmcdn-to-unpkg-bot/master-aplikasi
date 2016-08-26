@@ -173,10 +173,9 @@ class LaravelExcelWorksheet extends PHPExcel_Worksheet {
      * Manipulate a single row
      * @param  integer|callback|array $rowNumber
      * @param  array|callback         $callback
-     * @param  boolean                $explicit
      * @return LaravelExcelWorksheet
      */
-    public function row($rowNumber, $callback = null, $explicit = false)
+    public function row($rowNumber, $callback = null)
     {
         // If a callback is given, handle it with the cell writer
         if ($callback instanceof Closure)
@@ -201,11 +200,7 @@ class LaravelExcelWorksheet extends PHPExcel_Worksheet {
                 $cell = $column . $rowNumber;
 
                 // Set the cell value
-                if ($explicit) {
-                    $this->setCellValueExplicit($cell, $rowValue);
-                } else {
-                    $this->setCellValue($cell, $rowValue);
-                }
+                $this->setCellValue($cell, $rowValue);
                 $column++;
             }
         }
@@ -219,10 +214,9 @@ class LaravelExcelWorksheet extends PHPExcel_Worksheet {
     /**
      * Add multiple rows
      * @param  array $rows
-     * @param  boolean $explicit
      * @return LaravelExcelWorksheet
      */
-    public function rows($rows = array(), $explicit = false)
+    public function rows($rows = array())
     {
         // Get the start row
         $startRow = $this->getStartRow();
@@ -230,7 +224,7 @@ class LaravelExcelWorksheet extends PHPExcel_Worksheet {
         // Add rows
         foreach ($rows as $row)
         {
-            $this->row($startRow, $row, $explicit);
+            $this->row($startRow, $row);
             $startRow++;
         }
 
@@ -241,10 +235,9 @@ class LaravelExcelWorksheet extends PHPExcel_Worksheet {
      * Prepend a row
      * @param  integer        $rowNumber
      * @param  array|callback $callback
-     * @param  boolean        $explicit
      * @return LaravelExcelWorksheet
      */
-    public function prependRow($rowNumber = 1, $callback = null, $explicit = false)
+    public function prependRow($rowNumber = 1, $callback = null)
     {
         // If only one param was given, prepend it before the first row
         if (is_null($callback))
@@ -257,28 +250,16 @@ class LaravelExcelWorksheet extends PHPExcel_Worksheet {
         $this->insertNewRowBefore($rowNumber);
 
         // Add data to row
-        return $this->row($rowNumber, $callback, $explicit);
-    }
-
-    /**
-     * Prepend a row explicitly
-     * @param  integer        $rowNumber
-     * @param  array|callback $callback
-     * @return LaravelExcelWorksheet
-     */
-    public function prependRowExplicit($rowNumber = 1, $callback = null)
-    {
-        return $this->prependRow($rowNumber, $callback, true);
+        return $this->row($rowNumber, $callback);
     }
 
     /**
      * Append a row
      * @param  integer|callback $rowNumber
      * @param  array|callback   $callback
-     * @param  boolean          $explicit
      * @return LaravelExcelWorksheet
      */
-    public function appendRow($rowNumber = 1, $callback = null, $explicit = false)
+    public function appendRow($rowNumber = 1, $callback = null)
     {
         // If only one param was given, add it as very last
         if (is_null($callback))
@@ -288,41 +269,24 @@ class LaravelExcelWorksheet extends PHPExcel_Worksheet {
         }
 
         // Add the row
-        return $this->row($rowNumber, $callback, $explicit);
-    }
-
-    /**
-     * Append a row explicitly
-     * @param  integer|callback $rowNumber
-     * @param  array|callback   $callback
-     * @return LaravelExcelWorksheet
-     */
-    public function appendRowExplicit($rowNumber = 1, $callback = null)
-    {
-        return $this->appendRow($rowNumber, $callback, true);
+        return $this->row($rowNumber, $callback);
     }
 
     /**
      * Manipulate a single cell
      * @param  array|string $cell
      * @param bool|callable $callback $callback
-     * @param       boolean $explicit
      * @return LaravelExcelWorksheet
      */
-    public function cell($cell, $callback = false, $explicit = false)
+    public function cell($cell, $callback = false)
     {
         // If a callback is given, handle it with the cell writer
         if ($callback instanceof Closure)
             return $this->cells($cell, $callback);
 
         // Else if the 2nd param was set, we will use it as a cell value
-        if ($callback) {
-            if ($explicit) {
-                $this->setCellValueExplicit($cell, $callback);
-            } else {
-                $this->setCellValue($cell, $callback);
-            }
-        }
+        if ($callback)
+            $this->setCellValue($cell, $callback);
 
         return $this;
     }
