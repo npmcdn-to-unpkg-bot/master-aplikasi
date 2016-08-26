@@ -7,15 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
-                <?php
-				$url_login = url('/login');
-				if(isset($_SERVER['HTTP_CF_VISITOR'])) $url_login =  secure_url('')."/login";
-				if(isset($_SERVER['HTTP_X_FORWARDED_PROTO']))
-				{
-					if($_SERVER['HTTP_X_FORWARDED_PROTO']=="https") $url_login =  secure_url('')."/login";
-				}
-				?>
-                    <form class="form-horizontal" role="form" method="POST" action="{{ $url_login }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ secure_url('/login') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -62,7 +54,7 @@
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">
+                                <a class="btn btn-link" href="{{ secure_url('/password/reset') }}">
                                     Forgot Your Password?
                                 </a>
                             </div>
