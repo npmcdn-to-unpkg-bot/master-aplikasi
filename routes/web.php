@@ -22,6 +22,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/phpinfo', function ()    {
+        phpinfo();
+    });
+});
+
 Route::get('/user/dashboard', 'User\DashboardController@dashboard');
 Route::get('/user/setting', 'User\SettingController@getSetting');
 Route::post('/user/setting', 'User\SettingController@postSetting');
