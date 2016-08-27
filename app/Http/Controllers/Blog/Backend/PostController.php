@@ -123,6 +123,15 @@ class PostController extends Controller
 		$posts = DB::table('blog_posts')->select(['id', 'slug', 'tanggal', 'layout', 'status'])->where('idUser',$user->id);
 		
         return Datatables::of($posts)
+		->addColumn('attachments', function ($post){
+                $attachments = DB::table('blog_attachments')->select(['secure_url'])->where('post_id',$post->id)->get();
+				$picture = "";
+				foreach($attachments as $attachment)
+				{
+					$picture	 .= '<img style="margin:1px;" src="'.str_replace('image/upload/','image/upload/c_fill,h_50/',$attachment->secure_url).'">';
+				}
+				return $picture;
+            })
 		->editColumn('tanggal', function ($post){
                 return tglIndo(strtotime($post->tanggal),"z",0);
             })
