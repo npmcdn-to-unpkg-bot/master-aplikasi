@@ -84,19 +84,17 @@
                     <ul class="dropdown-menu ">
                         <li><a href="/user/setting"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
                         <li class="divider"></li>
-                        
-                       <li>
-                                    <a href="{{ secure_url('/logout') }}"
+                        <li>
+                                    <a href="{{ url('/logout') }}"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
 
-                                    <form id="logout-form" action="{{ secure_url('/logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
-                                </li>
-                        
+                        </li>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
