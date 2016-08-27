@@ -35,7 +35,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="/">
-                    Laravel
+                    BUDI.MY.ID
                 </a>
             </div>
 
