@@ -18,6 +18,10 @@ class AuthController extends Controller
 	
 	public function getLogin()
 	{
+		if(!Auth::guest())
+		{
+			return redirect('/auth/dashboard');	
+		}
 		return view('customauth.login');
 	}
 	
@@ -32,7 +36,6 @@ class AuthController extends Controller
 			if($strError=="")
 			{
 				if (Auth::attempt(['email' => $email, 'password' => $password, 'active' => 1], $remember)) {
-    				
 					print('success');
 				}
 				else

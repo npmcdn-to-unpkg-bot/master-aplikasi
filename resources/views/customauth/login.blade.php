@@ -27,17 +27,7 @@ function login()
 				{
 					$("#result").empty().append("<div class=\"alert alert-success\">Login Success</div>").hide().fadeIn();
 					window.setTimeout(function () {
-						<?php
-						if(Request::server('HTTP_REFERER')=="")
-						{
-							$prev = "/auth/dashboard";	
-						}
-						else
-						{
-							$prev = 	Request::server('HTTP_REFERER');
-						}
-						?>
-        				location.href = "{{ $prev }}";
+        				location.href = "{{ URL::previous() }}";
     				}, 1000);
 				}
 				else
