@@ -28,6 +28,9 @@ Route::get('/auth/register', 'CustomAuth\AuthController@getRegister');
 Route::post('/auth/register', 'CustomAuth\AuthController@postRegister');
 Route::get('/auth/register/verify/{email}/{confirmation_code}', array('uses'=>'CustomAuth\AuthController@getVerify'));
 Route::get('/auth/password/email', 'CustomAuth\AuthController@getEmail');
+Route::post('/auth/password/email', 'CustomAuth\AuthController@postEmail');
+Route::get('/auth/password/reset/{token}', 'CustomAuth\AuthController@getReset');
+Route::post('/auth/password/reset', 'CustomAuth\AuthController@postReset');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/phpinfo', function ()    {

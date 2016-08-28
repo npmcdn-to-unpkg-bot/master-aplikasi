@@ -1,13 +1,45 @@
 @extends('sbadminv2.login')
 @section('title', 'Page Title')
 @section('content')
+<script language="javascript">
+function reset_password()
+{
+	var strError = "";
+	var email = $('#email').val();
+	var _token = $('#_token').val();
+	
+	if(email=="") strError += "<li>Email harus diisi</li>";
+	
+	
+	if(strError=="")
+	{
+			$.post("/auth/password/email", { 
+			email: email,
+			_token:_token,
+			submit: "Reset"
+			} )
+			.done(function( data ) {
+					$("#result").empty().append(data).hide().fadeIn();
+			});
+	
+	}
+	else
+	{
+			$("#result").empty().append("<div class=\"alert alert-danger\">"+ strError +"</div>").hide().fadeIn();
+	}
+		
+		
+	return false;
+}
 
+</script>
                     <div class="panel-heading">
                         <h3 class="panel-title">Forgot Password</h3>
                     </div>
                     
                     <div class="panel-body">
-                    	<form role="form" method="POST" action="/auth/password/email">
+                    <div id="result"></div>
+                    	<form role="form" method="POST" action="/auth/password/email" onSubmit="return reset_password()">
                             <fieldset>
                             	<input type="hidden" name="_token" id="_token" value="<?php echo csrf_token(); ?>" />
                                 <div class="form-group">
