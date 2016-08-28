@@ -27,7 +27,11 @@ function login()
 				{
 					$("#result").empty().append("<div class=\"alert alert-success\">Login Success</div>").hide().fadeIn();
 					window.setTimeout(function () {
-        				location.href = "{{ URL::previous() }}";
+						<?php
+						$url = URL::previous();
+						if($url==url('/')) $url = '/auth/login'
+						?>
+        				location.href = "{{ $url }}";
     				}, 1000);
 				}
 				else
