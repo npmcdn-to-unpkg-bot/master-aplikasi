@@ -27,7 +27,7 @@ function login()
 				{
 					$("#result").empty().append("<div class=\"alert alert-success\">Login Success</div>").hide().fadeIn();
 					window.setTimeout(function () {
-        				location.href = "/auth/dashboard";
+        				location.href = "{{ URL::previous() }}";
     				}, 1000);
 				}
 				else

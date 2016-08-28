@@ -18,9 +18,7 @@ Route::get('/', function () {
 });
 */
 
-Route::get('/login', function ()    {
-        return redirect("/auth/login");
- });
+Route::get('/login', 'CustomAuth\AuthController@getLogin');
 
 
 //Auth::routes();
