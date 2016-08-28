@@ -112,7 +112,7 @@ class AuthController extends Controller
 				Auth::loginUsingId($rs->id);
 			}
 		}
-		return redirect("/user/dashboard");
+		return redirect("/auth/dashboard");
 	}
 	
 	public function getEmail()
@@ -189,6 +189,12 @@ class AuthController extends Controller
 			}
 		}
 		exit('<div class="alert alert-danger"><ul>'.$strError.'</ul></div>');
+	}
+	
+	public function postLogout()
+	{
+		Auth::logout();
+		return redirect("/");
 	}
 	
 }

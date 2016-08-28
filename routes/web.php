@@ -18,12 +18,18 @@ Route::get('/', function () {
 });
 */
 
-Auth::routes();
+Route::get('/login', function ()    {
+        return redirect("/auth/login");
+ });
+
+
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
 Route::get('/auth/login', 'CustomAuth\AuthController@getLogin');
 Route::post('/auth/login', 'CustomAuth\AuthController@postLogin');
+Route::post('/auth/logout', 'CustomAuth\AuthController@postLogout');
 Route::get('/auth/register', 'CustomAuth\AuthController@getRegister');
 Route::post('/auth/register', 'CustomAuth\AuthController@postRegister');
 Route::get('/auth/register/verify/{email}/{confirmation_code}', array('uses'=>'CustomAuth\AuthController@getVerify'));
@@ -31,16 +37,15 @@ Route::get('/auth/password/email', 'CustomAuth\AuthController@getEmail');
 Route::post('/auth/password/email', 'CustomAuth\AuthController@postEmail');
 Route::get('/auth/password/reset/{token}', 'CustomAuth\AuthController@getReset');
 Route::post('/auth/password/reset', 'CustomAuth\AuthController@postReset');
+Route::get('/auth/dashboard', 'CustomAuth\DashboardController@dashboard');
+Route::get('/auth/setting', 'CustomAuth\SettingController@getSetting');
+Route::post('/auth/setting', 'CustomAuth\SettingController@postSetting');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/phpinfo', function ()    {
         phpinfo();
     });
 });
-
-Route::get('/user/dashboard', 'User\DashboardController@dashboard');
-Route::get('/user/setting', 'User\SettingController@getSetting');
-Route::post('/user/setting', 'User\SettingController@postSetting');
 
 //========================================================================
 

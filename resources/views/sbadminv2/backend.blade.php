@@ -82,16 +82,16 @@
                        @yield('user') <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu ">
-                        <li><a href="/user/setting"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
+                        <li><a href="/auth/setting"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
                         <li class="divider"></li>
                         <li>
-                                    <a href="/logout"
+                                    <a href="/auth/logout"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
 
-                                    <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                                    <form id="logout-form" action="/auth/logout" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
                         </li>
@@ -107,7 +107,7 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href="/user/dashboard"><i class="fa fa-home fa-fw"></i> Dashboard</a>
+                            <a href="/auth/dashboard"><i class="fa fa-home fa-fw"></i> Dashboard</a>
                         </li>
                         
                         <li>
