@@ -22,6 +22,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('/auth/login', 'CustomAuth\AuthController@getLogin');
+Route::post('/auth/login', 'CustomAuth\AuthController@postLogin');
+Route::get('/auth/register', 'CustomAuth\AuthController@getRegister');
+Route::post('/auth/register', 'CustomAuth\AuthController@postRegister');
+Route::get('/auth/register/verify/{email}/{confirmation_code}', array('uses'=>'CustomAuth\AuthController@getVerify'));
+Route::get('/auth/password/email', 'CustomAuth\AuthController@getEmail');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/phpinfo', function ()    {
         phpinfo();
