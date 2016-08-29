@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{url('')}} - @yield('title')</title>
+    <title>{{secure_url('')}} - @yield('title')</title>
     
 	<!-- jQuery -->
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -84,7 +84,16 @@
                     <ul class="dropdown-menu ">
                         <li><a href="/auth/setting"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
                         <li class="divider"></li>
-                        <li><a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li>
+                                    <a href="/auth/logout"
+                                        onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="/auth/logout" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -98,7 +107,7 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href="/admin"><i class="fa fa-home fa-fw"></i> Dashboard</a>
+                            <a href="/auth/dashboard"><i class="fa fa-home fa-fw"></i> Dashboard</a>
                         </li>
                         
                         <li>

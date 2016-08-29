@@ -17,11 +17,10 @@
 				"processing": true,
        			"serverSide": true,
         		"ajax": '/blog/post/data',
-				"order": [[ 1, "desc" ]],
+				"order": [[ 0, "desc" ]],
 				columns: [
-            		{data: 'slug', name: 'slug'},
-					{data: 'tanggal', name: 'tanggal'},
-					{data: 'layout', name: 'layout'},
+					{data: 'tanggal', name: 'tanggal', className: 'auto'},
+					{data: 'attachments', name: 'attachments', orderable: false},
 					{data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
             		
         		],
@@ -78,10 +77,9 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Slug</th>
-                                            <th>Tanggal</th>
-                                            <th>Layout</th>
-                                            <th></th>
+                                            <th width="25%">Tanggal</th>
+                                            <th width="50%">Photo</th>
+                                            <th width="25%"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
