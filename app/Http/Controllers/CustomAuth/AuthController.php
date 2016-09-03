@@ -31,6 +31,7 @@ class AuthController extends Controller
 			$email = $request->input('email');
 			$password = $request->input('password');
 			$remember = $request->input('remember');
+			$remember = ($remember == "true" ? true : false);
 			
 			
 			if($strError=="")
