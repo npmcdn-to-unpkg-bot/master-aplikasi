@@ -4,6 +4,7 @@
 <script language="javascript">
 function login()
 {
+	$('#submit').attr('disabled',true);
 	var strError = "";
 	var email = $('#email').val();
 	var password = $('#password').val();
@@ -52,7 +53,7 @@ function login()
 			$("#result").empty().append("<div class=\"alert alert-danger\">"+ strError +"</div>").hide().fadeIn();
 	}
 		
-		
+	$('#submit').removeAttr('disabled');
 	return false;
 }
 
@@ -79,7 +80,7 @@ function login()
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
+                                <button type="submit" id="submit" class="btn btn-lg btn-success btn-block">Login</button>
                                 
                             </fieldset>
                         </form>
