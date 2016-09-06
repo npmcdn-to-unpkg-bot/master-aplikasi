@@ -4,7 +4,7 @@
 <script language="javascript">
 function login()
 {
-	$('#submit').attr('disabled',true);
+	$('#submit').prop("disabled",true);
 	var strError = "";
 	var email = $('#email').val();
 	var password = $('#password').val();
@@ -53,7 +53,7 @@ function login()
 			$("#result").empty().append("<div class=\"alert alert-danger\">"+ strError +"</div>").hide().fadeIn();
 	}
 		
-	$('#submit').removeAttr('disabled');
+	$('#submit').prop("disabled",false);
 	return false;
 }
 
