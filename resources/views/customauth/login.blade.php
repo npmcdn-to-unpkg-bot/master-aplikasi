@@ -7,7 +7,11 @@ function login()
 	var strError = "";
 	var email = $('#email').val();
 	var password = $('#password').val();
-	var remember = $('#remember').val();
+	var remember = "false";
+	if ($('#remember').is(':checked')){
+			remember = "true";
+	}
+	
 	var _token = $('#_token').val();
 	
 	if(email=="") strError += "<li>Email harus diisi</li>";
